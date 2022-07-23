@@ -1,0 +1,36 @@
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://repo.spring.io/plugins-release" }
+    }
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
+    }
+}
+
+apply plugin: "io.spring.dependency-management"
+apply from: "${rootProject.projectDir}/gradle/publish-bom.gradle"
+dependencyManagement {
+
+    dependencies {
+        dependency "com.zclibre:libre-toolkit:${VERSION}"
+        dependency "com.zclibre:libre-spider:${VERSION}"
+        dependency "com.zclibre:libre-ip2region-boot-starter:${VERSION}"
+        dependency "com.zclibre:libre-mybatis-boot-starter:${VERSION}"
+        dependency "com.zclibre:libre-redis-boot-starter:${VERSION}"
+        dependency "com.zclibre:libre-redisson-boot-starter:${VERSION}"
+        dependency "com.zclibre:libre-spring-boot-starter:${VERSION}"
+        dependency "com.zclibre:libre-captcha-boot-starter:${VERSION}"
+        dependency "com.zclibre:libre-swagger-boot-starter:${VERSION}"
+        dependency "com.zclibre:libre-oss-boot-starter:${VERSION}"
+        dependency "com.google.guava:guava-bom:${guavaVersion}"
+        dependency "org.jsoup:jsoup:${jsoupVersion}"
+        dependency "org.projectlombok:lombok:${lombokVersion}"
+        dependency "io.swagger:swagger-annotations:$swaggerAnnotationsVersion"
+        dependency "io.swagger.core.v3:swagger-annotations:${swagger3xAnnotationsVersion}"
+        dependency "org.mapstruct:mapstruct:${mapstructVersion}"
+        dependency "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    }
+}
+
+
