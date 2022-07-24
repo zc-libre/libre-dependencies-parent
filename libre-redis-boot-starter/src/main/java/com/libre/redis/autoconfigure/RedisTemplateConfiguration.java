@@ -93,7 +93,7 @@ public class RedisTemplateConfiguration {
 	}
 
 	@Bean
-	public RedisUtils redisClient(RedisTemplate<String, Object> redisTemplate) {
+	public RedisUtils redisUtils(RedisTemplate<String, Object> redisTemplate) {
 		return new RedisUtils(redisTemplate);
 	}
 

@@ -1,13 +1,14 @@
 package com.libre.redisson.lock;
 
-import com.libre.core.toolkit.CharPool;
 import com.libre.redisson.spel.CustomCachedExpressionEvaluator;
+import com.libre.toolkit.core.CharPool;
 import jodd.util.StringUtil;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -32,17 +33,19 @@ public class RedisLockAspect implements ApplicationContextAware {
 	 */
 
 	private static final CustomCachedExpressionEvaluator EVALUATOR = new CustomCachedExpressionEvaluator();
+
 	/**
 	 * redis 限流服务
 	 */
 	private final RedisLockClient redisLockClient;
+
 	private ApplicationContext applicationContext;
 
 	/**
 	 * AOP 环切 注解 @RedisLock
 	 */
 	@Around("@annotation(redisLock)")
-	public Object aroundRedisLock(ProceedingJoinPoint point, RedisLock redisLock) throws Exception {
+	public Object aroundRedisLock(ProceedingJoinPoint point, RedisLock redisLock) {
 
 		String lockName = redisLock.value();
 		Assert.hasText(lockName, "@RedisLock value must have length; it must not be null or empty");
@@ -53,7 +56,8 @@ public class RedisLockAspect implements ApplicationContextAware {
 		if (StringUtil.isNotBlank(lockParam)) {
 			String evalAsText = evalLockParam(point, lockParam);
 			lockKey = lockName + CharPool.COLON + evalAsText;
-		} else {
+		}
+		else {
 			lockKey = lockName;
 		}
 		LockType lockType = redisLock.type();
@@ -65,8 +69,7 @@ public class RedisLockAspect implements ApplicationContextAware {
 
 	/**
 	 * 计算参数表达式
-	 *
-	 * @param point     ProceedingJoinPoint
+	 * @param point ProceedingJoinPoint
 	 * @param lockParam lockParam
 	 * @return 结果
 	 */
@@ -82,7 +85,8 @@ public class RedisLockAspect implements ApplicationContextAware {
 	}
 
 	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+	public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
+
 }
