@@ -23,6 +23,7 @@ dependencyManagement {
         dependency "com.zclibre:libre-captcha-boot-starter:${VERSION}"
         dependency "com.zclibre:libre-swagger-boot-starter:${VERSION}"
         dependency "com.zclibre:libre-oss-boot-starter:${VERSION}"
+        dependency "com.zclibre:libre-monitor:${VERSION}"
         dependency "com.google.guava:guava-bom:${guavaVersion}"
         dependency "org.jsoup:jsoup:${jsoupVersion}"
         dependency "org.projectlombok:lombok:${lombokVersion}"
