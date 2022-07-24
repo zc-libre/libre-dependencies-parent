@@ -2,25 +2,26 @@ package com.libre.boot.xss;
 
 import com.libre.boot.autoconfigure.XssProperties;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.annotation.Annotation;
 
 /**
  * xss 处理拦截器
  *
- * @author Libre
+ * @author L.cm
  */
 @RequiredArgsConstructor
 public class XssCleanInterceptor implements AsyncHandlerInterceptor {
+
 	private final XssProperties xssProperties;
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+	public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response,
+			@NotNull Object handler) throws Exception {
 		// 1. 非控制器请求直接跳出
 		if (!(handler instanceof HandlerMethod)) {
 			return true;
@@ -31,8 +32,7 @@ public class XssCleanInterceptor implements AsyncHandlerInterceptor {
 		}
 		// 3. 处理 XssIgnore 注解
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
-
-		XssCleanIgnore xssCleanIgnore = getAnnotation(handlerMethod, XssCleanIgnore.class);
+		XssCleanIgnore xssCleanIgnore = XssUtil.getAnnotation(handlerMethod, XssCleanIgnore.class);
 		if (xssCleanIgnore == null) {
 			XssHolder.setEnable();
 		}
@@ -40,23 +40,15 @@ public class XssCleanInterceptor implements AsyncHandlerInterceptor {
 	}
 
 	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+	public void afterCompletion(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response,
+			@NotNull Object handler, Exception ex) throws Exception {
 		XssHolder.remove();
 	}
 
 	@Override
-	public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+	public void afterConcurrentHandlingStarted(@NotNull HttpServletRequest request,
+			@NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
 		XssHolder.remove();
 	}
 
-	private static <A extends Annotation> A getAnnotation(HandlerMethod handlerMethod, Class<A> annotationType) {
-		// 先找方法，再找方法上的类
-		A annotation = handlerMethod.getMethodAnnotation(annotationType);
-		if (null != annotation) {
-			return annotation;
-		}
-		// 获取类上面的Annotation，可能包含组合注解，故采用spring的工具类
-		Class<?> beanType = handlerMethod.getBeanType();
-		return AnnotatedElementUtils.findMergedAnnotation(beanType, annotationType);
-	}
 }

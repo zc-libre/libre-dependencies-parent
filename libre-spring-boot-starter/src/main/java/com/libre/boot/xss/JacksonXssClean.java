@@ -1,39 +1,32 @@
 package com.libre.boot.xss;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.libre.boot.autoconfigure.XssProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.lang.Nullable;
 
 import java.io.IOException;
 
 /**
  * jackson xss 处理
  *
- * @author Libre
+ * @author L.cm
  */
 @Slf4j
 @RequiredArgsConstructor
-public class JacksonXssClean extends JsonDeserializer<String> {
+public class JacksonXssClean extends XssCleanDeserializerBase {
+
 	private final XssProperties properties;
+
 	private final XssCleaner xssCleaner;
 
-	@Nullable
 	@Override
-	public String deserialize(JsonParser p, DeserializationContext ctx) throws IOException {
-		// XSS filter
-		String text = p.getValueAsString();
-		if (text == null) {
-			return null;
-		}
+	public String clean(String text) throws IOException {
 		if (XssHolder.isEnabled()) {
 			String value = xssCleaner.clean(XssUtil.trim(text, properties.isTrimText()));
-			log.debug("Json property value:{} cleaned up, current value is:{}.", text, value);
+			log.debug("Json property value:{} cleaned up by mica-xss, current value is:{}.", text, value);
 			return value;
-		} else {
+		}
+		else {
 			return XssUtil.trim(text, properties.isTrimText());
 		}
 	}

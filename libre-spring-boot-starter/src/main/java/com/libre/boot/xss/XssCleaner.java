@@ -3,7 +3,7 @@ package com.libre.boot.xss;
 /**
  * xss 清理器
  *
- * @author Libre
+ * @author L.cm
  */
 public interface XssCleaner {
 

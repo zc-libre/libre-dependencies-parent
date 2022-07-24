@@ -2,12 +2,13 @@ package com.libre.boot.autoconfigure;
 
 import com.libre.boot.xss.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -17,18 +18,15 @@ import java.util.List;
 /**
  * jackson xss 配置
  *
- * @author Libre
+ * @author L.cm
  */
+@AutoConfiguration
 @RequiredArgsConstructor
-@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(XssProperties.class)
-@ConditionalOnProperty(
-	prefix = XssProperties.PREFIX,
-	name = "enabled",
-	havingValue = "true",
-	matchIfMissing = true
-)
+@ConditionalOnProperty(prefix = XssProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class XssAutoConfiguration implements WebMvcConfigurer {
+
 	private final XssProperties xssProperties;
 
 	@Bean
@@ -38,16 +36,13 @@ public class XssAutoConfiguration implements WebMvcConfigurer {
 	}
 
 	@Bean
-	public FormXssClean formXssClean(XssProperties properties,
-									 XssCleaner xssCleaner) {
+	public FormXssClean formXssClean(XssProperties properties, XssCleaner xssCleaner) {
 		return new FormXssClean(properties, xssCleaner);
 	}
 
 	@Bean
-	public Jackson2ObjectMapperBuilderCustomizer xssJacksonCustomizer(XssProperties properties,
-																	  XssCleaner xssCleaner) {
-		JacksonXssClean xssClean = new JacksonXssClean(properties, xssCleaner);
-		return builder -> builder.deserializerByType(String.class, xssClean);
+	public Jackson2ObjectMapperBuilderCustomizer xssJacksonCustomizer(XssProperties properties, XssCleaner xssCleaner) {
+		return builder -> builder.deserializerByType(String.class, new JacksonXssClean(properties, xssCleaner));
 	}
 
 	@Override
@@ -57,10 +52,8 @@ public class XssAutoConfiguration implements WebMvcConfigurer {
 			patterns.add("/**");
 		}
 		XssCleanInterceptor interceptor = new XssCleanInterceptor(xssProperties);
-		registry.addInterceptor(interceptor)
-			.addPathPatterns(patterns)
-			.excludePathPatterns(xssProperties.getPathExcludePatterns())
-			.order(Ordered.LOWEST_PRECEDENCE);
+		registry.addInterceptor(interceptor).addPathPatterns(patterns)
+				.excludePathPatterns(xssProperties.getPathExcludePatterns()).order(Ordered.LOWEST_PRECEDENCE);
 	}
 
 }

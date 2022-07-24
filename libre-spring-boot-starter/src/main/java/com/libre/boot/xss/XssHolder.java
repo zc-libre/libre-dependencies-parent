@@ -1,13 +1,12 @@
-
-
 package com.libre.boot.xss;
 
 /**
  * 利用 ThreadLocal 缓存线程间的数据
  *
- * @author Libre
+ * @author L.cm
  */
 class XssHolder {
+
 	private static final ThreadLocal<Boolean> TL = new ThreadLocal<>();
 
 	public static boolean isEnabled() {

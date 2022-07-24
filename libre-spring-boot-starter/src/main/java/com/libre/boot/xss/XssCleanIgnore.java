@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * 忽略 xss
  *
- * @author Libre
+ * @author L.cm
  */
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
