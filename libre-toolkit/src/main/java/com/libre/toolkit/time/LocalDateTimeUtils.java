@@ -1,7 +1,5 @@
 package com.libre.toolkit.time;
 
-import lombok.experimental.UtilityClass;
-
 import java.time.*;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAdjuster;
@@ -14,7 +12,6 @@ import java.util.Objects;
  * @author zhao.cheng
  * @date 2021/2/4 15:30
  */
-@UtilityClass
 public class LocalDateTimeUtils {
 
 	/**

@@ -2,6 +2,7 @@ package com.libre.mybatis.util;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,8 @@ public class PageUtil {
 	 * @param <T>     泛型
 	 * @return PageResult
 	 */
-	public static <T> Page<T> toPage(IPage<?> page, List<T> records) {
-		Page<T> pageResult = new Page<>();
+	public static <T> PageDTO<T> toPage(IPage<?> page, List<T> records) {
+		PageDTO<T> pageResult = new PageDTO<>();
 		pageResult.setCurrent(page.getCurrent());
 		pageResult.setSize(page.getSize());
 		pageResult.setPages(page.getPages());

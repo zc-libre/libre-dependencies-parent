@@ -11,6 +11,13 @@ public class LibreException extends RuntimeException {
 		super(message);
 	}
 
+	public LibreException(String message, Object... args) {
+		super(String.format(message, args));
+	}
+
+	public LibreException(String message, Throwable cause, Object... args){
+		super(String.format(message, args), cause);
+	}
 	public LibreException(String message, Throwable cause) {
 		super(message, cause);
 	}

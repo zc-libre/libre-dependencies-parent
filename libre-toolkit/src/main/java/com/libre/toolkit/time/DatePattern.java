@@ -1,7 +1,5 @@
 package com.libre.toolkit.time;
 
-import lombok.experimental.UtilityClass;
-
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -11,7 +9,6 @@ import java.util.regex.Pattern;
  * @author ZC
  * @date 2021/12/7 0:18
  */
-@UtilityClass
 public class DatePattern {
 
 
