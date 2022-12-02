@@ -1,6 +1,13 @@
 dependencies {
     api project(":libre-toolkit")
+    api project(":libre-redis-boot-starter")
     api "io.springboot.security:spring-security-oauth2-authorization-server:0.3.0"
+    implementation "org.springframework.boot:spring-boot-autoconfigure"
+    implementation "org.springframework.boot:spring-boot-starter-aop"
+    implementation 'org.springframework:spring-webmvc'
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
 }
+
+
+
