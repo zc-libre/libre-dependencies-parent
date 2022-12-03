@@ -1,7 +1,8 @@
 dependencies {
     api project(":libre-toolkit")
     api project(":libre-redis-boot-starter")
-    api "io.springboot.security:spring-security-oauth2-authorization-server:0.3.0"
+    api "org.springframework.security:spring-security-oauth2-authorization-server:1.0.0"
+    compileOnly "jakarta.validation:jakarta.validation-api"
     implementation "org.springframework.boot:spring-boot-autoconfigure"
     implementation "org.springframework.boot:spring-boot-starter-aop"
     implementation 'org.springframework:spring-webmvc'

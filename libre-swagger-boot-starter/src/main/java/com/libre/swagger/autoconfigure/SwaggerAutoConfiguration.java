@@ -1,6 +1,7 @@
 package com.libre.swagger.autoconfigure;
 
 import io.swagger.annotations.Api;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
 @EnableOpenApi
 @ConditionalOnClass(Docket.class)
 @EnableConfigurationProperties(SwaggerProperties.class)
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @ConditionalOnMissingClass("org.springframework.cloud.gateway.config.GatewayAutoConfiguration")
 public class SwaggerAutoConfiguration {
 

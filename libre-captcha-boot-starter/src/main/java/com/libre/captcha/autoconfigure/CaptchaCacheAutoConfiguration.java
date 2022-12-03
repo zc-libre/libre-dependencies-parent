@@ -3,6 +3,7 @@ package com.libre.captcha.autoconfigure;
 import com.libre.captcha.cache.CaptchaCache;
 import com.libre.captcha.cache.SpringCacheCaptchaCache;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -16,7 +17,7 @@ import org.springframework.core.annotation.Order;
  * @date 2021/7/17 2:46
  */
 @Order
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @EnableConfigurationProperties(CaptchaProperties.class)
 @RequiredArgsConstructor
 public class CaptchaCacheAutoConfiguration {

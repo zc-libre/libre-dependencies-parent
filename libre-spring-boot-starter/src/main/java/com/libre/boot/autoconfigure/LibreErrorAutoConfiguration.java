@@ -3,7 +3,9 @@ package com.libre.boot.autoconfigure;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libre.boot.exception.LibreErrorAttributes;
 import com.libre.boot.exception.LibreErrorController;
+import jakarta.servlet.Servlet;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -19,13 +21,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import javax.servlet.Servlet;
-
 /**
  * @author zhao.cheng
  * @date 2021/4/19 14:24
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @AutoConfigureBefore(ErrorMvcAutoConfiguration.class)
 @RequiredArgsConstructor
 @ConditionalOnClass({Servlet.class, DispatcherServlet.class})

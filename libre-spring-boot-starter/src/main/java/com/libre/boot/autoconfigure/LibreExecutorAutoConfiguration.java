@@ -8,6 +8,7 @@ import com.libre.toolkit.constant.LibreConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.task.TaskExecutorCustomizer;
 import org.springframework.boot.task.TaskSchedulerCustomizer;
 import org.springframework.context.ApplicationEventPublisher;
@@ -29,7 +30,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Slf4j
 @EnableAsync
 @EnableScheduling
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @RequiredArgsConstructor
 public class LibreExecutorAutoConfiguration extends AsyncConfigurerSupport {
 

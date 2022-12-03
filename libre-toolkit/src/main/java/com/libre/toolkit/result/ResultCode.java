@@ -4,7 +4,7 @@ package com.libre.toolkit.result;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * 业务代码枚举

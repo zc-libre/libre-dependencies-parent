@@ -2,6 +2,7 @@ package com.libre.redisson.command;
 
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RedissonClient;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Libre
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @ConditionalOnBean(RedissonClient.class)
 @RequiredArgsConstructor
 public class RedissonCommandConfiguration {

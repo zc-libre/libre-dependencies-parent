@@ -12,6 +12,7 @@ import com.libre.toolkit.time.LocalDateTimeModule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -32,7 +33,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
  */
 @Slf4j
 @RequiredArgsConstructor
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @AutoConfigureBefore(RedisAutoConfiguration.class)
 @EnableConfigurationProperties(LibreRedisProperties.class)
 public class RedisTemplateConfiguration {

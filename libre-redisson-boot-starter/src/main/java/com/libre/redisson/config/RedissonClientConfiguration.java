@@ -10,6 +10,7 @@ import org.redisson.client.codec.Codec;
 import org.redisson.config.Config;
 import org.redisson.config.TransportMode;
 import org.springframework.beans.BeanUtils;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +29,7 @@ import java.util.Map;
  *
  * @author Libre
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @EnableConfigurationProperties(RedissonProperties.class)
 public class RedissonClientConfiguration {
 

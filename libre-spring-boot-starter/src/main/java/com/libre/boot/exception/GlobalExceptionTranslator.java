@@ -7,8 +7,10 @@ import com.libre.toolkit.result.ResultCode;
 import com.libre.toolkit.core.Exceptions;
 import com.libre.toolkit.core.StringPool;
 import com.libre.toolkit.core.StringUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.ApplicationEventPublisher;
@@ -20,20 +22,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.DispatcherServlet;
+import jakarta.servlet.Servlet;
 
-import javax.servlet.Servlet;
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
 /**
- * mica 未知异常转译和发送，方便监听，对未知异常统一处理。Order 排序优先级低
+ * 未知异常转译和发送，方便监听，对未知异常统一处理。Order 排序优先级低
  *
  * @author Libre
  */
 @Slf4j
 @Order
 @RestControllerAdvice
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @ConditionalOnClass({Servlet.class, DispatcherServlet.class})
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @RequiredArgsConstructor

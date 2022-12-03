@@ -1,6 +1,7 @@
 package com.libre.redis.autoconfigure;
 
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @author zhao.cheng
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @ConditionalOnMissingBean(CacheManagerCustomizers.class)
 public class RedisCacheManagerConfig {
 

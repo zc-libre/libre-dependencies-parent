@@ -1,5 +1,6 @@
 package com.libre.redis.event;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +14,7 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
  *
  * @author Libre
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @ConditionalOnProperty(value = "libre.redis.key-expired-event.enable")
 public class RedisKeyExpiredEventConfiguration {
 

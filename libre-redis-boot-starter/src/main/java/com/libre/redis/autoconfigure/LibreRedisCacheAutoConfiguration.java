@@ -34,7 +34,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @EnableConfigurationProperties(CacheProperties.class)
 @AutoConfiguration(before = CacheAutoConfiguration.class)
-@Configuration(proxyBeanMethods = false)
 public class LibreRedisCacheAutoConfiguration {
 
 	/**

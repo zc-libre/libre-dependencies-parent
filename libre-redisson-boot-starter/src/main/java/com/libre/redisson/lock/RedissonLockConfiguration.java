@@ -3,6 +3,7 @@ package com.libre.redisson.lock;
 import com.libre.redisson.common.RedisNameResolver;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RedissonClient;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Libre
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @ConditionalOnBean(RedissonClient.class)
 @RequiredArgsConstructor
 @EnableConfigurationProperties(RedisLockProperties.class)

@@ -5,6 +5,7 @@ import com.libre.toolkit.constant.LibreConstants;
 import com.libre.toolkit.core.StringUtil;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RedissonClient;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +17,7 @@ import org.springframework.core.env.Environment;
  *
  * @author Libre
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @ConditionalOnBean(RedissonClient.class)
 @RequiredArgsConstructor
 @EnableConfigurationProperties(RedissonStreamProperties.class)

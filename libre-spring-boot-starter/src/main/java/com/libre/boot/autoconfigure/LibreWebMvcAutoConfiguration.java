@@ -3,6 +3,7 @@ package com.libre.boot.autoconfigure;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libre.toolkit.time.DatePattern;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +30,7 @@ import java.util.List;
  * @date 2021/3/3 10:22
  */
 @EnableWebMvc
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @EnableConfigurationProperties({UploadFileProperties.class})
 @RequiredArgsConstructor
 public class LibreWebMvcAutoConfiguration implements WebMvcConfigurer {

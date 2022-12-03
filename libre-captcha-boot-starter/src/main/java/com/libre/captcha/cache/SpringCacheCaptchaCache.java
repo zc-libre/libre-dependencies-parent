@@ -1,12 +1,12 @@
 package com.libre.captcha.cache;
 
 import com.libre.captcha.autoconfigure.CaptchaProperties;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
-import javax.annotation.PostConstruct;
 import java.util.Objects;
 
 /**

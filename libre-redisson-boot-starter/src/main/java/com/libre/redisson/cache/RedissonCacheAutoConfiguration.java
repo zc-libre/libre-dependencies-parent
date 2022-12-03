@@ -5,6 +5,7 @@ import com.libre.redisson.common.RedisNameResolver;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.LocalCachedMapOptions;
 import org.redisson.api.RedissonClient;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -22,7 +23,7 @@ import java.util.Map;
  * @author Libre
  */
 @EnableCaching
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @RequiredArgsConstructor
 @AutoConfigureBefore(CacheAutoConfiguration.class)
 @EnableConfigurationProperties(RedissonCacheProperties.class)

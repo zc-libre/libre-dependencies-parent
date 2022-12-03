@@ -6,6 +6,7 @@ import com.libre.captcha.service.CaptchaServiceImpl;
 import com.wf.captcha.*;
 import com.wf.captcha.base.Captcha;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -16,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
  * @author ZC
  * @date 2021/7/17 0:56
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @RequiredArgsConstructor
 @ConditionalOnProperty(prefix = "libre.captcha", name = "enabled", havingValue = "true")
 @EnableConfigurationProperties(CaptchaProperties.class)

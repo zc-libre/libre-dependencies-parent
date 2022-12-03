@@ -1,5 +1,6 @@
 package com.libre.monitor;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +14,7 @@ import oshi.SystemInfo;
  * @author 青苗
  * @since 2022-03-02
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class MonitorAutoConfiguration {
 
     @Bean
