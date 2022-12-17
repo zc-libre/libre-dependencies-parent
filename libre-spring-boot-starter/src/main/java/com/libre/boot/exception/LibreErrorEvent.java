@@ -9,8 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * mica 服务 异常 事件
- *
+ * 异常事件
  * @author Libre
  */
 @Getter

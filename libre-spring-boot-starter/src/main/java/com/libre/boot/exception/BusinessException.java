@@ -4,12 +4,16 @@ import com.libre.toolkit.result.IResultCode;
 import com.libre.toolkit.result.R;
 import org.springframework.lang.Nullable;
 
+import java.io.Serial;
+
 /**
  * 业务异常
  *
  * @author Libre
  */
 public class BusinessException extends RuntimeException {
+
+
 	private static final long serialVersionUID = 2359767895161832954L;
 
 	@Nullable

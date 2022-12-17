@@ -75,6 +75,12 @@ public class SpringContext implements ApplicationContextAware {
 		context.publishEvent(event);
 	}
 
+	public static void publishEvent(Object event) {
+		if (context == null) {
+			return;
+		}
+		context.publishEvent(event);
+	}
 	/**
 	 * 获取aop代理对象
 	 *
