@@ -1,5 +1,6 @@
 dependencies {
     api "com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}"
+    testCompileOnly "org.postgresql:postgresql"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
 }
 

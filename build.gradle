@@ -53,6 +53,7 @@ configure(subprojects) {
 
 configure(subprojects - project(":libre-dependencies")) {
     apply plugin: "java-library"
+    apply plugin: 'io.spring.javaformat'
     apply from: "${rootProject.projectDir}/gradle/publish-jar.gradle"
     sourceCompatibility = "$javaVersion"
     targetCompatibility = "$javaVersion"
