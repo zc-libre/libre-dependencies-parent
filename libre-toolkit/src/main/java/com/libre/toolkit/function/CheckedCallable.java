@@ -12,9 +12,9 @@ public interface CheckedCallable<T> extends Serializable {
 
 	/**
 	 * Run this callable.
-	 *
 	 * @return result
 	 * @throws Throwable CheckedException
 	 */
 	T call() throws Throwable;
+
 }

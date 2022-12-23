@@ -1,6 +1,5 @@
 package com.libre.security.component;
 
-
 import com.libre.security.annotation.Inner;
 import com.libre.security.constant.SecurityConstants;
 import com.libre.toolkit.core.StringUtil;

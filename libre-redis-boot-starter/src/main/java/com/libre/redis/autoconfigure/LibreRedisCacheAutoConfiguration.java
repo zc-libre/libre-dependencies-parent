@@ -48,7 +48,6 @@ public class LibreRedisCacheAutoConfiguration {
 	@Nullable
 	private final RedisCacheConfiguration redisCacheConfiguration;
 
-
 	@Primary
 	@Bean("cacheResolver")
 	public CacheManager redisCacheManager(ObjectProvider<RedisConnectionFactory> connectionFactoryObjectProvider) {
@@ -65,7 +64,8 @@ public class LibreRedisCacheAutoConfiguration {
 		}
 		boolean allowInFlightCacheCreation = true;
 		boolean enableTransactions = false;
-		RedisAutoCacheManager cacheManager = new RedisAutoCacheManager(redisCacheWriter, cacheConfiguration, initialCaches, allowInFlightCacheCreation);
+		RedisAutoCacheManager cacheManager = new RedisAutoCacheManager(redisCacheWriter, cacheConfiguration,
+				initialCaches, allowInFlightCacheCreation);
 		cacheManager.setTransactionAware(enableTransactions);
 		return this.customizerInvoker.customize(cacheManager);
 	}
@@ -73,10 +73,12 @@ public class LibreRedisCacheAutoConfiguration {
 	private RedisCacheConfiguration determineConfiguration() {
 		if (this.redisCacheConfiguration != null) {
 			return this.redisCacheConfiguration;
-		} else {
+		}
+		else {
 			CacheProperties.Redis redisProperties = this.cacheProperties.getRedis();
 			RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
-			config = config.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer));
+			config = config
+					.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer));
 			if (redisProperties.getTimeToLive() != null) {
 				config = config.entryTtl(redisProperties.getTimeToLive());
 			}
@@ -96,4 +98,5 @@ public class LibreRedisCacheAutoConfiguration {
 			return config;
 		}
 	}
+
 }

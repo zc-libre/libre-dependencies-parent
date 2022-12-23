@@ -12,7 +12,6 @@ public interface CheckedSupplier<T> extends Serializable {
 
 	/**
 	 * Run the Supplier
-	 *
 	 * @return T
 	 * @throws Throwable CheckedException
 	 */

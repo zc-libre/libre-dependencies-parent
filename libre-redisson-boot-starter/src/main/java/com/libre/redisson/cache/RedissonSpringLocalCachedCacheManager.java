@@ -20,23 +20,29 @@ import java.util.concurrent.ConcurrentMap;
  *
  * @author Libre
  */
-public class RedissonSpringLocalCachedCacheManager extends AbstractTransactionSupportingCacheManager implements CacheManager {
+public class RedissonSpringLocalCachedCacheManager extends AbstractTransactionSupportingCacheManager
+		implements CacheManager {
 
 	private boolean dynamic = true;
+
 	private boolean allowNullValues = true;
 
 	private final RedissonClient redisson;
+
 	private final LocalCachedMapOptions<Object, Object> globalOptions;
+
 	private final ConcurrentMap<String, LocalCachedMapOptions<Object, Object>> cacheConfigMap;
+
 	private RedisNameResolver redisNameResolver;
+
 	/**
 	 * cache 实例
- 	 */
+	 */
 	private final ConcurrentMap<String, Cache> instanceMap = new ConcurrentHashMap<>();
 
 	public RedissonSpringLocalCachedCacheManager(RedissonClient redisson,
-												 LocalCachedMapOptions<Object, Object> globalOptions,
-												 Map<String, LocalCachedMapOptions<Object, Object>> cacheConfigMap) {
+			LocalCachedMapOptions<Object, Object> globalOptions,
+			Map<String, LocalCachedMapOptions<Object, Object>> cacheConfigMap) {
 		this.redisson = redisson;
 		this.globalOptions = globalOptions;
 		this.cacheConfigMap = new ConcurrentHashMap<>(cacheConfigMap);
@@ -46,7 +52,6 @@ public class RedissonSpringLocalCachedCacheManager extends AbstractTransactionSu
 	 * Defines possibility of storing {@code null} values.
 	 * <p>
 	 * Default is <code>true</code>
-	 *
 	 * @param allowNullValues - stores if <code>true</code>
 	 */
 	public void setAllowNullValues(boolean allowNullValues) {
@@ -55,7 +60,6 @@ public class RedissonSpringLocalCachedCacheManager extends AbstractTransactionSu
 
 	/**
 	 * 设置是否动态
-	 *
 	 * @param dynamic dynamic
 	 */
 	public void setDynamic(boolean dynamic) {
@@ -68,12 +72,9 @@ public class RedissonSpringLocalCachedCacheManager extends AbstractTransactionSu
 
 	private LocalCachedMapOptions<Object, Object> createDefaultConfig(String cacheName) {
 		LocalCachedMapOptions<Object, Object> cacheConfig = LocalCachedMapOptions.defaults()
-			.timeToLive(globalOptions.getTimeToLiveInMillis())
-			.maxIdle(globalOptions.getMaxIdleInMillis())
-			.cacheSize(globalOptions.getCacheSize())
-			.reconnectionStrategy(globalOptions.getReconnectionStrategy())
-			.syncStrategy(globalOptions.getSyncStrategy())
-			.evictionPolicy(globalOptions.getEvictionPolicy());
+				.timeToLive(globalOptions.getTimeToLiveInMillis()).maxIdle(globalOptions.getMaxIdleInMillis())
+				.cacheSize(globalOptions.getCacheSize()).reconnectionStrategy(globalOptions.getReconnectionStrategy())
+				.syncStrategy(globalOptions.getSyncStrategy()).evictionPolicy(globalOptions.getEvictionPolicy());
 		// 从缓存名中动态解析 ttl
 		long ttlFormCacheNameMillis = CacheNameUtil.getTTLFormCacheName(cacheName);
 		if (ttlFormCacheNameMillis > 0) {
@@ -104,11 +105,11 @@ public class RedissonSpringLocalCachedCacheManager extends AbstractTransactionSu
 		if (redisNameResolver != null) {
 			cacheName = redisNameResolver.resolve(RModule.LCache, cacheName);
 		}
-		LocalCachedMapOptions<Object, Object> mapOptions = cacheConfigMap.computeIfAbsent(cacheName, this::createDefaultConfig);
+		LocalCachedMapOptions<Object, Object> mapOptions = cacheConfigMap.computeIfAbsent(cacheName,
+				this::createDefaultConfig);
 		// 如果为默认的配置参数都为 0，则直连 redis，不走本地
-		if (mapOptions.getMaxIdleInMillis() == 0L
-			&& mapOptions.getTimeToLiveInMillis() == 0L
-			&& mapOptions.getCacheSize() == 0) {
+		if (mapOptions.getMaxIdleInMillis() == 0L && mapOptions.getTimeToLiveInMillis() == 0L
+				&& mapOptions.getCacheSize() == 0) {
 			return createMap(cacheName);
 		}
 		return createLocalMapCache(cacheName, mapOptions);
@@ -138,7 +139,8 @@ public class RedissonSpringLocalCachedCacheManager extends AbstractTransactionSu
 		return cache;
 	}
 
-	private RLocalCachedMap<Object, Object> getLocalMapCache(String cacheName, LocalCachedMapOptions<Object, Object> mapOptions) {
+	private RLocalCachedMap<Object, Object> getLocalMapCache(String cacheName,
+			LocalCachedMapOptions<Object, Object> mapOptions) {
 		return redisson.getLocalCachedMap(cacheName, mapOptions);
 	}
 

@@ -21,12 +21,13 @@ public class DataPermissionAutoConfiguration {
 
 	private final IDataScopeProvider dataScopeProvider;
 
-	public DataPermissionAutoConfiguration(@Autowired(required = false)IDataScopeProvider dataScopeProvider) {
+	public DataPermissionAutoConfiguration(@Autowired(required = false) IDataScopeProvider dataScopeProvider) {
 		this.dataScopeProvider = dataScopeProvider;
 	}
 
 	@Bean
-    public DataScopeInterceptor dataScopeInterceptor() {
-    	return new DataScopeInterceptor(dataScopeProvider);
+	public DataScopeInterceptor dataScopeInterceptor() {
+		return new DataScopeInterceptor(dataScopeProvider);
 	}
+
 }

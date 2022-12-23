@@ -6,7 +6,6 @@ import org.redisson.config.SslProvider;
 
 import java.net.URL;
 
-
 /**
  * 基础配置
  *
@@ -28,14 +27,13 @@ public class BaseConfig {
 	private int pingTimeout = 1000;
 
 	/**
-	 * Timeout during connecting to any RedissonUtils server.
-	 * Value in milliseconds.
+	 * Timeout during connecting to any RedissonUtils server. Value in milliseconds.
 	 */
 	private int connectTimeout = 10000;
 
 	/**
-	 * RedissonUtils server response timeout. Starts to countdown when RedissonUtils command was succesfully sent.
-	 * Value in milliseconds.
+	 * RedissonUtils server response timeout. Starts to countdown when RedissonUtils
+	 * command was succesfully sent. Value in milliseconds.
 	 */
 	private int timeout = 3000;
 
@@ -75,4 +73,5 @@ public class BaseConfig {
 	private boolean keepAlive;
 
 	private boolean tcpNoDelay;
+
 }

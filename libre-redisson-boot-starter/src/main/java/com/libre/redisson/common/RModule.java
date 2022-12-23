@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum RModule {
+
 	/**
 	 * redis 命令 空间
 	 */
@@ -41,4 +42,5 @@ public enum RModule {
 	DQueue("d-queue:");
 
 	private final String prefix;
+
 }

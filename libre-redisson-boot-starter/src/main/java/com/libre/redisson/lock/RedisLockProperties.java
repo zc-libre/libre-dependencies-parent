@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-
 /**
  * 分布式锁配置
  *
@@ -14,6 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 @ConfigurationProperties(RedisLockProperties.PREFIX)
 public class RedisLockProperties {
+
 	public static final String PREFIX = "libre.redisson.lock";
 
 	/**

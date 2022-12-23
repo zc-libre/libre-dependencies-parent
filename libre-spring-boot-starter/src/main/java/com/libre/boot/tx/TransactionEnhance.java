@@ -17,7 +17,6 @@ public class TransactionEnhance {
 
 	/**
 	 * 判断当前调用是否在事务环境中，确保spring事务提交后执行，适用于commit后刷新缓存,发送消息等场景
-	 *
 	 * @param runnable Runnable
 	 */
 	public static void afterCommit(Runnable runnable) {
@@ -29,8 +28,10 @@ public class TransactionEnhance {
 					runnable.run();
 				}
 			});
-		} else {
+		}
+		else {
 			runnable.run();
 		}
 	}
+
 }

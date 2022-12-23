@@ -19,7 +19,7 @@ import java.lang.annotation.*;
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @EnableMethodSecurity
-@Import({ ResourceServerAutoConfiguration.class, ResourceServerConfiguration.class})
+@Import({ ResourceServerAutoConfiguration.class, ResourceServerConfiguration.class })
 public @interface EnableResourceServer {
 
 }

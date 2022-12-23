@@ -34,4 +34,5 @@ public class StreamUtilsTests {
 		List<Long> ids = StreamUtils.list(list, Entity::getId);
 		Assertions.assertEquals(Arrays.asList(0L, 1L), ids);
 	}
+
 }

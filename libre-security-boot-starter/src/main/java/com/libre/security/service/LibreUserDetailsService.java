@@ -26,7 +26,4 @@ public interface LibreUserDetailsService extends UserDetailsService, Ordered {
 		return 0;
 	}
 
-
-
-
 }

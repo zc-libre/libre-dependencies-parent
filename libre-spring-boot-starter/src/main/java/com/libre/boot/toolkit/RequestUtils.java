@@ -1,6 +1,5 @@
 package com.libre.boot.toolkit;
 
-
 import com.libre.toolkit.json.JsonUtil;
 import com.libre.toolkit.core.StringPool;
 import com.libre.toolkit.core.StringUtil;
@@ -26,61 +25,43 @@ import java.util.function.Predicate;
 @Slf4j
 public class RequestUtils extends WebUtils {
 
-	private static final String[] IP_HEADER_NAMES = new String[]{
-		"x-forwarded-for",
-		"Proxy-Client-IP",
-		"WL-Proxy-Client-IP",
-		"HTTP_X_FORWARDED_FOR",
-		"HTTP_X_FORWARDED",
-		"HTTP_X_CLUSTER_CLIENT_IP",
-		"HTTP_CLIENT_IP",
-		"HTTP_FORWARDED_FOR",
-		"HTTP_FORWARDED",
-		"HTTP_VIA",
-		"REMOTE_ADDR",
-		"X-Real-IP"
-	};
-	private static final Predicate<String> IS_BLANK_IP = (ip) -> StringUtil.isBlank(ip) || StringPool.UNKNOWN.equalsIgnoreCase(ip);
+	private static final String[] IP_HEADER_NAMES = new String[] { "x-forwarded-for", "Proxy-Client-IP",
+			"WL-Proxy-Client-IP", "HTTP_X_FORWARDED_FOR", "HTTP_X_FORWARDED", "HTTP_X_CLUSTER_CLIENT_IP",
+			"HTTP_CLIENT_IP", "HTTP_FORWARDED_FOR", "HTTP_FORWARDED", "HTTP_VIA", "REMOTE_ADDR", "X-Real-IP" };
+
+	private static final Predicate<String> IS_BLANK_IP = (ip) -> StringUtil.isBlank(ip)
+			|| StringPool.UNKNOWN.equalsIgnoreCase(ip);
 
 	/**
 	 * 获取 HttpServletRequest
 	 * @return {@link HttpServletRequest}
 	 */
 	public static HttpServletRequest getRequest() {
-		return Optional.ofNullable(RequestContextHolder.getRequestAttributes())
-			.map(x -> (ServletRequestAttributes) x)
-			.map(ServletRequestAttributes::getRequest)
-			.orElse(null);
+		return Optional.ofNullable(RequestContextHolder.getRequestAttributes()).map(x -> (ServletRequestAttributes) x)
+				.map(ServletRequestAttributes::getRequest).orElse(null);
 	}
 
 	/**
 	 * 获取 HttpServletResponse
-	 *
 	 * @return {HttpServletResponse}
 	 */
 	@Nullable
 	public static HttpServletResponse getResponse() {
-		return Optional.ofNullable(RequestContextHolder.getRequestAttributes())
-			.map(x -> (ServletRequestAttributes) x)
-			.map(ServletRequestAttributes::getResponse)
-			.orElse(null);
+		return Optional.ofNullable(RequestContextHolder.getRequestAttributes()).map(x -> (ServletRequestAttributes) x)
+				.map(ServletRequestAttributes::getResponse).orElse(null);
 	}
 
 	/**
 	 * 获取ip
-	 *
 	 * @return {String}
 	 */
 	@Nullable
 	public static String getIp() {
-		return Optional.ofNullable(RequestUtils.getRequest())
-			.map(RequestUtils::getIp)
-			.orElse(null);
+		return Optional.ofNullable(RequestUtils.getRequest()).map(RequestUtils::getIp).orElse(null);
 	}
 
 	/**
 	 * 获取ip
-	 *
 	 * @param request HttpServletRequest
 	 * @return {String}
 	 */
@@ -104,7 +85,6 @@ public class RequestUtils extends WebUtils {
 
 	/**
 	 * 从多级反向代理中获得第一个非unknown IP地址
-	 *
 	 * @param ip 获得的IP地址
 	 * @return 第一个非unknown IP地址
 	 */
@@ -125,9 +105,8 @@ public class RequestUtils extends WebUtils {
 
 	/**
 	 * 返回json
-	 *
 	 * @param response HttpServletResponse
-	 * @param result   结果对象
+	 * @param result 结果对象
 	 */
 	public static void renderJson(HttpServletResponse response, @Nullable Object result) {
 		String jsonText = JsonUtil.toJson(result);
@@ -138,7 +117,6 @@ public class RequestUtils extends WebUtils {
 
 	/**
 	 * 返回json
-	 *
 	 * @param response HttpServletResponse
 	 * @param jsonText json 文本
 	 */
@@ -150,9 +128,8 @@ public class RequestUtils extends WebUtils {
 
 	/**
 	 * 返回json
-	 *
-	 * @param response    HttpServletResponse
-	 * @param text        文本
+	 * @param response HttpServletResponse
+	 * @param text 文本
 	 * @param contentType contentType
 	 */
 	public static void renderText(HttpServletResponse response, String text, String contentType) {
@@ -160,8 +137,10 @@ public class RequestUtils extends WebUtils {
 		response.setContentType(contentType);
 		try (PrintWriter out = response.getWriter()) {
 			out.append(text);
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			log.error(e.getMessage(), e);
 		}
 	}
+
 }

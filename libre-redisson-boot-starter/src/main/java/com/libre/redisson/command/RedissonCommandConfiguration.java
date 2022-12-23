@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 public class RedissonCommandConfiguration {
 
 	private final RedissonClient client;
+
 	@Bean
 	public RedissonUtils redis() {
 		return new RedissonUtils(client);

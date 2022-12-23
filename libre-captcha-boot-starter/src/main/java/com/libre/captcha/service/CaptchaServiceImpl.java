@@ -15,7 +15,9 @@ import org.springframework.util.StringUtils;
 public class CaptchaServiceImpl implements CaptchaService {
 
 	private final CaptchaCache captchaCache;
+
 	private final CaptchaProperties properties;
+
 	private Captcha captcha;
 
 	@Override
@@ -45,4 +47,5 @@ public class CaptchaServiceImpl implements CaptchaService {
 		}
 		return code.equalsIgnoreCase(userInputCaptcha);
 	}
+
 }

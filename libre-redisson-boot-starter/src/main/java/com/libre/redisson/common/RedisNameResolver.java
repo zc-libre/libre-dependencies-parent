@@ -9,9 +9,8 @@ public interface RedisNameResolver {
 
 	/**
 	 * 用于自定义“租户”等隔离，默认直接拼接
-	 *
 	 * @param module 模块名称
-	 * @param name   名称
+	 * @param name 名称
 	 * @return 处理后的名称
 	 */
 	default String resolve(RModule module, String name) {
@@ -20,7 +19,6 @@ public interface RedisNameResolver {
 
 	/**
 	 * 处理占位符
-	 *
 	 * @param value 占位符
 	 * @return 处理后的字符串
 	 */

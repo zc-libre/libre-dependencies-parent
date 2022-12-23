@@ -12,8 +12,11 @@ import java.util.Map;
  * @author zhao.cheng
  */
 public class RunnableWrapper implements Runnable {
+
 	private final Runnable delegate;
+
 	private final Map<String, Object> tlMap;
+
 	/**
 	 * logback 下有可能为 null
 	 */
@@ -36,7 +39,8 @@ public class RunnableWrapper implements Runnable {
 		}
 		try {
 			delegate.run();
-		} finally {
+		}
+		finally {
 			tlMap.clear();
 			if (mdcMap != null) {
 				mdcMap.clear();
@@ -45,4 +49,5 @@ public class RunnableWrapper implements Runnable {
 			MDC.clear();
 		}
 	}
+
 }

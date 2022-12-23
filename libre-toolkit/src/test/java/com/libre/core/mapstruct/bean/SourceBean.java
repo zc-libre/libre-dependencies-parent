@@ -12,4 +12,5 @@ public class SourceBean {
 	private String name;
 
 	private Integer age;
+
 }

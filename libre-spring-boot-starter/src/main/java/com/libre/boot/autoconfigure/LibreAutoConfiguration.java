@@ -16,4 +16,5 @@ public class LibreAutoConfiguration {
 	public SpringContext springContext() {
 		return new SpringContext();
 	}
+
 }

@@ -22,7 +22,6 @@ public class RedisTests {
 	@Test
 	void set() {
 
-
-
 	}
+
 }

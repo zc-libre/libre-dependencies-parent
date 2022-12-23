@@ -20,6 +20,7 @@ import java.util.List;
 @AutoConfiguration
 @EnableConfigurationProperties(LibreMyBatisProperties.class)
 public class LibreMyBatisAutoConfiguration {
+
 	/**
 	 * 分页插件, 对于单一数据库类型来说,都建议配置该值,避免每次分页都去抓取数据库类型
 	 */
@@ -38,12 +39,12 @@ public class LibreMyBatisAutoConfiguration {
 		return new OptimisticLockerInnerInterceptor();
 	}
 
-
 	@Bean
 	@ConditionalOnMissingBean
 	public MybatisPlusInterceptor mybatisPlusInterceptor(ObjectProvider<List<InnerInterceptor>> listObjectProvider) {
 		MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-		listObjectProvider.ifAvailable(interceptorList-> interceptorList.forEach(interceptor::addInnerInterceptor));
+		listObjectProvider.ifAvailable(interceptorList -> interceptorList.forEach(interceptor::addInnerInterceptor));
 		return interceptor;
 	}
+
 }

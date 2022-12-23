@@ -28,4 +28,5 @@ public class BeanUtilsTests {
 		Assertions.assertEquals(sourceBean.getAge(), targetBean.getAge());
 
 	}
+
 }

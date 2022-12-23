@@ -5,6 +5,7 @@ package com.libre.ip2region.exception;
  * @Date: 2022/7/13 11:05 PM
  */
 public class Ip2regionException extends RuntimeException {
+
 	public Ip2regionException(String message) {
 		super(message);
 	}
@@ -16,4 +17,5 @@ public class Ip2regionException extends RuntimeException {
 	public Ip2regionException(Throwable cause) {
 		super(cause);
 	}
+
 }

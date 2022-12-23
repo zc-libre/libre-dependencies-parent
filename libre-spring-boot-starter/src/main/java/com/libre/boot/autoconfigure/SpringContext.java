@@ -77,11 +77,11 @@ public class SpringContext implements ApplicationContextAware {
 
 	/**
 	 * 获取aop代理对象
-	 *
 	 * @return 代理对象
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T getCurrentProxy() {
 		return (T) AopContext.currentProxy();
 	}
+
 }

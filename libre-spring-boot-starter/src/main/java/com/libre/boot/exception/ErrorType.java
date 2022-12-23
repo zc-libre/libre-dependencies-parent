@@ -14,6 +14,7 @@ import org.springframework.lang.Nullable;
 @Getter
 @RequiredArgsConstructor
 public enum ErrorType {
+
 	/**
 	 * rest 请求异常
 	 */

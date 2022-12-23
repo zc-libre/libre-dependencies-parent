@@ -23,15 +23,19 @@ import java.io.InputStream;
  */
 @RequiredArgsConstructor
 public class Ip2regionSearcherImpl implements InitializingBean, DisposableBean, Ip2regionSearcher {
+
 	private final ResourceLoader resourceLoader;
+
 	private final Ip2regionProperties properties;
+
 	private Searcher searcher;
 
 	@Override
 	public IpInfo memorySearch(long ip) {
 		try {
 			return IpInfoUtil.toIpInfo(searcher.search(ip));
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			throw new Ip2regionException(e);
 		}
 	}
@@ -40,7 +44,8 @@ public class Ip2regionSearcherImpl implements InitializingBean, DisposableBean, 
 	public IpInfo memorySearch(String ip) {
 		try {
 			return IpInfoUtil.toIpInfo(searcher.search(ip));
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			throw new Ip2regionException(e);
 		}
 	}

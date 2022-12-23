@@ -20,7 +20,8 @@ public class BaseMasterSlaveServersConfig extends BaseConfig {
 	private LoadBalancerType loadBalancer = LoadBalancerType.ROUND_ROBIN;
 
 	/**
-	 * RedissonUtils 'slave' node minimum idle connection amount for <b>each</b> slave node
+	 * RedissonUtils 'slave' node minimum idle connection amount for <b>each</b> slave
+	 * node
 	 */
 	private int slaveConnectionMinimumIdleSize = 24;
 
@@ -34,7 +35,8 @@ public class BaseMasterSlaveServersConfig extends BaseConfig {
 	private int failedSlaveCheckInterval = 180000;
 
 	/**
-	 * RedissonUtils 'master' node minimum idle connection amount for <b>each</b> slave node
+	 * RedissonUtils 'master' node minimum idle connection amount for <b>each</b> slave
+	 * node
 	 */
 	private int masterConnectionMinimumIdleSize = 24;
 
@@ -48,12 +50,14 @@ public class BaseMasterSlaveServersConfig extends BaseConfig {
 	private SubscriptionMode subscriptionMode = SubscriptionMode.MASTER;
 
 	/**
-	 * RedissonUtils 'slave' node minimum idle subscription (pub/sub) connection amount for <b>each</b> slave node
+	 * RedissonUtils 'slave' node minimum idle subscription (pub/sub) connection amount
+	 * for <b>each</b> slave node
 	 */
 	private int subscriptionConnectionMinimumIdleSize = 1;
 
 	/**
-	 * RedissonUtils 'slave' node maximum subscription (pub/sub) connection pool size for <b>each</b> slave node
+	 * RedissonUtils 'slave' node maximum subscription (pub/sub) connection pool size for
+	 * <b>each</b> slave node
 	 */
 	private int subscriptionConnectionPoolSize = 50;
 

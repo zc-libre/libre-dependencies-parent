@@ -15,14 +15,11 @@ import java.util.function.Function;
  */
 public class PageUtil {
 
-
-
 	/**
 	 * Page 转换
-	 *
-	 * @param page    IPage
+	 * @param page IPage
 	 * @param records 转换过的list模型
-	 * @param <T>     泛型
+	 * @param <T> 泛型
 	 * @return PageResult
 	 */
 	public static <T> PageDTO<T> toPage(IPage<?> page, List<T> records) {
@@ -37,10 +34,9 @@ public class PageUtil {
 
 	/**
 	 * Page 转换
-	 *
-	 * @param page     IPage
+	 * @param page IPage
 	 * @param function 转换过的函数
-	 * @param <T>      泛型
+	 * @param <T> 泛型
 	 * @return PageResult
 	 */
 	public static <T, R> Page<R> toPage(IPage<T> page, Function<T, R> function) {

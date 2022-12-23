@@ -16,4 +16,5 @@ public interface DictBind {
 	 * @param metaObject 元数据
 	 */
 	void setMetaObject(FieldBind fieldBind, Object fieldValue, MetaObject metaObject);
+
 }

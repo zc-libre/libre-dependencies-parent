@@ -19,36 +19,44 @@ import java.util.List;
 public abstract class AbstractDataScopeProvider implements IDataScopeProvider {
 
 	@Override
-	public void sqlRender(Object[] parameterObjects, MappedStatement mappedStatement, SqlCommandType sqlCommandType) throws Exception {
+	public void sqlRender(Object[] parameterObjects, MappedStatement mappedStatement, SqlCommandType sqlCommandType)
+			throws Exception {
 
 		DataScopeProperty dataScopeProperty = DataScopePropertyHandler.getDataScopeProperty(mappedStatement.getId());
 
 		if (!ObjectUtils.isEmpty(dataScopeProperty)) {
 			if (sqlCommandType == SqlCommandType.INSERT) {
 				this.processInsert(parameterObjects, mappedStatement, dataScopeProperty);
-			} else if (sqlCommandType == SqlCommandType.UPDATE) {
+			}
+			else if (sqlCommandType == SqlCommandType.UPDATE) {
 				this.processUpdate(parameterObjects, mappedStatement, dataScopeProperty);
-			} else if (sqlCommandType == SqlCommandType.DELETE) {
+			}
+			else if (sqlCommandType == SqlCommandType.DELETE) {
 				this.processDelete(parameterObjects, mappedStatement, dataScopeProperty);
-			} else if (sqlCommandType == SqlCommandType.SELECT) {
+			}
+			else if (sqlCommandType == SqlCommandType.SELECT) {
 				this.processSelect(parameterObjects, mappedStatement, dataScopeProperty);
 			}
 		}
 
 	}
 
-	public void processInsert(Object[] parameterObjects, MappedStatement mappedStatement, DataScopeProperty dataScopeProperty) {
+	public void processInsert(Object[] parameterObjects, MappedStatement mappedStatement,
+			DataScopeProperty dataScopeProperty) {
 	}
 
-	public void processUpdate(Object[] parameterObjects, MappedStatement mappedStatement, DataScopeProperty dataScopeProperty) {
+	public void processUpdate(Object[] parameterObjects, MappedStatement mappedStatement,
+			DataScopeProperty dataScopeProperty) {
 	}
 
-	public void processDelete(Object[] parameterObjects, MappedStatement mappedStatement, DataScopeProperty dataScopeProperty) {
+	public void processDelete(Object[] parameterObjects, MappedStatement mappedStatement,
+			DataScopeProperty dataScopeProperty) {
 	}
 
-	public void processSelect(Object[] parameterObjects, MappedStatement mappedStatement, DataScopeProperty dataScopeProperty) {
+	public void processSelect(Object[] parameterObjects, MappedStatement mappedStatement,
+			DataScopeProperty dataScopeProperty) {
 		processStatements(parameterObjects, mappedStatement, (statement, argSeq) -> {
-			this.processSelect((Select)statement, argSeq, parameterObjects, dataScopeProperty);
+			this.processSelect((Select) statement, argSeq, parameterObjects, dataScopeProperty);
 		});
 	}
 
@@ -56,7 +64,8 @@ public abstract class AbstractDataScopeProvider implements IDataScopeProvider {
 		SelectBody selectBody = select.getSelectBody();
 		if (selectBody instanceof PlainSelect) {
 			this.setWhere((PlainSelect) selectBody, parameterObjects, dataScopeProperty);
-		} else if (selectBody instanceof SetOperationList) {
+		}
+		else if (selectBody instanceof SetOperationList) {
 			SetOperationList setOperationList = (SetOperationList) selectBody;
 			List<SelectBody> selectBodyList = setOperationList.getSelects();
 			selectBodyList.forEach((s) -> this.setWhere((PlainSelect) s, parameterObjects, dataScopeProperty));
@@ -70,9 +79,12 @@ public abstract class AbstractDataScopeProvider implements IDataScopeProvider {
 	 * @param parameterObjects /
 	 * @param dataScopeProperty /
 	 */
-	public abstract void setWhere(PlainSelect plainSelect, Object[] parameterObjects, DataScopeProperty dataScopeProperty);
+	public abstract void setWhere(PlainSelect plainSelect, Object[] parameterObjects,
+			DataScopeProperty dataScopeProperty);
 
-	public static void processStatements(Object[] parameterObjects, MappedStatement mappedStatement, StatementProcessor statementProcessor) {
+	public static void processStatements(Object[] parameterObjects, MappedStatement mappedStatement,
+			StatementProcessor statementProcessor) {
 		DataScopePropertyHandler.processStatements(parameterObjects, mappedStatement, statementProcessor);
 	}
+
 }

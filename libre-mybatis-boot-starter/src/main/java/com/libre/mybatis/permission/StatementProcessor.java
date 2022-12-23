@@ -8,10 +8,12 @@ import net.sf.jsqlparser.statement.Statement;
  */
 @FunctionalInterface
 public interface StatementProcessor {
+
 	/**
 	 * 处理sql语句
 	 * @param statement /
 	 * @param argSeq /
 	 */
 	void process(Statement statement, int argSeq);
+
 }

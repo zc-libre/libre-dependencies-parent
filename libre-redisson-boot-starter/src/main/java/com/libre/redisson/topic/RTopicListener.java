@@ -15,7 +15,6 @@ public @interface RTopicListener {
 
 	/**
 	 * topic name，支持通配符， 如 *、? 和 [...]
-	 *
 	 * @return String
 	 */
 	String value();

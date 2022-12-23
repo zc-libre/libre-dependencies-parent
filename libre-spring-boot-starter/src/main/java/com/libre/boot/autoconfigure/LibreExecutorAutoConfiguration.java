@@ -35,6 +35,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class LibreExecutorAutoConfiguration extends AsyncConfigurerSupport {
 
 	private final Environment environment;
+
 	private final ApplicationEventPublisher eventPublisher;
 
 	@Bean
@@ -62,7 +63,9 @@ public class LibreExecutorAutoConfiguration extends AsyncConfigurerSupport {
 
 	@RequiredArgsConstructor
 	private static class LibreAsyncUncaughtExceptionHandler implements AsyncUncaughtExceptionHandler {
+
 		private final Environment environment;
+
 		private final ApplicationEventPublisher eventPublisher;
 
 		@Override
@@ -78,11 +81,14 @@ public class LibreExecutorAutoConfiguration extends AsyncConfigurerSupport {
 			// 发布事件
 			eventPublisher.publishEvent(event);
 		}
+
 	}
 
 	@RequiredArgsConstructor
 	private static class LibreErrorHandler implements ErrorHandler {
-        private final Environment environment;
+
+		private final Environment environment;
+
 		private final ApplicationEventPublisher eventPublisher;
 
 		@Override
@@ -98,5 +104,7 @@ public class LibreExecutorAutoConfiguration extends AsyncConfigurerSupport {
 			// 发布事件
 			eventPublisher.publishEvent(event);
 		}
+
 	}
+
 }

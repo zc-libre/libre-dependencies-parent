@@ -71,10 +71,10 @@ public class CaptchaAutoConfiguration {
 		return new CaptchaServiceImpl(captchaCache, properties);
 	}
 
-
 	private void setProperties(Captcha captcha) {
 		captcha.setWidth(properties.getWidth());
 		captcha.setHeight(properties.getHeight());
 		captcha.setLen(properties.getLength());
 	}
+
 }

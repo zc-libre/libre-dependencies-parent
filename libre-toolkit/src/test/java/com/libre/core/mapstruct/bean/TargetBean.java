@@ -12,4 +12,5 @@ public class TargetBean {
 	private String name;
 
 	private Integer age;
+
 }

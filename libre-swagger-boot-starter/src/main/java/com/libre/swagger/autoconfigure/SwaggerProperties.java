@@ -13,357 +13,388 @@ import java.util.List;
 @ConfigurationProperties("libre.swagger")
 public class SwaggerProperties {
 
-    /**
-     * 是否开启 swagger，默认：true
-     */
-    private boolean enabled = true;
-    /**
-     * 标题，默认：XXX服务
-     */
-    private String title;
-    /**
-     * 详情，默认：XXX服务
-     */
-    private String description;
-    /**
-     * 版本号，默认：V1.0
-     */
-    private String version = "1.0.4";
-    /**
-     * 组织名
-     */
-    private String contactUser;
-    /**
-     * 组织url
-     */
-    private String contactUrl;
-    /**
-     * 组织邮箱
-     */
-    private String contactEmail;
-    /**
-     * 全局统一请求头
-     */
-    private final List<Header> headers = new ArrayList<>();
-    /**
-     * api key 认证
-     **/
-    private final Authorization authorization = new Authorization();
-    /**
-     * oauth2 认证
-     */
-    private final Oauth2 oauth2 = new Oauth2();
+	/**
+	 * 是否开启 swagger，默认：true
+	 */
+	private boolean enabled = true;
 
-    public boolean isEnabled() {
-        return enabled;
-    }
+	/**
+	 * 标题，默认：XXX服务
+	 */
+	private String title;
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
+	/**
+	 * 详情，默认：XXX服务
+	 */
+	private String description;
 
-    public String getTitle() {
-        return title;
-    }
+	/**
+	 * 版本号，默认：V1.0
+	 */
+	private String version = "1.0.4";
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	/**
+	 * 组织名
+	 */
+	private String contactUser;
 
-    public String getDescription() {
-        return description;
-    }
+	/**
+	 * 组织url
+	 */
+	private String contactUrl;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	/**
+	 * 组织邮箱
+	 */
+	private String contactEmail;
 
-    public String getVersion() {
-        return version;
-    }
+	/**
+	 * 全局统一请求头
+	 */
+	private final List<Header> headers = new ArrayList<>();
 
-    public void setVersion(String version) {
-        this.version = version;
-    }
+	/**
+	 * api key 认证
+	 **/
+	private final Authorization authorization = new Authorization();
 
-    public String getContactUser() {
-        return contactUser;
-    }
+	/**
+	 * oauth2 认证
+	 */
+	private final Oauth2 oauth2 = new Oauth2();
 
-    public void setContactUser(String contactUser) {
-        this.contactUser = contactUser;
-    }
+	public boolean isEnabled() {
+		return enabled;
+	}
 
-    public String getContactUrl() {
-        return contactUrl;
-    }
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
-    public void setContactUrl(String contactUrl) {
-        this.contactUrl = contactUrl;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public String getContactEmail() {
-        return contactEmail;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public List<Header> getHeaders() {
-        return headers;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public Authorization getAuthorization() {
-        return authorization;
-    }
+	public String getVersion() {
+		return version;
+	}
 
-    public Oauth2 getOauth2() {
-        return oauth2;
-    }
+	public void setVersion(String version) {
+		this.version = version;
+	}
 
-    /**
-     * securitySchemes 支持方式之一 ApiKey
-     */
-    public static class Authorization {
-        /**
-         * 开启Authorization，默认：false
-         */
-        private Boolean enabled = false;
-        /**
-         * 鉴权策略ID，对应 SecurityReferences ID，默认：Authorization
-         */
-        private String name = "Authorization";
-        /**
-         * 鉴权传递的Header参数，默认：TOKEN
-         */
-        private String keyName = "TOKEN";
-        /**
-         * 需要开启鉴权URL的正则，默认：/**
-         */
-        private List<String> pathPatterns = new ArrayList<>();
+	public String getContactUser() {
+		return contactUser;
+	}
 
-        public Boolean getEnabled() {
-            return enabled;
-        }
+	public void setContactUser(String contactUser) {
+		this.contactUser = contactUser;
+	}
 
-        public void setEnabled(Boolean enabled) {
-            this.enabled = enabled;
-        }
+	public String getContactUrl() {
+		return contactUrl;
+	}
 
-        public String getName() {
-            return name;
-        }
+	public void setContactUrl(String contactUrl) {
+		this.contactUrl = contactUrl;
+	}
 
-        public void setName(String name) {
-            this.name = name;
-        }
+	public String getContactEmail() {
+		return contactEmail;
+	}
 
-        public String getKeyName() {
-            return keyName;
-        }
+	public void setContactEmail(String contactEmail) {
+		this.contactEmail = contactEmail;
+	}
 
-        public void setKeyName(String keyName) {
-            this.keyName = keyName;
-        }
+	public List<Header> getHeaders() {
+		return headers;
+	}
 
-        public List<String> getPathPatterns() {
-            return pathPatterns;
-        }
+	public Authorization getAuthorization() {
+		return authorization;
+	}
 
-        public void setPathPatterns(List<String> pathPatterns) {
-            this.pathPatterns = pathPatterns;
-        }
-    }
+	public Oauth2 getOauth2() {
+		return oauth2;
+	}
 
-    /**
-     * oauth2 认证
-     */
-    public static class Oauth2 {
-        /**
-         * 开启Oauth2，默认：false
-         */
-        private Boolean enabled = false;
-        /**
-         * oath2 名称，默认：oauth2
-         */
-        private String name = "oauth2";
-        /**
-         * clientId name
-         */
-        private String clientIdName;
-        /**
-         * clientSecret name
-         */
-        private String clientSecretName;
-        /**
-         * authorize url
-         */
-        private String authorizeUrl;
-        /**
-         * token url
-         */
-        private String tokenUrl;
-        /**
-         * token name，默认：access_token
-         */
-        private String tokenName = "access_token";
-        /**
-         * 授权类型
-         */
-        private GrantTypes grantType = GrantTypes.AUTHORIZATION_CODE;
-        /**
-         * oauth2 scope 列表
-         */
-        private List<AuthorizationScope> scopes = new ArrayList<>();
-        /**
-         * 需要开启鉴权URL的正则，默认：/**
-         */
-        private List<String> pathPatterns = new ArrayList<>();
+	/**
+	 * securitySchemes 支持方式之一 ApiKey
+	 */
+	public static class Authorization {
 
-        public Boolean getEnabled() {
-            return enabled;
-        }
+		/**
+		 * 开启Authorization，默认：false
+		 */
+		private Boolean enabled = false;
 
-        public void setEnabled(Boolean enabled) {
-            this.enabled = enabled;
-        }
+		/**
+		 * 鉴权策略ID，对应 SecurityReferences ID，默认：Authorization
+		 */
+		private String name = "Authorization";
 
-        public String getName() {
-            return name;
-        }
+		/**
+		 * 鉴权传递的Header参数，默认：TOKEN
+		 */
+		private String keyName = "TOKEN";
 
-        public void setName(String name) {
-            this.name = name;
-        }
+		/**
+		 * 需要开启鉴权URL的正则，默认：/**
+		 */
+		private List<String> pathPatterns = new ArrayList<>();
 
-        public String getClientIdName() {
-            return clientIdName;
-        }
+		public Boolean getEnabled() {
+			return enabled;
+		}
 
-        public void setClientIdName(String clientIdName) {
-            this.clientIdName = clientIdName;
-        }
+		public void setEnabled(Boolean enabled) {
+			this.enabled = enabled;
+		}
 
-        public String getClientSecretName() {
-            return clientSecretName;
-        }
+		public String getName() {
+			return name;
+		}
 
-        public void setClientSecretName(String clientSecretName) {
-            this.clientSecretName = clientSecretName;
-        }
+		public void setName(String name) {
+			this.name = name;
+		}
 
-        public String getAuthorizeUrl() {
-            return authorizeUrl;
-        }
+		public String getKeyName() {
+			return keyName;
+		}
 
-        public void setAuthorizeUrl(String authorizeUrl) {
-            this.authorizeUrl = authorizeUrl;
-        }
+		public void setKeyName(String keyName) {
+			this.keyName = keyName;
+		}
 
-        public String getTokenUrl() {
-            return tokenUrl;
-        }
+		public List<String> getPathPatterns() {
+			return pathPatterns;
+		}
 
-        public void setTokenUrl(String tokenUrl) {
-            this.tokenUrl = tokenUrl;
-        }
+		public void setPathPatterns(List<String> pathPatterns) {
+			this.pathPatterns = pathPatterns;
+		}
 
-        public String getTokenName() {
-            return tokenName;
-        }
+	}
 
-        public void setTokenName(String tokenName) {
-            this.tokenName = tokenName;
-        }
+	/**
+	 * oauth2 认证
+	 */
+	public static class Oauth2 {
 
-        public GrantTypes getGrantType() {
-            return grantType;
-        }
+		/**
+		 * 开启Oauth2，默认：false
+		 */
+		private Boolean enabled = false;
 
-        public void setGrantType(GrantTypes grantType) {
-            this.grantType = grantType;
-        }
+		/**
+		 * oath2 名称，默认：oauth2
+		 */
+		private String name = "oauth2";
 
-        public List<AuthorizationScope> getScopes() {
-            return scopes;
-        }
+		/**
+		 * clientId name
+		 */
+		private String clientIdName;
 
-        public void setScopes(List<AuthorizationScope> scopes) {
-            this.scopes = scopes;
-        }
+		/**
+		 * clientSecret name
+		 */
+		private String clientSecretName;
 
-        public List<String> getPathPatterns() {
-            return pathPatterns;
-        }
+		/**
+		 * authorize url
+		 */
+		private String authorizeUrl;
 
-        public void setPathPatterns(List<String> pathPatterns) {
-            this.pathPatterns = pathPatterns;
-        }
-    }
+		/**
+		 * token url
+		 */
+		private String tokenUrl;
 
-    /**
-     * 全局通用请求头
-     */
-    public static class Header {
-        /**
-         * 请求头名
-         */
-        private String name;
-        /**
-         * 请求头描述
-         */
-        private String description;
-        /**
-         * 是否必须，默认：false
-         */
-        private boolean required = false;
+		/**
+		 * token name，默认：access_token
+		 */
+		private String tokenName = "access_token";
 
-        public String getName() {
-            return name;
-        }
+		/**
+		 * 授权类型
+		 */
+		private GrantTypes grantType = GrantTypes.AUTHORIZATION_CODE;
 
-        public void setName(String name) {
-            this.name = name;
-        }
+		/**
+		 * oauth2 scope 列表
+		 */
+		private List<AuthorizationScope> scopes = new ArrayList<>();
 
-        public String getDescription() {
-            return description;
-        }
+		/**
+		 * 需要开启鉴权URL的正则，默认：/**
+		 */
+		private List<String> pathPatterns = new ArrayList<>();
 
-        public void setDescription(String description) {
-            this.description = description;
-        }
+		public Boolean getEnabled() {
+			return enabled;
+		}
 
-        public boolean isRequired() {
-            return required;
-        }
+		public void setEnabled(Boolean enabled) {
+			this.enabled = enabled;
+		}
 
-        public void setRequired(boolean required) {
-            this.required = required;
-        }
-    }
+		public String getName() {
+			return name;
+		}
 
-    /**
-     * oauth2 认证类型
-     */
-    public enum GrantTypes {
-        /**
-         * authorization_code
-         */
-        AUTHORIZATION_CODE,
-        /**
-         * client_credentials
-         */
-        CLIENT_CREDENTIALS,
-        /**
-         * implicit
-         */
-        IMPLICIT,
-        /**
-         * Password
-         */
-        PASSWORD;
-    }
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getClientIdName() {
+			return clientIdName;
+		}
+
+		public void setClientIdName(String clientIdName) {
+			this.clientIdName = clientIdName;
+		}
+
+		public String getClientSecretName() {
+			return clientSecretName;
+		}
+
+		public void setClientSecretName(String clientSecretName) {
+			this.clientSecretName = clientSecretName;
+		}
+
+		public String getAuthorizeUrl() {
+			return authorizeUrl;
+		}
+
+		public void setAuthorizeUrl(String authorizeUrl) {
+			this.authorizeUrl = authorizeUrl;
+		}
+
+		public String getTokenUrl() {
+			return tokenUrl;
+		}
+
+		public void setTokenUrl(String tokenUrl) {
+			this.tokenUrl = tokenUrl;
+		}
+
+		public String getTokenName() {
+			return tokenName;
+		}
+
+		public void setTokenName(String tokenName) {
+			this.tokenName = tokenName;
+		}
+
+		public GrantTypes getGrantType() {
+			return grantType;
+		}
+
+		public void setGrantType(GrantTypes grantType) {
+			this.grantType = grantType;
+		}
+
+		public List<AuthorizationScope> getScopes() {
+			return scopes;
+		}
+
+		public void setScopes(List<AuthorizationScope> scopes) {
+			this.scopes = scopes;
+		}
+
+		public List<String> getPathPatterns() {
+			return pathPatterns;
+		}
+
+		public void setPathPatterns(List<String> pathPatterns) {
+			this.pathPatterns = pathPatterns;
+		}
+
+	}
+
+	/**
+	 * 全局通用请求头
+	 */
+	public static class Header {
+
+		/**
+		 * 请求头名
+		 */
+		private String name;
+
+		/**
+		 * 请求头描述
+		 */
+		private String description;
+
+		/**
+		 * 是否必须，默认：false
+		 */
+		private boolean required = false;
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
+		}
+
+		public boolean isRequired() {
+			return required;
+		}
+
+		public void setRequired(boolean required) {
+			this.required = required;
+		}
+
+	}
+
+	/**
+	 * oauth2 认证类型
+	 */
+	public enum GrantTypes {
+
+		/**
+		 * authorization_code
+		 */
+		AUTHORIZATION_CODE,
+		/**
+		 * client_credentials
+		 */
+		CLIENT_CREDENTIALS,
+		/**
+		 * implicit
+		 */
+		IMPLICIT,
+		/**
+		 * Password
+		 */
+		PASSWORD;
+
+	}
 
 }

@@ -1,6 +1,5 @@
 package com.libre.captcha.cache;
 
-
 import org.springframework.boot.convert.DurationStyle;
 import org.springframework.lang.Nullable;
 
@@ -13,18 +12,18 @@ import java.time.temporal.ChronoUnit;
  */
 public interface CaptchaCache {
 
-	 char COLON = ':';
+	char COLON = ':';
 
-	 String HASH = "#";
+	String HASH = "#";
+
 	/**
 	 * 保存缓存
 	 *
 	 * <p>
-	 *     非 spring cache 等启动就确定超时的缓存，重新改方法
+	 * 非 spring cache 等启动就确定超时的缓存，重新改方法
 	 * </p>
-	 *
-	 * @param cacheKey    缓存key
-	 * @param value       缓存value
+	 * @param cacheKey 缓存key
+	 * @param value 缓存value
 	 * @param ttlInMillis ttl
 	 */
 	default void put(String cacheKey, @Nullable String value, long ttlInMillis) {
@@ -33,10 +32,9 @@ public interface CaptchaCache {
 
 	/**
 	 * 保存缓存
-	 *
 	 * @param cacheName 缓存空间
-	 * @param uuid      验证码 uuid
-	 * @param value     缓存value
+	 * @param uuid 验证码 uuid
+	 * @param value 缓存value
 	 */
 	default void put(String cacheName, String uuid, @Nullable String value) {
 		long ttlInMillis = getTtlFormCacheName(cacheName);
@@ -44,14 +42,12 @@ public interface CaptchaCache {
 		put(cacheKey, value, ttlInMillis);
 	}
 
-
 	/**
 	 * 从 cache name 中解析 ttl，例如： user:test#300ms，不带单位默认为 s 秒
-	 *
 	 * @param cacheName 缓存名
 	 * @return 超时时间
 	 */
-	 default long getTtlFormCacheName(String cacheName) {
+	default long getTtlFormCacheName(String cacheName) {
 		String[] cacheArray = cacheName.split(HASH);
 		if (cacheArray.length < 2) {
 			return -1L;
@@ -64,9 +60,8 @@ public interface CaptchaCache {
 	 * 获取并删除缓存，验证码不管成功只能验证一次
 	 *
 	 * <p>
-	 *     非 spring cache 等启动就确定超时的缓存，重新改方法
+	 * 非 spring cache 等启动就确定超时的缓存，重新改方法
 	 * </p>
-	 *
 	 * @param cacheKey 缓存空间
 	 * @return 验证码
 	 */
@@ -77,9 +72,8 @@ public interface CaptchaCache {
 
 	/**
 	 * 获取并删除缓存，验证码不管成功只能验证一次
-	 *
 	 * @param cacheName 缓存空间
-	 * @param uuid      验证码 uuid
+	 * @param uuid 验证码 uuid
 	 * @return 验证码
 	 */
 	@Nullable
@@ -89,4 +83,5 @@ public interface CaptchaCache {
 	}
 
 	String get(String uuid);
+
 }

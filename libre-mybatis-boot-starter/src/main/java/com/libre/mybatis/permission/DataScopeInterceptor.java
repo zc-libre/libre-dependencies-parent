@@ -16,19 +16,11 @@ import java.util.Properties;
  * @author ZC
  * @date 2021/11/5 0:59
  */
-@Intercepts({@Signature(
-	type = Executor.class,
-	method = "update",
-	args = {MappedStatement.class, Object.class}
-), @Signature(
-	type = Executor.class,
-	method = "query",
-	args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}
-), @Signature(
-	type = Executor.class,
-	method = "query",
-	args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}
-)})
+@Intercepts({ @Signature(type = Executor.class, method = "update", args = { MappedStatement.class, Object.class }),
+		@Signature(type = Executor.class, method = "query",
+				args = { MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class }),
+		@Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class,
+				RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class }) })
 public class DataScopeInterceptor implements Interceptor {
 
 	private IDataScopeProvider dataScopeProvider;
@@ -57,7 +49,7 @@ public class DataScopeInterceptor implements Interceptor {
 
 	public static Object process(Invocation invocation, IDataScopeProvider dataScopeProvider) throws Throwable {
 		Object[] args = invocation.getArgs();
-		MappedStatement mappedStatement = (MappedStatement)args[0];
+		MappedStatement mappedStatement = (MappedStatement) args[0];
 		SqlCommandType sqlCommandType = mappedStatement.getSqlCommandType();
 		if (sqlCommandType != SqlCommandType.UNKNOWN && sqlCommandType != SqlCommandType.FLUSH) {
 			if (null != dataScopeProvider) {
@@ -66,4 +58,5 @@ public class DataScopeInterceptor implements Interceptor {
 		}
 		return invocation.proceed();
 	}
+
 }

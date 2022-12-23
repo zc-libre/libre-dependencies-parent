@@ -11,10 +11,14 @@ import lombok.experimental.UtilityClass;
 public class TopicUtil {
 
 	private static final char BACK_SLASH = '\\';
-	private static final char ASTERISK         = '*';
-	private static final char QUESTION_MARK    = '?';
+
+	private static final char ASTERISK = '*';
+
+	private static final char QUESTION_MARK = '?';
+
 	private static final char RIGHT_SQ_BRACKET = ']';
-	private static final char LEFT_SQ_BRACKET  = '[';
+
+	private static final char LEFT_SQ_BRACKET = '[';
 
 	/**
 	 * 判断是否为模糊话题，*、? 和 [...]

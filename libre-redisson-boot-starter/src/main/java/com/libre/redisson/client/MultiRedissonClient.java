@@ -14,6 +14,7 @@ import java.util.concurrent.ConcurrentMap;
  * @author Libre
  */
 public class MultiRedissonClient implements InitializingBean, DisposableBean {
+
 	private final ConcurrentMap<String, RedissonClient> clientMap = new ConcurrentHashMap<>();
 
 	@Override

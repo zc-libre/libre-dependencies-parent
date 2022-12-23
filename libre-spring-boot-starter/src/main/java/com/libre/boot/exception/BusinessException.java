@@ -10,6 +10,7 @@ import org.springframework.lang.Nullable;
  * @author Libre
  */
 public class BusinessException extends RuntimeException {
+
 	private static final long serialVersionUID = 2359767895161832954L;
 
 	@Nullable
@@ -59,8 +60,8 @@ public class BusinessException extends RuntimeException {
 		return this;
 	}
 
-
 	public void doFillInStackTrace() {
 		super.fillInStackTrace();
 	}
+
 }

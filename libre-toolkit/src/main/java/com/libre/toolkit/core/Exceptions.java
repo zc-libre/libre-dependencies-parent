@@ -29,7 +29,6 @@ public class Exceptions {
 		return Throwables.getRootCause(throwable);
 	}
 
-
 	public static String getStackTraceAsString(Throwable throwable) {
 		return Throwables.getStackTraceAsString(throwable);
 	}

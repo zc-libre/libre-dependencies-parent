@@ -1,6 +1,5 @@
 package com.libre.oss.config;
 
-
 import com.libre.oss.support.OssTemplate;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -30,4 +29,3 @@ public class OssAutoConfiguration {
 	}
 
 }
-

@@ -12,7 +12,6 @@ public interface CheckedRunnable extends Serializable {
 
 	/**
 	 * Run this runnable.
-	 *
 	 * @throws Throwable CheckedException
 	 */
 	void run() throws Throwable;

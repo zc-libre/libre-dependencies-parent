@@ -14,54 +14,55 @@ import lombok.Setter;
 @Getter
 @Setter
 public class JvmInfo {
-    /**
-     * jdk版本
-     */
-    String jdkVersion;
 
-    /**
-     * jdk Home
-     */
-    String jdkHome;
+	/**
+	 * jdk版本
+	 */
+	String jdkVersion;
 
-    /**
-     * jak name
-     */
-    private String jdkName;
+	/**
+	 * jdk Home
+	 */
+	String jdkHome;
 
-    /**
-     * 总内存
-     */
-    String jvmTotalMemory;
+	/**
+	 * jak name
+	 */
+	private String jdkName;
 
-    /**
-     * Java虚拟机将尝试使用的最大内存量
-     */
-    String maxMemory;
+	/**
+	 * 总内存
+	 */
+	String jvmTotalMemory;
 
-    /**
-     * 空闲内存
-     */
-    String freeMemory;
+	/**
+	 * Java虚拟机将尝试使用的最大内存量
+	 */
+	String maxMemory;
 
-    /**
-     * 已使用内存
-     */
-    String usedMemory;
+	/**
+	 * 空闲内存
+	 */
+	String freeMemory;
 
-    /**
-     * 内存使用率
-     */
-    private double usePercent;
+	/**
+	 * 已使用内存
+	 */
+	String usedMemory;
 
-    /**
-     * 返回Java虚拟机的启动时间（毫秒）。此方法返回Java虚拟机启动的大致时间。
-     */
-    private long startTime;
+	/**
+	 * 内存使用率
+	 */
+	private double usePercent;
 
-    /**
-     * 返回Java虚拟机的正常运行时间（毫秒）
-     */
-    private long uptime;
+	/**
+	 * 返回Java虚拟机的启动时间（毫秒）。此方法返回Java虚拟机启动的大致时间。
+	 */
+	private long startTime;
+
+	/**
+	 * 返回Java虚拟机的正常运行时间（毫秒）
+	 */
+	private long uptime;
 
 }

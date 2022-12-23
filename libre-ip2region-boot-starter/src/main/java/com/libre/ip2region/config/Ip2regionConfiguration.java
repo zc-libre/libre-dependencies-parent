@@ -7,7 +7,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ResourceLoader;
 
-
 /**
  * ip2region 自动化配置
  *
@@ -18,8 +17,7 @@ import org.springframework.core.io.ResourceLoader;
 public class Ip2regionConfiguration {
 
 	@Bean
-	public Ip2regionSearcher ip2regionSearcher(ResourceLoader resourceLoader,
-											   Ip2regionProperties properties) {
+	public Ip2regionSearcher ip2regionSearcher(ResourceLoader resourceLoader, Ip2regionProperties properties) {
 		return new Ip2regionSearcherImpl(resourceLoader, properties);
 	}
 

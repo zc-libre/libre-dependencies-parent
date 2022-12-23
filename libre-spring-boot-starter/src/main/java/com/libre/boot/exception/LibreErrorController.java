@@ -20,23 +20,23 @@ import java.util.Map;
  */
 public class LibreErrorController extends BasicErrorController {
 
-    private final ObjectMapper objectMapper;
+	private final ObjectMapper objectMapper;
 
-    public LibreErrorController(ObjectMapper objectMapper,
-                               ErrorAttributes errorAttributes,
-                               ErrorProperties errorProperties) {
-        super(errorAttributes, errorProperties);
-        this.objectMapper = objectMapper;
-    }
+	public LibreErrorController(ObjectMapper objectMapper, ErrorAttributes errorAttributes,
+			ErrorProperties errorProperties) {
+		super(errorAttributes, errorProperties);
+		this.objectMapper = objectMapper;
+	}
 
-    @Override
-    public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, Object> body = getErrorAttributes(request, ErrorAttributeOptions.defaults());
-        HttpStatus status = getStatus(request);
-        response.setStatus(status.value());
-        MappingJackson2JsonView view = new MappingJackson2JsonView();
-        view.setObjectMapper(objectMapper);
-        view.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        return new ModelAndView(view, body);
-    }
+	@Override
+	public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> body = getErrorAttributes(request, ErrorAttributeOptions.defaults());
+		HttpStatus status = getStatus(request);
+		response.setStatus(status.value());
+		MappingJackson2JsonView view = new MappingJackson2JsonView();
+		view.setObjectMapper(objectMapper);
+		view.setContentType(MediaType.APPLICATION_JSON_VALUE);
+		return new ModelAndView(view, body);
+	}
+
 }

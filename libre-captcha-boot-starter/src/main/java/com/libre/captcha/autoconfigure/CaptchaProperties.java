@@ -13,27 +13,31 @@ import org.springframework.context.annotation.Configuration;
 public class CaptchaProperties {
 
 	private Boolean enabled = Boolean.TRUE;
+
 	/**
 	 * 验证码内容长度
 	 */
 	private Integer length = 2;
+
 	/**
 	 * 验证码宽度
 	 */
 	private Integer width = 111;
+
 	/**
 	 * 验证码高度
 	 */
 	private Integer height = 36;
+
 	/**
 	 * 缓存key
 	 */
 	private String cacheName = "captcha:cache#5m";
 
-
 	private CaptchaType captchaType = CaptchaType.ARITHMETIC;
 
 	public enum CaptchaType {
+
 		/**
 		 * 算数
 		 */
@@ -54,5 +58,7 @@ public class CaptchaProperties {
 		 * png
 		 */
 		SPEC;
+
 	}
+
 }

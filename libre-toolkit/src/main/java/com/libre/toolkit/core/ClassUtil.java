@@ -1,6 +1,5 @@
 package com.libre.toolkit.core;
 
-
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
@@ -14,12 +13,12 @@ import java.lang.reflect.Method;
  */
 @UtilityClass
 public class ClassUtil extends ClassUtils {
+
 	/**
 	 * 获取Annotation
-	 *
-	 * @param method         Method
+	 * @param method Method
 	 * @param annotationType 注解类
-	 * @param <A>            泛型标记
+	 * @param <A> 泛型标记
 	 * @return {Annotation}
 	 */
 

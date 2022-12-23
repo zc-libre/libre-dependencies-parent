@@ -6,7 +6,6 @@ import org.redisson.config.TransportMode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
-
 /**
  * Redisson 配置
  *
@@ -20,18 +19,22 @@ public class RedissonProperties {
 	 * 线程数，默认值: 当前处理核数量 * 2
 	 */
 	private Integer threads;
+
 	/**
 	 * Netty线程池数量，默认值: 当前处理核数量 * 2
 	 */
 	private Integer nettyThreads;
+
 	/**
 	 * 传输模式，默认值：NIO
 	 */
 	private TransportMode transportMode = TransportMode.NIO;
+
 	/**
 	 * 编码方式，默认为: FstCodec
 	 */
 	private Class<? extends Codec> codec;
+
 	/**
 	 * lua 脚本缓存，默认值：false
 	 */

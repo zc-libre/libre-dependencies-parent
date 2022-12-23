@@ -12,6 +12,7 @@ import java.util.function.Supplier;
 @UtilityClass
 @SuppressWarnings("unchecked")
 public class ThreadLocalUtil {
+
 	private static final ThreadLocal<Map<String, Object>> LOCAL = ThreadLocal.withInitial(HashMap::new);
 
 	/**
@@ -23,10 +24,9 @@ public class ThreadLocalUtil {
 
 	/**
 	 * 设置一个值到ThreadLocal
-	 *
-	 * @param key   键
+	 * @param key 键
 	 * @param value 值
-	 * @param <T>   值的类型
+	 * @param <T> 值的类型
 	 * @return 被放入的值
 	 * @see Map#put(Object, Object)
 	 */
@@ -38,7 +38,6 @@ public class ThreadLocalUtil {
 
 	/**
 	 * 设置一个值到ThreadLocal
-	 *
 	 * @param map map
 	 * @return 被放入的值
 	 * @see Map#putAll(Map)
@@ -49,7 +48,6 @@ public class ThreadLocalUtil {
 
 	/**
 	 * 删除参数对应的值
-	 *
 	 * @param key
 	 * @see Map#remove(Object)
 	 */
@@ -68,7 +66,6 @@ public class ThreadLocalUtil {
 
 	/**
 	 * 从ThreadLocal中获取值
-	 *
 	 * @param key 键
 	 * @param <T> 值泛型
 	 * @return 值, 不存在则返回null, 如果类型与泛型不一致, 可能抛出{@link ClassCastException}
@@ -92,7 +89,6 @@ public class ThreadLocalUtil {
 
 	/**
 	 * 获取一个值后然后删除掉
-	 *
 	 * @param key 键
 	 * @param <T> 值类型
 	 * @return 值, 不存在则返回null
@@ -102,7 +98,8 @@ public class ThreadLocalUtil {
 	public static <T> T getAndRemove(String key) {
 		try {
 			return get(key);
-		} finally {
+		}
+		finally {
 			remove(key);
 		}
 	}

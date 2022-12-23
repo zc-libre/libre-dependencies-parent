@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotBlank;
  * @since 2019/2/1
  */
 @Data
-public class SysOauthClientDetails{
+public class SysOauthClientDetails {
 
 	private static final long serialVersionUID = 1L;
 

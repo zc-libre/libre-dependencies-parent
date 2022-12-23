@@ -32,4 +32,5 @@ public class SentinelServersConfig extends BaseMasterSlaveServersConfig {
 	 * Sentinel scan interval in milliseconds
 	 */
 	private int scanInterval = 1000;
+
 }

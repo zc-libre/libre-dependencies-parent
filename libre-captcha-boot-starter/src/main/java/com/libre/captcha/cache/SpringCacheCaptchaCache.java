@@ -18,6 +18,7 @@ import java.util.Objects;
 public class SpringCacheCaptchaCache implements CaptchaCache {
 
 	private final CacheManager cacheManager;
+
 	private final CaptchaProperties properties;
 
 	@PostConstruct
@@ -54,4 +55,5 @@ public class SpringCacheCaptchaCache implements CaptchaCache {
 	private Cache getCache(String cacheName) {
 		return cacheManager.getCache(cacheName);
 	}
+
 }

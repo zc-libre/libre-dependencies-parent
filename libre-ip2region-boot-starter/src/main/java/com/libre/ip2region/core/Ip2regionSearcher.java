@@ -14,7 +14,6 @@ public interface Ip2regionSearcher {
 
 	/**
 	 * ip 位置 搜索
-	 *
 	 * @param ip ip
 	 * @return 位置
 	 */
@@ -23,7 +22,6 @@ public interface Ip2regionSearcher {
 
 	/**
 	 * ip 位置 搜索
-	 *
 	 * @param ip ip
 	 * @return 位置
 	 */
@@ -32,8 +30,7 @@ public interface Ip2regionSearcher {
 
 	/**
 	 * 读取 ipInfo 中的信息
-	 *
-	 * @param ip       ip
+	 * @param ip ip
 	 * @param function Function
 	 * @return 地址
 	 */
@@ -44,8 +41,7 @@ public interface Ip2regionSearcher {
 
 	/**
 	 * 读取 ipInfo 中的信息
-	 *
-	 * @param ip       ip
+	 * @param ip ip
 	 * @param function Function
 	 * @return 地址
 	 */
@@ -56,7 +52,6 @@ public interface Ip2regionSearcher {
 
 	/**
 	 * 获取地址信息
-	 *
 	 * @param ip ip
 	 * @return 地址
 	 */
@@ -67,7 +62,6 @@ public interface Ip2regionSearcher {
 
 	/**
 	 * 获取地址信息
-	 *
 	 * @param ip ip
 	 * @return 地址
 	 */
@@ -78,7 +72,6 @@ public interface Ip2regionSearcher {
 
 	/**
 	 * 获取地址信息包含 isp
-	 *
 	 * @param ip ip
 	 * @return 地址
 	 */
@@ -89,7 +82,6 @@ public interface Ip2regionSearcher {
 
 	/**
 	 * 获取地址信息包含 isp
-	 *
 	 * @param ip ip
 	 * @return 地址
 	 */

@@ -24,6 +24,6 @@ public class UploadFileProperties {
 	 * 文件保存目录
 	 */
 	@Nullable
-	private String savePath =  "/upload";
+	private String savePath = "/upload";
 
 }

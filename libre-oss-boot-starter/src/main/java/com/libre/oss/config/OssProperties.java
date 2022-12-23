@@ -7,9 +7,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * oss 配置信息
  *
  * @author lengleng
- * @author 858695266 配置文件添加： oss: enable: true endpoint: <a href="http://127.0.0.1:9000">http://127.0.0.1:9000</a> #
- * pathStyleAccess 采用nginx反向代理或者AWS S3 配置成true，支持第三方云存储配置成false pathStyleAccess: false
- * access-key: lengleng secret-key: lengleng bucket-name: lengleng region: custom-domain:
+ * @author 858695266 配置文件添加： oss: enable: true endpoint:
+ * <a href="http://127.0.0.1:9000">http://127.0.0.1:9000</a> # pathStyleAccess
+ * 采用nginx反向代理或者AWS S3 配置成true，支持第三方云存储配置成false pathStyleAccess: false access-key:
+ * lengleng secret-key: lengleng bucket-name: lengleng region: custom-domain:
  * <a href="https://oss.xxx.com/lengleng">https://oss.xxx.com/lengleng</a>
  * <p>
  * bucket 设置公共读权限

@@ -17,9 +17,10 @@ import oshi.SystemInfo;
 @AutoConfiguration
 public class MonitorAutoConfiguration {
 
-    @Bean
-    @ConditionalOnMissingBean
-    public OshiMonitor oshiMonitor() {
-        return new OshiMonitor(new SystemInfo());
-    }
+	@Bean
+	@ConditionalOnMissingBean
+	public OshiMonitor oshiMonitor() {
+		return new OshiMonitor(new SystemInfo());
+	}
+
 }

@@ -19,4 +19,5 @@ public class DefaultSqlSource implements SqlSource {
 	public BoundSql getBoundSql(Object parameterObject) {
 		return this.boundSql;
 	}
+
 }

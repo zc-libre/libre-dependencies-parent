@@ -20,25 +20,27 @@ import java.util.Optional;
 @Slf4j
 public class LibreErrorAttributes extends DefaultErrorAttributes {
 
-    @Override
-    public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
-        String requestUrl = this.getAttr(webRequest, "javax.servlet.error.request_uri");
-        Integer status = this.getAttr(webRequest, "javax.servlet.error.status_code");
-        Throwable error = getError(webRequest);
-        log.error("URL:{} error status:{}", requestUrl, status, error);
-        R<Object> result;
-        if (error instanceof BusinessException) {
-            result = ((BusinessException) error).getResult();
-            result = Optional.ofNullable(result).orElse(R.fail(ResultCode.FAILURE));
-        } else {
-            result = R.fail(ResultCode.FAILURE, "System error status:" + status);
-        }
+	@Override
+	public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
+		String requestUrl = this.getAttr(webRequest, "javax.servlet.error.request_uri");
+		Integer status = this.getAttr(webRequest, "javax.servlet.error.status_code");
+		Throwable error = getError(webRequest);
+		log.error("URL:{} error status:{}", requestUrl, status, error);
+		R<Object> result;
+		if (error instanceof BusinessException) {
+			result = ((BusinessException) error).getResult();
+			result = Optional.ofNullable(result).orElse(R.fail(ResultCode.FAILURE));
+		}
+		else {
+			result = R.fail(ResultCode.FAILURE, "System error status:" + status);
+		}
 		return BeanUtils.beanToMap(result);
-    }
+	}
 
-    @Nullable
-    @SuppressWarnings("unchecked")
-    private <T> T getAttr(WebRequest webRequest, String name) {
-        return (T) webRequest.getAttribute(name, RequestAttributes.SCOPE_REQUEST);
-    }
+	@Nullable
+	@SuppressWarnings("unchecked")
+	private <T> T getAttr(WebRequest webRequest, String name) {
+		return (T) webRequest.getAttribute(name, RequestAttributes.SCOPE_REQUEST);
+	}
+
 }

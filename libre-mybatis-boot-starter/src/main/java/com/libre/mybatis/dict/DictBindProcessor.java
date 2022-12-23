@@ -23,18 +23,16 @@ public class DictBindProcessor {
 	public static List<Field> getFieldList(Class<?> clazz) {
 		if (null == clazz) {
 			return null;
-		} else {
+		}
+		else {
 			Field[] fields = clazz.getDeclaredFields();
-			List<Field> fieldList = Arrays.stream(fields)
-				.filter((field) -> !Modifier.isStatic(field.getModifiers()))
-				.filter((field) -> !Modifier.isTransient(field.getModifiers()))
-				.collect(Collectors.toList());
+			List<Field> fieldList = Arrays.stream(fields).filter((field) -> !Modifier.isStatic(field.getModifiers()))
+					.filter((field) -> !Modifier.isTransient(field.getModifiers())).collect(Collectors.toList());
 			Class<?> superclass = clazz.getSuperclass();
 			if (!superclass.equals(Object.class)) {
 				List<Field> list = getFieldList(superclass);
 				for (Field field : list) {
-					if (fieldList.stream()
-						.noneMatch((f) -> f.getName().equals(field.getName()))) {
+					if (fieldList.stream().noneMatch((f) -> f.getName().equals(field.getName()))) {
 						fieldList.add(field);
 					}
 				}
@@ -43,7 +41,6 @@ public class DictBindProcessor {
 			return fieldList;
 		}
 	}
-
 
 	public static void dictBindValue(DictBind dictBind, MetaObject metaObject, FieldSetProperty fieldSetProperty) {
 		String fieldName = fieldSetProperty.getFieldName();
@@ -63,10 +60,10 @@ public class DictBindProcessor {
 		}
 	}
 
-
 	@SuppressWarnings("rawtypes")
-	public static Object process(Invocation invocation, BiConsumer<MetaObject, FieldSetProperty> biConsumer) throws Throwable {
-		List list = (List)invocation.proceed();
+	public static Object process(Invocation invocation, BiConsumer<MetaObject, FieldSetProperty> biConsumer)
+			throws Throwable {
+		List list = (List) invocation.proceed();
 		if (!list.isEmpty()) {
 			DefaultResultSetHandler defaultResultSetHandler = (DefaultResultSetHandler) invocation.getTarget();
 			Field field = defaultResultSetHandler.getClass().getDeclaredField("mappedStatement");
@@ -83,5 +80,5 @@ public class DictBindProcessor {
 		}
 		return list;
 	}
-}
 
+}

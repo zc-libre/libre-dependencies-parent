@@ -20,4 +20,5 @@ public class DictBindAutoConfiguration {
 	public DictBindInterceptor dictBindInterceptor(@Autowired(required = false) DictBind dictBind) {
 		return new DictBindInterceptor(dictBind);
 	}
+
 }

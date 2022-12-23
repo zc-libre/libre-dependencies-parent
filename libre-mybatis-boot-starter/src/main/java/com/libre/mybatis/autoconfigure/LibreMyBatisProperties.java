@@ -28,6 +28,9 @@ public class LibreMyBatisProperties {
 	@Getter
 	@Setter
 	public static class DataPermission {
+
 		private Boolean enabled = Boolean.FALSE;
+
 	}
+
 }

@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 
 @Slf4j
-public class FileUtil  {
+public class FileUtil {
 
 	/**
 	 * 创建文件件
@@ -69,6 +69,5 @@ public class FileUtil  {
 			throw Exceptions.unchecked(e);
 		}
 	}
-
 
 }

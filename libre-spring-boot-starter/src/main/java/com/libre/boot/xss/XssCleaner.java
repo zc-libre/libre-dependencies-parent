@@ -9,7 +9,6 @@ public interface XssCleaner {
 
 	/**
 	 * 清理 html
-	 *
 	 * @param html html
 	 * @return 清理后的数据
 	 */

@@ -10,20 +10,18 @@ import java.time.Duration;
 /**
  * cache key
  *
-
+ *
  */
 public interface ICacheKey {
 
 	/**
 	 * 获取前缀
-	 *
 	 * @return key 前缀
 	 */
 	String getPrefix();
 
 	/**
 	 * 超时时间
-	 *
 	 * @return 超时时间
 	 */
 	@Nullable
@@ -33,7 +31,6 @@ public interface ICacheKey {
 
 	/**
 	 * 组装 cache key
-	 *
 	 * @param suffix 参数
 	 * @return cache key
 	 */
@@ -43,7 +40,8 @@ public interface ICacheKey {
 		String key;
 		if (ObjectUtils.isEmpty(suffix)) {
 			key = prefix;
-		} else {
+		}
+		else {
 			key = prefix.concat(StringUtil.join(suffix, StringPool.COLON));
 		}
 		Duration expire = this.getExpire();

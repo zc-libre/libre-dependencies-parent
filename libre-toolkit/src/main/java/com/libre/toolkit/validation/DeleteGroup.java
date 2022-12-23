@@ -7,4 +7,5 @@ import jakarta.validation.groups.Default;
  *
  */
 public interface DeleteGroup extends Default {
+
 }

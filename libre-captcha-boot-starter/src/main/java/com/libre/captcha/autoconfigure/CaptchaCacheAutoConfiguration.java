@@ -29,4 +29,5 @@ public class CaptchaCacheAutoConfiguration {
 	public CaptchaCache captchaCache(CaptchaProperties properties) {
 		return new SpringCacheCaptchaCache(cacheManager, properties);
 	}
+
 }

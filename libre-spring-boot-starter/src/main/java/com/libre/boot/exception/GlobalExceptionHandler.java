@@ -35,7 +35,6 @@ import jakarta.validation.ConstraintViolationException;
 import java.nio.file.AccessDeniedException;
 import java.util.Set;
 
-
 /**
  * @author zhaocheng
  */
@@ -46,23 +45,23 @@ import java.util.Set;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    public static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+	public static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ExceptionHandler(MissingServletRequestParameterException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<Object> handleError(MissingServletRequestParameterException e) {
-        log.warn("缺少请求参数:{}", e.getMessage());
-        String message = String.format("缺少必要的请求参数: %s", e.getParameterName());
-        return R.fail(ResultCode.PARAM_MISS, message);
-    }
+	@ExceptionHandler(MissingServletRequestParameterException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public R<Object> handleError(MissingServletRequestParameterException e) {
+		log.warn("缺少请求参数:{}", e.getMessage());
+		String message = String.format("缺少必要的请求参数: %s", e.getParameterName());
+		return R.fail(ResultCode.PARAM_MISS, message);
+	}
 
-    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<Object> handleError(MethodArgumentTypeMismatchException e) {
-        log.warn("请求参数格式错误:{}", e.getMessage());
-        String message = String.format("请求参数格式错误: %s", e.getName());
-        return R.fail(ResultCode.PARAM_TYPE_ERROR, message);
-    }
+	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public R<Object> handleError(MethodArgumentTypeMismatchException e) {
+		log.warn("请求参数格式错误:{}", e.getMessage());
+		String message = String.format("请求参数格式错误: %s", e.getName());
+		return R.fail(ResultCode.PARAM_TYPE_ERROR, message);
+	}
 
 	@ExceptionHandler(AccessDeniedException.class)
 	@ResponseStatus(HttpStatus.FORBIDDEN)
@@ -72,55 +71,54 @@ public class GlobalExceptionHandler {
 		return R.fail(ResultCode.REQ_REJECT, message);
 	}
 
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public R<Object> handleError(MethodArgumentNotValidException e) {
+		log.warn("参数验证失败:{}", e.getMessage());
+		return handleError(e.getBindingResult());
+	}
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<Object> handleError(MethodArgumentNotValidException e) {
-        log.warn("参数验证失败:{}", e.getMessage());
-        return handleError(e.getBindingResult());
-    }
+	@ExceptionHandler(BindException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public R<Object> handleError(BindException e) {
+		log.warn("参数绑定失败:{}", e.getMessage());
+		return handleError(e.getBindingResult());
+	}
 
-    @ExceptionHandler(BindException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<Object> handleError(BindException e) {
-        log.warn("参数绑定失败:{}", e.getMessage());
-        return handleError(e.getBindingResult());
-    }
+	@ExceptionHandler(ConstraintViolationException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public R<Object> handleError(ConstraintViolationException e) {
+		log.warn("参数验证失败:{}", e.getMessage());
+		return handleError(e.getConstraintViolations());
+	}
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<Object> handleError(ConstraintViolationException e) {
-        log.warn("参数验证失败:{}", e.getMessage());
-        return handleError(e.getConstraintViolations());
-    }
+	@ExceptionHandler(NoHandlerFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public R<Object> handleError(NoHandlerFoundException e) {
+		log.error("404没找到请求:{}", e.getMessage());
+		return R.fail(ResultCode.NOT_FOUND, e.getMessage());
+	}
 
-    @ExceptionHandler(NoHandlerFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public R<Object> handleError(NoHandlerFoundException e) {
-        log.error("404没找到请求:{}", e.getMessage());
-        return R.fail(ResultCode.NOT_FOUND, e.getMessage());
-    }
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public R<Object> handleError(HttpMessageNotReadableException e) {
+		log.error("消息不能读取:{}", e.getMessage());
+		return R.fail(ResultCode.MSG_NOT_READABLE, e.getMessage());
+	}
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<Object> handleError(HttpMessageNotReadableException e) {
-        log.error("消息不能读取:{}", e.getMessage());
-        return R.fail(ResultCode.MSG_NOT_READABLE, e.getMessage());
-    }
+	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+	public R<Object> handleError(HttpRequestMethodNotSupportedException e) {
+		log.error("不支持当前请求方法:{}", e.getMessage());
+		return R.fail(ResultCode.METHOD_NOT_SUPPORTED, e.getMessage());
+	}
 
-    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-    public R<Object> handleError(HttpRequestMethodNotSupportedException e) {
-        log.error("不支持当前请求方法:{}", e.getMessage());
-        return R.fail(ResultCode.METHOD_NOT_SUPPORTED, e.getMessage());
-    }
-
-    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
-    @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
-    public R<Object> handleError(HttpMediaTypeNotSupportedException e) {
-        log.error("不支持当前媒体类型:{}", e.getMessage());
-        return R.fail(ResultCode.MEDIA_TYPE_NOT_SUPPORTED, e.getMessage());
-    }
+	@ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+	@ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+	public R<Object> handleError(HttpMediaTypeNotSupportedException e) {
+		log.error("不支持当前媒体类型:{}", e.getMessage());
+		return R.fail(ResultCode.MEDIA_TYPE_NOT_SUPPORTED, e.getMessage());
+	}
 
 	@ExceptionHandler(BadRequestException.class)
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
@@ -129,38 +127,36 @@ public class GlobalExceptionHandler {
 		return R.fail(ResultCode.UN_AUTHORIZED, e.getMessage());
 	}
 
-    @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
-    @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
-    public R<Object> handleError(HttpMediaTypeNotAcceptableException e) {
+	@ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
+	@ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+	public R<Object> handleError(HttpMediaTypeNotAcceptableException e) {
 
 		String message = e.getMessage() + " " + StringUtil.join(e.getSupportedMediaTypes());
-        log.error("不接受的媒体类型:{}", message);
-        return R.fail(ResultCode.MEDIA_TYPE_NOT_SUPPORTED, message);
-    }
+		log.error("不接受的媒体类型:{}", message);
+		return R.fail(ResultCode.MEDIA_TYPE_NOT_SUPPORTED, message);
+	}
 
-    /**
-     * 处理 BindingResult
-     *
-     * @param result BindingResult
-     * @return R
-     */
-    private static R<Object> handleError(BindingResult result) {
-        FieldError error = result.getFieldError();
-        String message = String.format("%s:%s", error.getField(), error.getDefaultMessage());
-        return R.fail(ResultCode.PARAM_BIND_ERROR, message);
-    }
+	/**
+	 * 处理 BindingResult
+	 * @param result BindingResult
+	 * @return R
+	 */
+	private static R<Object> handleError(BindingResult result) {
+		FieldError error = result.getFieldError();
+		String message = String.format("%s:%s", error.getField(), error.getDefaultMessage());
+		return R.fail(ResultCode.PARAM_BIND_ERROR, message);
+	}
 
-    /**
-     * 处理 ConstraintViolation
-     *
-     * @param violations 校验结果
-     * @return R
-     */
-    private static R<Object> handleError(Set<ConstraintViolation<?>> violations) {
-        ConstraintViolation<?> violation = violations.iterator().next();
-        String path = ((PathImpl) violation.getPropertyPath()).getLeafNode().getName();
-        String message = String.format("%s:%s", path, violation.getMessage());
-        return R.fail(ResultCode.PARAM_VALID_ERROR, message);
-    }
+	/**
+	 * 处理 ConstraintViolation
+	 * @param violations 校验结果
+	 * @return R
+	 */
+	private static R<Object> handleError(Set<ConstraintViolation<?>> violations) {
+		ConstraintViolation<?> violation = violations.iterator().next();
+		String path = ((PathImpl) violation.getPropertyPath()).getLeafNode().getName();
+		String message = String.format("%s:%s", path, violation.getMessage());
+		return R.fail(ResultCode.PARAM_VALID_ERROR, message);
+	}
 
 }

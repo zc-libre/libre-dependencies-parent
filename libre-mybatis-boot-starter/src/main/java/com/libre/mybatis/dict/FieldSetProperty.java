@@ -17,4 +17,5 @@ public class FieldSetProperty {
 	private String fieldName;
 
 	private FieldBind fieldDict;
+
 }

@@ -21,67 +21,74 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class DataScopePropertyHandler {
 
-    private static Map<String, DataScopeProperty> dataScopePropertyMap;
+	private static Map<String, DataScopeProperty> dataScopePropertyMap;
 
-    public static void initDataScopePropertyMap() {
+	public static void initDataScopePropertyMap() {
 		dataScopePropertyMap = new ConcurrentHashMap<>(16);
-    }
+	}
 
-	@SuppressWarnings({"unchecked"})
-    public static DataScopeProperty getDataScopeProperty(String statementId) throws Exception {
-        DataScopeProperty dataScopeProperty = dataScopePropertyMap.get(statementId);
-        if (null == dataScopeProperty) {
-            String entityClassName = statementId.substring(0, statementId.lastIndexOf(StringPool.DOT));
+	@SuppressWarnings({ "unchecked" })
+	public static DataScopeProperty getDataScopeProperty(String statementId) throws Exception {
+		DataScopeProperty dataScopeProperty = dataScopePropertyMap.get(statementId);
+		if (null == dataScopeProperty) {
+			String entityClassName = statementId.substring(0, statementId.lastIndexOf(StringPool.DOT));
 
-            if (null == entityClassName || DataScopeProperty.CHECK_INSTANCE == dataScopePropertyMap.get(entityClassName)) {
-                return null;
-            }
+			if (null == entityClassName
+					|| DataScopeProperty.CHECK_INSTANCE == dataScopePropertyMap.get(entityClassName)) {
+				return null;
+			}
 
-            Class clazz = Class.forName(entityClassName);
-            Method[] methods = clazz.getMethods();
+			Class clazz = Class.forName(entityClassName);
+			Method[] methods = clazz.getMethods();
 			for (Method method : methods) {
 				DataScope dataScope = method.getAnnotation(DataScope.class);
 				if (null != dataScope) {
-					dataScopePropertyMap.put(entityClassName + "." + method.getName(), new DataScopeProperty(dataScope));
+					dataScopePropertyMap.put(entityClassName + "." + method.getName(),
+							new DataScopeProperty(dataScope));
 				}
 			}
 
-            DataScope dataScope = (DataScope) clazz.getAnnotation(DataScope.class);
-            dataScopePropertyMap.put(entityClassName, null == dataScope ? DataScopeProperty.CHECK_INSTANCE : new DataScopeProperty(dataScope));
-            dataScopeProperty = dataScopePropertyMap.get(statementId);
-        }
+			DataScope dataScope = (DataScope) clazz.getAnnotation(DataScope.class);
+			dataScopePropertyMap.put(entityClassName,
+					null == dataScope ? DataScopeProperty.CHECK_INSTANCE : new DataScopeProperty(dataScope));
+			dataScopeProperty = dataScopePropertyMap.get(statementId);
+		}
 
-        return dataScopeProperty;
-    }
+		return dataScopeProperty;
+	}
 
-    public static void processStatements(Object[] parameterObjects, MappedStatement mappedStatement, StatementProcessor process) {
-        BoundSql boundSql = mappedStatement.getBoundSql(parameterObjects[1]);
-        String sql = boundSql.getSql();
-        if (log.isDebugEnabled()) {
-            log.debug("original SQL: " + sql);
-        }
+	public static void processStatements(Object[] parameterObjects, MappedStatement mappedStatement,
+			StatementProcessor process) {
+		BoundSql boundSql = mappedStatement.getBoundSql(parameterObjects[1]);
+		String sql = boundSql.getSql();
+		if (log.isDebugEnabled()) {
+			log.debug("original SQL: " + sql);
+		}
 
-        try {
-            StringBuffer sb = new StringBuffer();
-            Statements statements = CCJSqlParserUtil.parseStatements(sql);
-            int i = 0;
-            for(Statement statement : statements.getStatements() ) {
-                if (i > 0) {
-                    sb.append(StringPool.SEMICOLON);
-                }
+		try {
+			StringBuffer sb = new StringBuffer();
+			Statements statements = CCJSqlParserUtil.parseStatements(sql);
+			int i = 0;
+			for (Statement statement : statements.getStatements()) {
+				if (i > 0) {
+					sb.append(StringPool.SEMICOLON);
+				}
 				process.process(statement, i);
-                sb.append(statement);
-                i++;
-            }
+				sb.append(statement);
+				i++;
+			}
 
-			parameterObjects[0] = MybatisToolKit.buildMappedStatement(mappedStatement, new BoundSql(mappedStatement.getConfiguration(),
-				sb.toString(), boundSql.getParameterMappings(), boundSql.getParameterObject()));
-            if (log.isDebugEnabled()) {
-                log.debug("dataScope execute sql: {}", sb);
-            }
+			parameterObjects[0] = MybatisToolKit.buildMappedStatement(mappedStatement,
+					new BoundSql(mappedStatement.getConfiguration(), sb.toString(), boundSql.getParameterMappings(),
+							boundSql.getParameterObject()));
+			if (log.isDebugEnabled()) {
+				log.debug("dataScope execute sql: {}", sb);
+			}
 
-        } catch (JSQLParserException e) {
-            throw ExceptionUtils.mpe("Failed to process, Error SQL: %s", e.getCause(), sql);
-        }
-    }
+		}
+		catch (JSQLParserException e) {
+			throw ExceptionUtils.mpe("Failed to process, Error SQL: %s", e.getCause(), sql);
+		}
+	}
+
 }

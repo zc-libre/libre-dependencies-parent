@@ -14,24 +14,25 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MemoryInfo {
-    /**
-     * 总计
-     */
-    private String total;
 
-    /**
-     * 已使用
-     */
-    private String used;
+	/**
+	 * 总计
+	 */
+	private String total;
 
-    /**
-     * 未使用
-     */
-    private String free;
+	/**
+	 * 已使用
+	 */
+	private String used;
 
-    /**
-     * 使用率
-     */
-    private double usePercent;
+	/**
+	 * 未使用
+	 */
+	private String free;
+
+	/**
+	 * 使用率
+	 */
+	private double usePercent;
 
 }

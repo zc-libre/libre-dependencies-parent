@@ -46,4 +46,5 @@ public class SingleServerConfig extends BaseConfig {
 	 * Interval in milliseconds to check DNS
 	 */
 	private long dnsMonitoringInterval = 5000;
+
 }

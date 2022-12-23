@@ -35,10 +35,11 @@ import java.time.LocalDateTime;
 @Order
 @RestControllerAdvice
 @AutoConfiguration
-@ConditionalOnClass({Servlet.class, DispatcherServlet.class})
+@ConditionalOnClass({ Servlet.class, DispatcherServlet.class })
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @RequiredArgsConstructor
 public class GlobalExceptionTranslator {
+
 	private final ApplicationEventPublisher publisher;
 
 	@ExceptionHandler(BusinessException.class)
@@ -89,7 +90,6 @@ public class GlobalExceptionTranslator {
 
 	/**
 	 * 初始化异常信息
-	 *
 	 * @param error 异常
 	 * @param event 异常事件封装
 	 */
@@ -109,4 +109,5 @@ public class GlobalExceptionTranslator {
 			event.setLineNumber(element.getLineNumber());
 		}
 	}
+
 }

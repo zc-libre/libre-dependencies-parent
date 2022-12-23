@@ -11,16 +11,17 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.BiConsumer;
 
-
 /**
  * @author ZC
  * @date 2021/11/21 3:43
  */
 public class DictBindContext {
-	private static boolean hasDictBind = false;
-	private static Map<Class<?>, List<FieldSetProperty>> classFieldSetListMap;
-	private static Set<Class<?>> notDictBindClassSet;
 
+	private static boolean hasDictBind = false;
+
+	private static Map<Class<?>, List<FieldSetProperty>> classFieldSetListMap;
+
+	private static Set<Class<?>> notDictBindClassSet;
 
 	public static void init(boolean hasDictBind) {
 		DictBindContext.hasDictBind = hasDictBind;
@@ -31,12 +32,14 @@ public class DictBindContext {
 	public static List<FieldSetProperty> getFieldSetProperties(Class<?> dictBindClass) {
 		if (notDictBindClassSet.contains(dictBindClass)) {
 			return null;
-		} else {
+		}
+		else {
 			List<FieldSetProperty> fieldSetPropertyList = classFieldSetListMap.get(dictBindClass);
 			if (null == fieldSetPropertyList) {
 				if (dictBindClass.isAssignableFrom(HashMap.class)) {
 					notDictBindClassSet.add(dictBindClass);
-				} else {
+				}
+				else {
 					fieldSetPropertyList = new ArrayList<>();
 					List<Field> fieldList = DictBindProcessor.getFieldList(dictBindClass);
 					for (Field field : fieldList) {
@@ -51,7 +54,8 @@ public class DictBindContext {
 					}
 					if (fieldSetPropertyList.isEmpty()) {
 						notDictBindClassSet.add(dictBindClass);
-					} else {
+					}
+					else {
 						classFieldSetListMap.put(dictBindClass, fieldSetPropertyList);
 					}
 				}
@@ -61,7 +65,8 @@ public class DictBindContext {
 		}
 	}
 
-	public static boolean isBind(Configuration configuration, Object result, BiConsumer<MetaObject, FieldSetProperty> biConsumer) {
+	public static boolean isBind(Configuration configuration, Object result,
+			BiConsumer<MetaObject, FieldSetProperty> biConsumer) {
 		List<FieldSetProperty> fieldSetProperties = getFieldSetProperties(result.getClass());
 		if (!CollectionUtils.isEmpty(fieldSetProperties)) {
 			MetaObject metaObject = configuration.newMetaObject(result);
@@ -69,10 +74,10 @@ public class DictBindContext {
 				biConsumer.accept(metaObject, fieldSetProperty);
 			});
 			return true;
-		} else {
+		}
+		else {
 			return false;
 		}
 	}
 
 }
-

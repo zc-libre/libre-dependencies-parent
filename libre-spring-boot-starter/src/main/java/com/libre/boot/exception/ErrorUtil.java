@@ -16,7 +16,6 @@ public class ErrorUtil {
 
 	/**
 	 * 初始化异常信息
-	 *
 	 * @param error 异常
 	 * @param event 异常事件封装
 	 */
@@ -36,4 +35,5 @@ public class ErrorUtil {
 			event.setLineNumber(element.getLineNumber());
 		}
 	}
+
 }

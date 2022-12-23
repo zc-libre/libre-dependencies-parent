@@ -13,11 +13,16 @@ import java.io.RandomAccessFile;
  * @author Lion <chenxin619315@gmail.com>
  */
 public class Searcher {
+
 	// constant defined copied from the xdb maker
 	public static final int HEADER_INFO_LENGTH = 256;
+
 	public static final int VECTOR_INDEX_ROWS = 256;
+
 	public static final int VECTOR_INDEX_COLS = 256;
+
 	public static final int VECTOR_INDEX_SIZE = 8;
+
 	public static final int SEGMENT_INDEX_SIZE = 14;
 
 	// random access file handle for file based search
@@ -54,7 +59,8 @@ public class Searcher {
 			this.handle = null;
 			this.vectorIndex = null;
 			this.contentBuff = cBuff;
-		} else {
+		}
+		else {
 			this.handle = new RandomAccessFile(dbFile, "r");
 			this.vectorIndex = vectorIndex;
 			this.contentBuff = null;
@@ -87,10 +93,12 @@ public class Searcher {
 		if (vectorIndex != null) {
 			sPtr = getInt(vectorIndex, idx);
 			ePtr = getInt(vectorIndex, idx + 4);
-		} else if (contentBuff != null) {
+		}
+		else if (contentBuff != null) {
 			sPtr = getInt(contentBuff, HEADER_INFO_LENGTH + idx);
 			ePtr = getInt(contentBuff, HEADER_INFO_LENGTH + idx + 4);
-		} else {
+		}
+		else {
 			final byte[] buff = new byte[8];
 			read(HEADER_INFO_LENGTH + idx, buff);
 			sPtr = getInt(buff, 0);
@@ -110,11 +118,13 @@ public class Searcher {
 			long sip = getIntLong(buff, 0);
 			if (ip < sip) {
 				h = m - 1;
-			} else {
+			}
+			else {
 				long eip = getIntLong(buff, 4);
 				if (ip > eip) {
 					l = m + 1;
-				} else {
+				}
+				else {
 					dataLen = getInt2(buff, 8);
 					dataPtr = getInt(buff, 10);
 					break;
@@ -201,40 +211,33 @@ public class Searcher {
 	 * get an int from a byte array start from the specified offset
 	 */
 	public static long getIntLong(byte[] b, int offset) {
-		return (b[offset++] & 0x000000FFL) |
-			((b[offset++] << 8) & 0x0000FF00L) |
-			((b[offset++] << 16) & 0x00FF0000L) |
-			((b[offset] << 24) & 0xFF000000L);
+		return (b[offset++] & 0x000000FFL) | ((b[offset++] << 8) & 0x0000FF00L) | ((b[offset++] << 16) & 0x00FF0000L)
+				| ((b[offset] << 24) & 0xFF000000L);
 	}
 
 	public static int getInt(byte[] b, int offset) {
-		return (b[offset++] & 0x000000FF) |
-			((b[offset++] << 8) & 0x0000FF00) |
-			((b[offset++] << 16) & 0x00FF0000) |
-			((b[offset] << 24) & 0xFF000000);
+		return (b[offset++] & 0x000000FF) | ((b[offset++] << 8) & 0x0000FF00) | ((b[offset++] << 16) & 0x00FF0000)
+				| ((b[offset] << 24) & 0xFF000000);
 	}
 
 	public static int getInt2(byte[] b, int offset) {
-		return (b[offset++] & 0x000000FF) |
-			(b[offset] & 0x0000FF00);
+		return (b[offset++] & 0x000000FF) | (b[offset] & 0x0000FF00);
 	}
 
 	/**
 	 * long int to ip string
-	 *
 	 * @param ip long ip
 	 * @return ip 字符串
 	 */
 	public static String long2ip(long ip) {
-		return String.valueOf((ip >> 24) & 0xFF) + '.' +
-			((ip >> 16) & 0xFF) + '.' + ((ip >> 8) & 0xFF) + '.' + ((ip) & 0xFF);
+		return String.valueOf((ip >> 24) & 0xFF) + '.' + ((ip >> 16) & 0xFF) + '.' + ((ip >> 8) & 0xFF) + '.'
+				+ ((ip) & 0xFF);
 	}
 
-	private static final byte[] SHIFT_INDEX = {24, 16, 8, 0};
+	private static final byte[] SHIFT_INDEX = { 24, 16, 8, 0 };
 
 	/**
 	 * check the specified ip address
-	 *
 	 * @param ip ip
 	 * @return ip long
 	 */

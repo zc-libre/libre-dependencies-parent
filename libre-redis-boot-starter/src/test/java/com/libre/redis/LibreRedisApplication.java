@@ -9,7 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class LibreRedisApplication {
+
 	public static void main(String[] args) {
 		SpringApplication.run(LibreRedisApplication.class, args);
 	}
+
 }

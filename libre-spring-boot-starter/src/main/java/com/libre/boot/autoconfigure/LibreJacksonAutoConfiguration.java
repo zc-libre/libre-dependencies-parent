@@ -38,4 +38,5 @@ public class LibreJacksonAutoConfiguration {
 			builder.findModulesViaServiceLoader(true);
 		};
 	}
+
 }

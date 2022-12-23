@@ -31,15 +31,15 @@ import java.util.List;
  */
 @EnableWebMvc
 @AutoConfiguration
-@EnableConfigurationProperties({UploadFileProperties.class})
+@EnableConfigurationProperties({ UploadFileProperties.class })
 @RequiredArgsConstructor
 public class LibreWebMvcAutoConfiguration implements WebMvcConfigurer {
 
-    private final ObjectMapper objectMapper;
+	private final ObjectMapper objectMapper;
 
-    @Bean
-    @ConditionalOnMissingBean
-    public CorsFilter corsFilter() {
+	@Bean
+	@ConditionalOnMissingBean
+	public CorsFilter corsFilter() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.setAllowedOriginPatterns(Collections.singletonList("*"));
 
@@ -52,26 +52,26 @@ public class LibreWebMvcAutoConfiguration implements WebMvcConfigurer {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", corsConfiguration);
 		return new CorsFilter(source);
-    }
+	}
 
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.removeIf(x -> x instanceof StringHttpMessageConverter || x instanceof AbstractJackson2HttpMessageConverter);
-        converters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
-        converters.add(new ByteArrayHttpMessageConverter());
-        converters.add(new ResourceHttpMessageConverter());
-        converters.add(new ResourceRegionHttpMessageConverter());
-        converters.add(new MappingJackson2HttpMessageConverter(objectMapper));
-    }
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		converters.removeIf(
+				x -> x instanceof StringHttpMessageConverter || x instanceof AbstractJackson2HttpMessageConverter);
+		converters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
+		converters.add(new ByteArrayHttpMessageConverter());
+		converters.add(new ResourceHttpMessageConverter());
+		converters.add(new ResourceRegionHttpMessageConverter());
+		converters.add(new MappingJackson2HttpMessageConverter(objectMapper));
+	}
 
-    @Override
-    public void addFormatters(@NonNull FormatterRegistry registry) {
-        DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
-        registrar.setTimeFormatter(DateTimeFormatter.ofPattern(DatePattern.NORM_TIME_PATTERN));
-        registrar.setDateFormatter(DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN));
-        registrar.setDateTimeFormatter(DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN));
-        registrar.registerFormatters(registry);
-    }
-
+	@Override
+	public void addFormatters(@NonNull FormatterRegistry registry) {
+		DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
+		registrar.setTimeFormatter(DateTimeFormatter.ofPattern(DatePattern.NORM_TIME_PATTERN));
+		registrar.setDateFormatter(DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN));
+		registrar.setDateTimeFormatter(DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN));
+		registrar.registerFormatters(registry);
+	}
 
 }

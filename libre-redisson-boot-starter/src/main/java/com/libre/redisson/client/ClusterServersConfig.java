@@ -28,4 +28,5 @@ public class ClusterServersConfig extends BaseMasterSlaveServersConfig {
 	 * RedissonUtils cluster scan interval in milliseconds
 	 */
 	private int scanInterval = 5000;
+
 }

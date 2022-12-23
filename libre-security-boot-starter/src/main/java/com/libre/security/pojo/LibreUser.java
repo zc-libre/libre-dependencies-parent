@@ -24,8 +24,6 @@ public class LibreUser extends User implements OAuth2AuthenticatedPrincipal {
 	@Getter
 	private final Long id;
 
-
-
 	/**
 	 * 手机号
 	 */
@@ -33,8 +31,8 @@ public class LibreUser extends User implements OAuth2AuthenticatedPrincipal {
 	private final String phone;
 
 	public LibreUser(Long id, String username, String password, String phone, boolean enabled,
-					 boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked,
-					 Collection<? extends GrantedAuthority> authorities) {
+			boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked,
+			Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		this.id = id;
 

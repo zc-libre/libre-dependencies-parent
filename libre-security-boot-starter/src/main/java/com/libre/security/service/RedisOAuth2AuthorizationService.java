@@ -53,14 +53,16 @@ public class RedisOAuth2AuthorizationService implements OAuth2AuthorizationServi
 
 		if (isRefreshToken(authorization)) {
 			OAuth2RefreshToken refreshToken = Objects.requireNonNull(authorization.getRefreshToken()).getToken();
-			long between = ChronoUnit.SECONDS.between(Objects.requireNonNull(refreshToken.getIssuedAt()), refreshToken.getExpiresAt());
+			long between = ChronoUnit.SECONDS.between(Objects.requireNonNull(refreshToken.getIssuedAt()),
+					refreshToken.getExpiresAt());
 			redisTemplate.opsForValue().set(buildKey(OAuth2ParameterNames.REFRESH_TOKEN, refreshToken.getTokenValue()),
 					authorization, between, TimeUnit.SECONDS);
 		}
 
 		if (isAccessToken(authorization)) {
 			OAuth2AccessToken accessToken = authorization.getAccessToken().getToken();
-			long between = ChronoUnit.SECONDS.between(Objects.requireNonNull(accessToken.getIssuedAt()), accessToken.getExpiresAt());
+			long between = ChronoUnit.SECONDS.between(Objects.requireNonNull(accessToken.getIssuedAt()),
+					accessToken.getExpiresAt());
 			redisTemplate.opsForValue().set(buildKey(OAuth2ParameterNames.ACCESS_TOKEN, accessToken.getTokenValue()),
 					authorization, between, TimeUnit.SECONDS);
 		}

@@ -10,16 +10,18 @@ import java.time.Duration;
 /**
  * cache key 封装
  *
-
+ *
  */
 @Getter
 @ToString
 @AllArgsConstructor
 public class CacheKey {
+
 	/**
 	 * redis key
 	 */
 	private String key;
+
 	/**
 	 * 超时时间 秒
 	 */

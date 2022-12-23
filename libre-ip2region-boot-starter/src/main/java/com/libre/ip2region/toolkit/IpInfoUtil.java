@@ -13,13 +13,13 @@ import java.util.regex.Pattern;
  * @author L.cm
  */
 public class IpInfoUtil {
+
 	private static final Pattern SPLIT_PATTERN = Pattern.compile("\\|");
 
 	private static final String ZERO = "0";
 
 	/**
 	 * 将 DataBlock 转化为 IpInfo
-	 *
 	 * @param region region
 	 * @return IpInfo
 	 */
@@ -44,7 +44,6 @@ public class IpInfoUtil {
 
 	/**
 	 * 数据过滤，因为 ip2Region 采用 0 填充的没有数据的字段
-	 *
 	 * @param info info
 	 * @return info
 	 */
@@ -59,8 +58,7 @@ public class IpInfoUtil {
 
 	/**
 	 * 读取 IpInfo
-	 *
-	 * @param ipInfo   IpInfo
+	 * @param ipInfo IpInfo
 	 * @param function Function
 	 * @return info
 	 */
@@ -71,4 +69,5 @@ public class IpInfoUtil {
 		}
 		return function.apply(ipInfo);
 	}
+
 }

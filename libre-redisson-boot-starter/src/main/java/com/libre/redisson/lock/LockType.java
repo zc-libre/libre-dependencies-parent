@@ -6,6 +6,7 @@ package com.libre.redisson.lock;
  * @author lcm
  */
 public enum LockType {
+
 	/**
 	 * 重入锁
 	 */
@@ -14,4 +15,5 @@ public enum LockType {
 	 * 公平锁
 	 */
 	FAIR
+
 }

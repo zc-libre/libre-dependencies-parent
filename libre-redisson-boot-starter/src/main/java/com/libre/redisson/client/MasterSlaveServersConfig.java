@@ -29,4 +29,5 @@ public class MasterSlaveServersConfig extends BaseMasterSlaveServersConfig {
 	 * Database index used for RedissonUtils connection
 	 */
 	private int database = 0;
+
 }

@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Configuration;
 public class RedissonLockConfiguration {
 
 	private final RedissonClient client;
+
 	private final RedisNameResolver resolver;
 
 	@Bean
@@ -32,6 +33,5 @@ public class RedissonLockConfiguration {
 	public RedisLockAspect redisLockAspect(RedisLockClient redisLockClient) {
 		return new RedisLockAspect(redisLockClient);
 	}
-
 
 }

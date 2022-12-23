@@ -12,7 +12,6 @@ public interface CheckedComparator<T> extends Serializable {
 
 	/**
 	 * Compares its two arguments for order.
-	 *
 	 * @param o1 o1
 	 * @param o2 o2
 	 * @return int

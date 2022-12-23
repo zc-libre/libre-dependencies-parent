@@ -73,11 +73,12 @@ public class CustomOpaqueTokenIntrospector implements OpaqueTokenIntrospector, A
 		catch (Exception ex) {
 			log.error("资源服务器 introspect Token error {}", ex.getLocalizedMessage());
 		}
-		return  (LibreUser) userDetails;
+		return (LibreUser) userDetails;
 	}
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
+
 }

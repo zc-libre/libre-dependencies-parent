@@ -28,6 +28,7 @@ import java.util.*;
 public class PermitAllUrlProperties implements InitializingBean, ApplicationContextAware {
 
 	private ApplicationContext applicationContext;
+
 	private static final String PATTERN = "\\{(.*?)\\}";
 
 	private static final String[] DEFAULT_IGNORE_URLS = new String[] { "/actuator/**", "/error", "/v3/api-docs" };
@@ -39,7 +40,8 @@ public class PermitAllUrlProperties implements InitializingBean, ApplicationCont
 	@Override
 	public void afterPropertiesSet() {
 		urls.addAll(Arrays.asList(DEFAULT_IGNORE_URLS));
-		RequestMappingHandlerMapping mapping = (RequestMappingHandlerMapping) applicationContext.getBean("requestMappingHandlerMapping");
+		RequestMappingHandlerMapping mapping = (RequestMappingHandlerMapping) applicationContext
+				.getBean("requestMappingHandlerMapping");
 		Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
 
 		map.keySet().forEach(info -> {
@@ -61,4 +63,5 @@ public class PermitAllUrlProperties implements InitializingBean, ApplicationCont
 	public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
+
 }

@@ -9,11 +9,7 @@ import java.sql.Statement;
  * @author ZC
  * @date 2021/11/21 3:23
  */
-@Intercepts({@Signature(
-	type = ResultSetHandler.class,
-	method = "handleResultSets",
-	args = {Statement.class}
-)})
+@Intercepts({ @Signature(type = ResultSetHandler.class, method = "handleResultSets", args = { Statement.class }) })
 public class DictBindInterceptor implements Interceptor {
 
 	private final DictBind dictBind;
@@ -34,4 +30,5 @@ public class DictBindInterceptor implements Interceptor {
 	public Object plugin(Object target) {
 		return target instanceof ResultSetHandler ? Plugin.wrap(target, this) : target;
 	}
+
 }

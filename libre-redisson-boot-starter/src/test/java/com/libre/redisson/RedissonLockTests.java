@@ -22,4 +22,5 @@ public class RedissonLockTests {
 	private void test(String val) {
 		System.out.println("lock...............");
 	}
+
 }

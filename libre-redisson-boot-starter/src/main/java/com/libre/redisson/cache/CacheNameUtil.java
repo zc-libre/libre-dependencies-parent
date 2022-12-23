@@ -17,7 +17,6 @@ public class CacheNameUtil {
 
 	/**
 	 * 从 cache name 中解析 ttl，例如： user:test#300ms，不带单位默认为 s 秒
-	 *
 	 * @param cacheName 缓存名
 	 * @return 超时时间
 	 */
@@ -29,4 +28,5 @@ public class CacheNameUtil {
 		Duration duration = DurationStyle.detectAndParse(cacheArray[1], ChronoUnit.SECONDS);
 		return duration.toMillis();
 	}
+
 }

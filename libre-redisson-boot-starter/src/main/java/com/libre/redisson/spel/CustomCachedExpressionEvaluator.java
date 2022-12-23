@@ -76,8 +76,6 @@ public class CustomCachedExpressionEvaluator extends org.springframework.context
 		return getExpression(this.expressionCache, methodKey, expression).getValue(evalContext, valueType);
 	}
 
-
-
 	@Nullable
 	public String evalAsText(String expression, AnnotatedElementKey methodKey, EvaluationContext evalContext) {
 		return eval(expression, methodKey, evalContext, String.class);

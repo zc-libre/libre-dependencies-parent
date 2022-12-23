@@ -3,7 +3,6 @@ package com.libre.ip2region.core;
 import lombok.Data;
 import org.springframework.util.StringUtils;
 
-
 import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -21,18 +20,22 @@ public class IpInfo implements Serializable {
 	 * 国家
 	 */
 	private String country;
+
 	/**
 	 * 区域
 	 */
 	private String region;
+
 	/**
 	 * 省
 	 */
 	private String province;
+
 	/**
 	 * 城市
 	 */
 	private String city;
+
 	/**
 	 * 运营商
 	 */
@@ -40,7 +43,6 @@ public class IpInfo implements Serializable {
 
 	/**
 	 * 拼接完整的地址
-	 *
 	 * @return address
 	 */
 	public String getAddress() {
@@ -55,7 +57,6 @@ public class IpInfo implements Serializable {
 
 	/**
 	 * 拼接完整的地址
-	 *
 	 * @return address
 	 */
 	public String getAddressAndIsp() {

@@ -15,5 +15,6 @@ public interface IDataScopeProvider {
 	 * @param sqlCommandType /
 	 * @throws Exception /
 	 */
-    void sqlRender(Object[] obj, MappedStatement mappedStatement, SqlCommandType sqlCommandType) throws Exception;
+	void sqlRender(Object[] obj, MappedStatement mappedStatement, SqlCommandType sqlCommandType) throws Exception;
+
 }

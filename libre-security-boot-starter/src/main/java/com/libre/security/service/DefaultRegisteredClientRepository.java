@@ -84,7 +84,8 @@ public class DefaultRegisteredClientRepository implements RegisteredClientReposi
 	@Cacheable(value = "CLIENT_DETAILS", key = "#clientId", unless = "#result == null")
 	public RegisteredClient findByClientId(String clientId) {
 
-		SysOauthClientDetails clientDetails = Optional.ofNullable(clientDetailsService.getClientDetailsById(clientId).getData())
+		SysOauthClientDetails clientDetails = Optional
+				.ofNullable(clientDetailsService.getClientDetailsById(clientId).getData())
 				.orElseThrow(() -> new OAuthClientException("客户端查询异常，请检查数据库链接"));
 
 		RegisteredClient.Builder builder = RegisteredClient.withId(clientDetails.getClientId())
@@ -97,12 +98,13 @@ public class DefaultRegisteredClientRepository implements RegisteredClientReposi
 				.ifPresent(grants -> StringUtils.commaDelimitedListToSet(grants)
 						.forEach(s -> builder.authorizationGrantType(new AuthorizationGrantType(s))));
 		// 回调地址
-		Optional.ofNullable(clientDetails.getWebServerRedirectUri()).ifPresent(redirectUri -> Arrays
-				.stream(redirectUri.split(StringPool.COMMA)).filter(StringUtil::isNotBlank).forEach(builder::redirectUri));
+		Optional.ofNullable(clientDetails.getWebServerRedirectUri())
+				.ifPresent(redirectUri -> Arrays.stream(redirectUri.split(StringPool.COMMA))
+						.filter(StringUtil::isNotBlank).forEach(builder::redirectUri));
 
 		// scope
-		Optional.ofNullable(clientDetails.getScope()).ifPresent(
-				scope -> Arrays.stream(scope.split(StringPool.COMMA)).filter(StringUtil::isNotBlank).forEach(builder::scope));
+		Optional.ofNullable(clientDetails.getScope()).ifPresent(scope -> Arrays.stream(scope.split(StringPool.COMMA))
+				.filter(StringUtil::isNotBlank).forEach(builder::scope));
 
 		return builder
 				.tokenSettings(TokenSettings.builder().accessTokenFormat(OAuth2TokenFormat.REFERENCE)
@@ -112,9 +114,7 @@ public class DefaultRegisteredClientRepository implements RegisteredClientReposi
 								Duration.ofSeconds(Optional.ofNullable(clientDetails.getRefreshTokenValidity())
 										.orElse(refreshTokenValiditySeconds)))
 						.build())
-				.clientSettings(ClientSettings.builder()
-						.requireAuthorizationConsent(true).build())
-				.build();
+				.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build()).build();
 
 	}
 

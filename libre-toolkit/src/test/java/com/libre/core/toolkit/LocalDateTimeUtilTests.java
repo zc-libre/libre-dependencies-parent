@@ -14,8 +14,8 @@ public class LocalDateTimeUtilTests {
 	@Test
 	void startOfMonth() {
 
-
 		LocalDateTime localDateTime = LocalDateTimeUtils.beginOfMouth();
 
 	}
+
 }

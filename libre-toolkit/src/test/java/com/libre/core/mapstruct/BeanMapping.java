@@ -12,5 +12,4 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface BeanMapping extends BaseMapping<SourceBean, TargetBean> {
 
-
 }
