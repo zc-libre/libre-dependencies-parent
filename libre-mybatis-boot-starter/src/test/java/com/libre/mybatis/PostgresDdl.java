@@ -1,6 +1,7 @@
 package com.libre.mybatis;
 
-import com.libre.mybatis.ddl.SimpleDdl;
+
+import com.baomidou.mybatisplus.extension.ddl.SimpleDdl;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -13,7 +14,6 @@ public class PostgresDdl extends SimpleDdl {
 	private final DataSource dataSource;
 
 	public PostgresDdl(DataSource dataSource) {
-		super(dataSource);
 		this.dataSource = dataSource;
 	}
 

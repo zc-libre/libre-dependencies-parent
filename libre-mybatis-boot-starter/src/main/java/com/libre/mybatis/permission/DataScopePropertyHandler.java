@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Libre
  */
 @Slf4j
-public class DataScopePropertyHandler {
+public class  DataScopePropertyHandler {
 
     private static Map<String, DataScopeProperty> dataScopePropertyMap;
 
