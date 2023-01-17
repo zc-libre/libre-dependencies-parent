@@ -20,7 +20,7 @@ ext {
     findbugsVersion = "3.0.2"
     guavaVersion = "31.1-jre"
     mapstructVersion = "1.5.1.Final"
-    mybatisPlusVersion = "3.5.2"
+    mybatisPlusVersion = "3.5.3"
     okHttpVersion = "4.10.0"
     springBootVersion = "2.7.6"
     springCloudVersion = "2021.0.3"
