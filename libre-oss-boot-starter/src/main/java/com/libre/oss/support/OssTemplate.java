@@ -82,6 +82,18 @@ public class OssTemplate implements InitializingBean {
 	}
 
 	/**
+	 * 根据bucketName查询文件
+	 * @param bucketName bucket名称
+	 * @see <a href=
+	 * "<a href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ListObjects">http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ListObjects</a>">AWS
+	 * API Documentation</a>
+	 */
+	public List<S3ObjectSummary> getAllObjects(String bucketName) {
+		ObjectListing objectListing = amazonS3.listObjects(bucketName);
+		return new ArrayList<>(objectListing.getObjectSummaries());
+	}
+
+	/**
 	 * 根据文件前置查询文件
 	 * @param bucketName bucket名称
 	 * @param prefix 前缀

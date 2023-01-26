@@ -1,6 +1,6 @@
 libre:
   oss:
-    endpoint: http://101.42.252.139:9000
+    endpoint: http://101.42.252.139:9090
     access-key: libre
     secret-key: 894659968
 
