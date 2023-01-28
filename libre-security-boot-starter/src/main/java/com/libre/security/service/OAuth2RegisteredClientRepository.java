@@ -28,7 +28,7 @@ import java.util.Optional;
  * @date 2022/5/29
  */
 @RequiredArgsConstructor
-public class DefaultRegisteredClientRepository implements RegisteredClientRepository {
+public class OAuth2RegisteredClientRepository implements RegisteredClientRepository {
 
 	/**
 	 * 刷新令牌有效期默认 30 天
@@ -40,7 +40,7 @@ public class DefaultRegisteredClientRepository implements RegisteredClientReposi
 	 */
 	private final static int accessTokenValiditySeconds = 60 * 60 * 12;
 
-	private final RemoteClientDetailsService clientDetailsService;
+	private final OAuth2ClientDetailsService clientDetailsService;
 
 	/**
 	 * Saves the registered client.
@@ -83,7 +83,7 @@ public class DefaultRegisteredClientRepository implements RegisteredClientReposi
 	@Cacheable(value = "CLIENT_DETAILS", key = "#clientId", unless = "#result == null")
 	public RegisteredClient findByClientId(String clientId) {
 
-		SysOauthClientDetails clientDetails = Optional.ofNullable(clientDetailsService.getClientDetailsById(clientId).getData())
+		SysOauthClientDetails clientDetails = Optional.ofNullable(clientDetailsService.getClientDetailsById(clientId))
 				.orElseThrow(() -> new OAuthClientException("客户端查询异常，请检查数据库链接"));
 
 		RegisteredClient.Builder builder = RegisteredClient.withId(clientDetails.getClientId())

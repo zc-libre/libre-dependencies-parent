@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * @author caiqy
  * @date 2020.05.15
  */
-public class LibreBearerTokenExtractor implements BearerTokenResolver {
+public class OAuth2BearerTokenExtractor implements BearerTokenResolver {
 
 	private static final Pattern authorizationPattern = Pattern.compile("^Bearer (?<token>[a-zA-Z0-9-:._~+/]+=*)$",
 			Pattern.CASE_INSENSITIVE);
@@ -33,7 +33,7 @@ public class LibreBearerTokenExtractor implements BearerTokenResolver {
 
 	private final PermitAllUrlProperties urlProperties;
 
-	public LibreBearerTokenExtractor(PermitAllUrlProperties urlProperties) {
+	public OAuth2BearerTokenExtractor(PermitAllUrlProperties urlProperties) {
 		this.urlProperties = urlProperties;
 	}
 

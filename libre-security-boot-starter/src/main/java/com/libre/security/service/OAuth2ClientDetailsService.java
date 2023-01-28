@@ -28,19 +28,19 @@ import java.util.List;
  * @author lengleng
  * @date 2020/12/05
  */
-public interface RemoteClientDetailsService {
+public interface OAuth2ClientDetailsService {
 
 	/**
 	 * 通过clientId 查询客户端信息
 	 * @param clientId 用户名
 	 * @return R
 	 */
-	R<SysOauthClientDetails> getClientDetailsById(String clientId);
+	SysOauthClientDetails getClientDetailsById(String clientId);
 
 	/**
 	 * 查询全部客户端
 	 * @return R
 	 */
-	R<List<SysOauthClientDetails>> listClientDetails();
+	List<SysOauthClientDetails> listClientDetails();
 
 }

@@ -25,7 +25,7 @@ public class ResourceServerConfiguration {
 
 	private final PermitAllUrlProperties permitAllUrl;
 
-	private final LibreBearerTokenExtractor libreBearerTokenExtractor;
+	private final OAuth2BearerTokenExtractor OAuth2BearerTokenExtractor;
 
 	private final OpaqueTokenIntrospector customOpaqueTokenIntrospector;
 
@@ -38,7 +38,7 @@ public class ResourceServerConfiguration {
 				.oauth2ResourceServer(
 						oauth2 -> oauth2.opaqueToken(token -> token.introspector(customOpaqueTokenIntrospector))
 								.authenticationEntryPoint(resourceAuthExceptionEntryPoint)
-								.bearerTokenResolver(libreBearerTokenExtractor))
+								.bearerTokenResolver(OAuth2BearerTokenExtractor))
 				.headers().frameOptions().disable().and().csrf().disable();
 
 		return http.build();

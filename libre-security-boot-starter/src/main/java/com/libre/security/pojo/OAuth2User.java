@@ -14,7 +14,7 @@ import java.util.Map;
  * @author lengleng
  * @date 2019/2/1 扩展用户信息
  */
-public class LibreUser extends User implements OAuth2AuthenticatedPrincipal {
+public class OAuth2User extends User implements OAuth2AuthenticatedPrincipal {
 
 	private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
@@ -32,12 +32,11 @@ public class LibreUser extends User implements OAuth2AuthenticatedPrincipal {
 	@Getter
 	private final String phone;
 
-	public LibreUser(Long id, String username, String password, String phone, boolean enabled,
-					 boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked,
-					 Collection<? extends GrantedAuthority> authorities) {
+	public OAuth2User(Long id, String username, String password, String phone, boolean enabled,
+					  boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked,
+					  Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		this.id = id;
-
 		this.phone = phone;
 	}
 
