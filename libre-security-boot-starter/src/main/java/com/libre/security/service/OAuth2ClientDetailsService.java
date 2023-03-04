@@ -19,8 +19,7 @@
 
 package com.libre.security.service;
 
-import com.libre.security.pojo.SysOauthClientDetails;
-import com.libre.toolkit.result.R;
+import com.libre.security.pojo.Oauth2ClientDetails;
 
 import java.util.List;
 
@@ -35,12 +34,12 @@ public interface OAuth2ClientDetailsService {
 	 * @param clientId 用户名
 	 * @return R
 	 */
-	SysOauthClientDetails getClientDetailsById(String clientId);
+	Oauth2ClientDetails getClientDetailsById(String clientId);
 
 	/**
 	 * 查询全部客户端
 	 * @return R
 	 */
-	List<SysOauthClientDetails> listClientDetails();
+	List<Oauth2ClientDetails> listClientDetails();
 
 }

@@ -3,7 +3,7 @@ package com.libre.security.annotation;
 import com.libre.security.component.ResourceServerAutoConfiguration;
 import com.libre.security.component.ResourceServerConfiguration;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
 import java.lang.annotation.*;
 
@@ -17,7 +17,7 @@ import java.lang.annotation.*;
 @Inherited
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity
 @Import({ ResourceServerAutoConfiguration.class, ResourceServerConfiguration.class})
 public @interface EnableResourceServer {
 

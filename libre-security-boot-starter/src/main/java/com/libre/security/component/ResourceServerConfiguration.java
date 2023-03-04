@@ -32,7 +32,7 @@ public class ResourceServerConfiguration {
 	@Bean
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeRequests(authorizeRequests -> authorizeRequests
+		http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
 				.antMatchers(permitAllUrl.getUrls().toArray(new String[0])).permitAll().anyRequest()
 				.authenticated())
 				.oauth2ResourceServer(

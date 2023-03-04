@@ -1,6 +1,7 @@
 package com.libre.redis.autoconfigure;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
 import com.libre.redis.cache.RedisUtils;
 import com.libre.redis.serializer.ProtoStuffSerializer;
 import com.libre.redis.serializer.RedisKeySerializer;
+import com.libre.toolkit.json.JsonUtil;
 import com.libre.toolkit.time.LocalDateTimeModule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,9 +58,11 @@ public class RedisTemplateConfiguration {
 		if (LibreRedisProperties.SerializerType.PROTOSTUFF == serializerType) {
 			return new ProtoStuffSerializer();
 		}
-		// jackson findAndRegisterModules，use copy
-		ObjectMapper objectMapper = objectProvider.getIfAvailable(ObjectMapper::new).copy();
 
+		// jackson findAndRegisterModules，use copy
+		ObjectMapper objectMapper = JsonUtil.getInstance().copy();
+		objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		objectMapper.activateDefaultTyping(objectMapper.getPolymorphicTypeValidator(), DefaultTyping.NON_FINAL, As.PROPERTY);
 		// findAndRegisterModules
 		objectMapper.findAndRegisterModules();
 		objectMapper.registerModule(LocalDateTimeModule.INSTANCE);

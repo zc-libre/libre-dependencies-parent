@@ -25,7 +25,7 @@ public interface OAuth2UserDetailsService extends UserDetailsService, Ordered {
 	 * @return 排序值
 	 */
 	default int getOrder() {
-		return Integer.MIN_VALUE;
+		return 0;
 	}
 
 

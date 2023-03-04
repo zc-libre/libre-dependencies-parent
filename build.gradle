@@ -22,9 +22,10 @@ ext {
     mapstructVersion = "1.5.1.Final"
     mybatisPlusVersion = "3.5.3"
     okHttpVersion = "4.10.0"
-    springBootVersion = "2.7.6"
+    springBootVersion = "2.7.8"
     springCloudVersion = "2021.0.3"
     springNativeVersion = '0.10.5'
+    oauth2ServerVersion = '0.4.0'
     swaggerAnnotationsVersion = "1.6.6"
     swagger3xAnnotationsVersion = "2.1.2"
     jsoupVersion = "1.15.3"

@@ -1,7 +1,18 @@
 dependencies {
     api project(":libre-toolkit")
-    api project(":libre-redis-boot-starter")
-    api "io.springboot.security:spring-security-oauth2-authorization-server:0.3.0"
+    api ("org.springframework.security:spring-security-oauth2-authorization-server:${oauth2ServerVersion}") {
+        exclude group: "org.springframework.security", module: "spring-security-config"
+        exclude group: "org.springframework.security", module: "spring-security-web"
+        exclude group: "org.springframework.security", module: "spring-security-oauth2-core"
+        exclude group: "org.springframework.security", module: "spring-security-oauth2-jose"
+        exclude group: "org.springframework.security", module: "spring-security-oauth2-resource-server"
+    }
+    api "org.springframework.security:spring-security-config:5.7.6"
+    api "org.springframework.security:spring-security-web:5.7.6"
+    api "org.springframework.security:spring-security-oauth2-core:5.7.6"
+    api "org.springframework.security:spring-security-oauth2-jose:5.7.6"
+    api "org.springframework.security:spring-security-oauth2-resource-server:5.7.6"
+    implementation ("org.springframework.boot:spring-boot-starter-data-redis")
     implementation "org.springframework.boot:spring-boot-autoconfigure"
     implementation "org.springframework.boot:spring-boot-starter-aop"
     implementation 'org.springframework:spring-webmvc'
