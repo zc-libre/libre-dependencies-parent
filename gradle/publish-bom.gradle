@@ -16,6 +16,7 @@ publishing {
     }
     publications {
         mavenJava(MavenPublication) {
+            from components.javaPlatform
             pom {
                 name = POM_NAME
                 description = POM_DESCRIPTION

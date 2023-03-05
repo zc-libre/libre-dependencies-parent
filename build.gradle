@@ -4,45 +4,21 @@ buildscript {
     }
 }
 
-
 plugins {
-    id "org.sonarqube" version "3.0"
+    id "base"
+    id "org.sonarqube" version "3.4.0.2513"
 }
 
 ext {
     javaVersion = JavaVersion.VERSION_17
-    awssdkVersion = "1.12.213"
-    cglibVersion = "3.3.0"
-    commonsLang3Version = "3.12.0"
-    commonsCollections4Version = "4.4"
-    commonsIOVersion = "2.11.0"
-    commonsCodecVersion = "1.15"
-    findbugsVersion = "3.0.2"
-    guavaVersion = "31.1-jre"
-    mapstructVersion = "1.5.1.Final"
-    mybatisPlusVersion = "3.5.3"
-    okHttpVersion = "4.10.0"
-    springBootVersion = "3.0.0"
-    springCloudVersion = "2022.0.0"
-    springNativeVersion = '0.10.5'
-    swaggerAnnotationsVersion = "1.6.6"
-    swagger3xAnnotationsVersion = "2.1.2"
-    jsoupVersion = "1.15.3"
-    gsonVersion = "2.8.9"
-    easyCaptchaVersion = "1.6.2"
-    redissonVersion = "3.17.3"
-    lombokVersion = "1.18.22"
+    commons = (subprojects - project(":libre-dependencies"))
 }
 
-
-// 编译脚本
-
-configure(subprojects) {
+subprojects {
     group = GROUPID
     version = VERSION
     apply plugin: 'signing'
     apply plugin: 'maven-publish'
-    // apply plugin: 'io.spring.javaformat'
     // ci 自动发布 SNAPSHOT 版本
     task publishSnapshot(type: GradleBuild) {
         if (VERSION.endsWith('SNAPSHOT')) {
@@ -51,8 +27,9 @@ configure(subprojects) {
     }
 }
 
-configure(subprojects - project(":libre-dependencies")) {
+configure(commons) {
     apply plugin: "java-library"
+    apply from: "${rootProject.projectDir}/gradle/version.gradle"
     apply from: "${rootProject.projectDir}/gradle/publish-jar.gradle"
     sourceCompatibility = "$javaVersion"
     targetCompatibility = "$javaVersion"
@@ -72,23 +49,38 @@ configure(subprojects - project(":libre-dependencies")) {
         mavenCentral()
     }
 
-    dependencies {
-        // import BOM.
-        implementation platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
-        implementation platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
-        compileOnly "org.slf4j:slf4j-api"
-        compileOnly "jakarta.servlet:jakarta.servlet-api"
-        compileOnly "org.projectlombok:lombok:$lombokVersion"
-        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
-        testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
-        compileOnly "com.google.code.findbugs:jsr305:$findbugsVersion"
-        testCompileOnly "com.google.code.findbugs:jsr305:$findbugsVersion"
-        testCompileOnly "org.projectlombok:lombok:$lombokVersion"
-        testCompileOnly "org.springframework:spring-test"
-        testImplementation "org.slf4j:slf4j-api"
-        testImplementation "junit:junit"
+    configurations {
+        management {
+            canBeConsumed = false
+            canBeResolved = false
+            visible = false
+        }
+        compileClasspath.extendsFrom(management)
+        testCompileClasspath.extendsFrom(management)
+        runtimeClasspath.extendsFrom(management)
+        testRuntimeClasspath.extendsFrom(management)
+        annotationProcessor.extendsFrom(management)
+        testAnnotationProcessor.extendsFrom(management)
     }
 
+    dependencies {
+        // import BOM.
+        management platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
+        management platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+        management platform(project(":libre-dependencies"))
+        compileOnly "org.slf4j:slf4j-api"
+        compileOnly "jakarta.servlet:jakarta.servlet-api"
+        compileOnly "org.projectlombok:lombok"
+        annotationProcessor "org.projectlombok:lombok"
+        testAnnotationProcessor "org.projectlombok:lombok"
+        testCompileOnly "org.projectlombok:lombok"
+        testCompileOnly "org.springframework:spring-test"
+        testImplementation "org.slf4j:slf4j-api"
+        testImplementation "org.junit.jupiter:junit-jupiter"
+    }
+
+    compileJava.options.compilerArgs.add '-parameters'
+    compileTestJava.options.compilerArgs.add '-parameters'
     compileJava.dependsOn(processResources)
 }
 

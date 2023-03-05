@@ -15,6 +15,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -32,7 +33,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @EnableScheduling
 @AutoConfiguration
 @RequiredArgsConstructor
-public class LibreExecutorAutoConfiguration extends AsyncConfigurerSupport {
+public class LibreExecutorAutoConfiguration implements AsyncConfigurer {
 
 	private final Environment environment;
 

@@ -20,7 +20,7 @@ import java.util.function.Supplier;
  * @author Libre
  */
 @Getter
-@SuppressWarnings({ "unchecked" })
+@SuppressWarnings({"unchecked", "deprecation"})
 public class RedisUtils {
 
 	private final RedisTemplate<String, Object> redisTemplate;
@@ -74,7 +74,7 @@ public class RedisUtils {
 	 * @param <T> 泛型
 	 */
 	public <T> void set(String key, T value, Function<T, byte[]> mapper) {
-		redisTemplate.execute((RedisCallback<Object>) redis -> redis.set(keySerialize(key), mapper.apply(value)));
+		redisTemplate.execute((RedisCallback<Object>) redis -> redis.stringCommands().set(keySerialize(key), mapper.apply(value)));
 	}
 
 	/**

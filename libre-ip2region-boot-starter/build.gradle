@@ -1,6 +1,6 @@
 dependencies {
+    api project(":libre-toolkit")
     implementation "org.springframework.boot:spring-boot-autoconfigure"
-    compileOnly "org.springframework.cloud:spring-cloud-context"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
 }
 

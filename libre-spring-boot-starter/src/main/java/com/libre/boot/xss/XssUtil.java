@@ -29,7 +29,7 @@ public class XssUtil {
 	 * @return 清理后的 text
 	 */
 	public static String trim(String text, boolean trim) {
-		return trim ? StringUtils.trimWhitespace(text) : text;
+		return trim ? text.strip() : text;
 	}
 
 	/**

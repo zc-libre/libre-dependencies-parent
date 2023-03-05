@@ -1,4 +1,4 @@
-rootProject.name = 'libre-dependencies-parent'
+rootProject.name = "libre-dependencies-parent"
 include 'libre-dependencies'
 include 'libre-toolkit'
 include 'libre-spring-boot-starter'
@@ -7,8 +7,8 @@ include 'libre-mybatis-boot-starter'
 include 'libre-captcha-boot-starter'
 include 'libre-redisson-boot-starter'
 include 'libre-swagger-boot-starter'
-include 'libre-ip2region-boot-starter'
 include 'libre-oss-boot-starter'
 include 'libre-security-boot-starter'
 include 'libre-monitor'
+include 'libre-ip2region-boot-starter'
 
