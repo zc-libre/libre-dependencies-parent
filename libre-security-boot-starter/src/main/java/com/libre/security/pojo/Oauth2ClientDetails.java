@@ -1,8 +1,8 @@
 package com.libre.security.pojo;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
-import jakarta.validation.constraints.NotBlank;
 
 /**
  * <p>
@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotBlank;
  * @since 2019/2/1
  */
 @Data
-public class SysOauthClientDetails {
+public class Oauth2ClientDetails {
 
 	private static final long serialVersionUID = 1L;
 

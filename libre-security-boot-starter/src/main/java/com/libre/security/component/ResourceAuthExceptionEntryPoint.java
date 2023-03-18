@@ -3,6 +3,8 @@ package com.libre.security.component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libre.toolkit.result.R;
 import com.libre.toolkit.result.ResultCode;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
@@ -11,8 +13,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.server.resource.InvalidBearerTokenException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
@@ -30,7 +30,7 @@ public class ResourceAuthExceptionEntryPoint implements AuthenticationEntryPoint
 	@Override
 	@SneakyThrows
 	public void commence(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException authException) {
+						 AuthenticationException authException) {
 
 		response.setCharacterEncoding(StandardCharsets.UTF_8.name());
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);

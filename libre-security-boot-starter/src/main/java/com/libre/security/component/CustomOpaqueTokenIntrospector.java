@@ -1,7 +1,7 @@
 package com.libre.security.component;
 
-import com.libre.security.pojo.LibreUser;
-import com.libre.security.service.LibreUserDetailsService;
+import com.libre.security.pojo.OAuth2User;
+import com.libre.security.service.OAuth2UserDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -51,10 +51,10 @@ public class CustomOpaqueTokenIntrospector implements OpaqueTokenIntrospector, A
 					AuthorityUtils.NO_AUTHORITIES, oldAuthorization.getPrincipalName());
 		}
 
-		Map<String, LibreUserDetailsService> userDetailsServiceMap = applicationContext
-				.getBeansOfType(LibreUserDetailsService.class);
+		Map<String, OAuth2UserDetailsService> userDetailsServiceMap = applicationContext
+				.getBeansOfType(OAuth2UserDetailsService.class);
 
-		Optional<LibreUserDetailsService> optional = userDetailsServiceMap.values().stream()
+		Optional<OAuth2UserDetailsService> optional = userDetailsServiceMap.values().stream()
 				.filter(service -> service.support(Objects.requireNonNull(oldAuthorization).getRegisteredClientId(),
 						oldAuthorization.getAuthorizationGrantType().getValue()))
 				.max(Comparator.comparingInt(Ordered::getOrder));
@@ -63,8 +63,8 @@ public class CustomOpaqueTokenIntrospector implements OpaqueTokenIntrospector, A
 		try {
 			Object principal = Objects.requireNonNull(oldAuthorization).getAttributes().get(Principal.class.getName());
 			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = (UsernamePasswordAuthenticationToken) principal;
-			String name = usernamePasswordAuthenticationToken.getName();
-			userDetails = optional.get().loadUserByUsername(name);
+			Object tokenPrincipal = usernamePasswordAuthenticationToken.getPrincipal();
+			userDetails = optional.get().loadUserByUser((OAuth2User) tokenPrincipal);
 		}
 		catch (UsernameNotFoundException notFoundException) {
 			log.warn("用户不不存在 {}", notFoundException.getLocalizedMessage());
@@ -73,12 +73,11 @@ public class CustomOpaqueTokenIntrospector implements OpaqueTokenIntrospector, A
 		catch (Exception ex) {
 			log.error("资源服务器 introspect Token error {}", ex.getLocalizedMessage());
 		}
-		return (LibreUser) userDetails;
+		return  (OAuth2User) userDetails;
 	}
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
-
 }

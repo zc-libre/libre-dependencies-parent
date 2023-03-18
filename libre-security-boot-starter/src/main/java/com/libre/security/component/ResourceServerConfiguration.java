@@ -25,21 +25,21 @@ public class ResourceServerConfiguration {
 
 	private final PermitAllUrlProperties permitAllUrl;
 
-	private final LibreBearerTokenExtractor libreBearerTokenExtractor;
+	private final OAuth2BearerTokenExtractor OAuth2BearerTokenExtractor;
 
 	private final OpaqueTokenIntrospector customOpaqueTokenIntrospector;
 
 	@Bean
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeRequests(
-				authorizeRequests -> authorizeRequests.requestMatchers(permitAllUrl.getUrls().toArray(new String[0]))
-						.permitAll().anyRequest().authenticated())
-				.oauth2ResourceServer(
-						oauth2 -> oauth2.opaqueToken(token -> token.introspector(customOpaqueTokenIntrospector))
-								.authenticationEntryPoint(resourceAuthExceptionEntryPoint)
-								.bearerTokenResolver(libreBearerTokenExtractor))
-				.headers().frameOptions().disable().and().csrf().disable();
+		http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
+				.requestMatchers(permitAllUrl.getUrls().toArray(new String[0])).permitAll().anyRequest()
+				.authenticated())
+			.oauth2ResourceServer(
+				oauth2 -> oauth2.opaqueToken(token -> token.introspector(customOpaqueTokenIntrospector))
+					.authenticationEntryPoint(resourceAuthExceptionEntryPoint)
+					.bearerTokenResolver(OAuth2BearerTokenExtractor))
+			.headers().frameOptions().disable().and().csrf().disable();
 
 		return http.build();
 	}

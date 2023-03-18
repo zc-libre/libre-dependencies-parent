@@ -1,14 +1,13 @@
 package com.libre.security.service;
 
 import com.libre.security.constant.SecurityConstants;
-import com.libre.security.pojo.SysOauthClientDetails;
+import com.libre.security.pojo.Oauth2ClientDetails;
 import com.libre.security.util.OAuthClientException;
 import com.libre.toolkit.core.StringPool;
 import com.libre.toolkit.core.StringUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.cache.annotation.Cacheable;
-
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
@@ -29,7 +28,7 @@ import java.util.Optional;
  * @date 2022/5/29
  */
 @RequiredArgsConstructor
-public class DefaultRegisteredClientRepository implements RegisteredClientRepository {
+public class OAuth2RegisteredClientRepository implements RegisteredClientRepository {
 
 	/**
 	 * 刷新令牌有效期默认 30 天
@@ -41,7 +40,7 @@ public class DefaultRegisteredClientRepository implements RegisteredClientReposi
 	 */
 	private final static int accessTokenValiditySeconds = 60 * 60 * 12;
 
-	private final RemoteClientDetailsService clientDetailsService;
+	private final OAuth2ClientDetailsService clientDetailsService;
 
 	/**
 	 * Saves the registered client.
@@ -84,8 +83,7 @@ public class DefaultRegisteredClientRepository implements RegisteredClientReposi
 	@Cacheable(value = "CLIENT_DETAILS", key = "#clientId", unless = "#result == null")
 	public RegisteredClient findByClientId(String clientId) {
 
-		SysOauthClientDetails clientDetails = Optional
-				.ofNullable(clientDetailsService.getClientDetailsById(clientId).getData())
+		Oauth2ClientDetails clientDetails = Optional.ofNullable(clientDetailsService.getClientDetailsById(clientId))
 				.orElseThrow(() -> new OAuthClientException("客户端查询异常，请检查数据库链接"));
 
 		RegisteredClient.Builder builder = RegisteredClient.withId(clientDetails.getClientId())
@@ -98,13 +96,12 @@ public class DefaultRegisteredClientRepository implements RegisteredClientReposi
 				.ifPresent(grants -> StringUtils.commaDelimitedListToSet(grants)
 						.forEach(s -> builder.authorizationGrantType(new AuthorizationGrantType(s))));
 		// 回调地址
-		Optional.ofNullable(clientDetails.getWebServerRedirectUri())
-				.ifPresent(redirectUri -> Arrays.stream(redirectUri.split(StringPool.COMMA))
-						.filter(StringUtil::isNotBlank).forEach(builder::redirectUri));
+		Optional.ofNullable(clientDetails.getWebServerRedirectUri()).ifPresent(redirectUri -> Arrays
+				.stream(redirectUri.split(StringPool.COMMA)).filter(StringUtil::isNotBlank).forEach(builder::redirectUri));
 
 		// scope
-		Optional.ofNullable(clientDetails.getScope()).ifPresent(scope -> Arrays.stream(scope.split(StringPool.COMMA))
-				.filter(StringUtil::isNotBlank).forEach(builder::scope));
+		Optional.ofNullable(clientDetails.getScope()).ifPresent(
+				scope -> Arrays.stream(scope.split(StringPool.COMMA)).filter(StringUtil::isNotBlank).forEach(builder::scope));
 
 		return builder
 				.tokenSettings(TokenSettings.builder().accessTokenFormat(OAuth2TokenFormat.REFERENCE)
@@ -114,7 +111,9 @@ public class DefaultRegisteredClientRepository implements RegisteredClientReposi
 								Duration.ofSeconds(Optional.ofNullable(clientDetails.getRefreshTokenValidity())
 										.orElse(refreshTokenValiditySeconds)))
 						.build())
-				.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build()).build();
+				.clientSettings(ClientSettings.builder()
+						.requireAuthorizationConsent(true).build())
+				.build();
 
 	}
 
