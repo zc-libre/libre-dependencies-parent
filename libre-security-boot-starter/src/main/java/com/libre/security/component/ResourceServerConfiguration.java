@@ -7,6 +7,8 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -33,13 +35,14 @@ public class ResourceServerConfiguration {
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
-				.requestMatchers(permitAllUrl.getUrls().toArray(new String[0])).permitAll().anyRequest()
+				.requestMatchers(permitAllUrl.getUrls().toArray(new String[0]))
+				.permitAll()
+				.anyRequest()
 				.authenticated())
-			.oauth2ResourceServer(
-				oauth2 -> oauth2.opaqueToken(token -> token.introspector(customOpaqueTokenIntrospector))
-					.authenticationEntryPoint(resourceAuthExceptionEntryPoint)
-					.bearerTokenResolver(OAuth2BearerTokenExtractor))
-			.headers().frameOptions().disable().and().csrf().disable();
+			.oauth2ResourceServer(oauth2 -> oauth2.opaqueToken(token -> token.introspector(customOpaqueTokenIntrospector))
+				.authenticationEntryPoint(resourceAuthExceptionEntryPoint).bearerTokenResolver(OAuth2BearerTokenExtractor))
+			.headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+			.csrf(AbstractHttpConfigurer::disable);
 
 		return http.build();
 	}

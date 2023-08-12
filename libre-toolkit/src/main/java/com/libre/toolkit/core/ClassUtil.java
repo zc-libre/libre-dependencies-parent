@@ -26,4 +26,5 @@ public class ClassUtil extends ClassUtils {
 		return MethodUtils.getAnnotation(method, annotationType, true, true);
 	}
 
+
 }

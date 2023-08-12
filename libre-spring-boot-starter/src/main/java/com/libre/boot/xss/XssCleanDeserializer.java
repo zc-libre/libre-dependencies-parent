@@ -2,6 +2,8 @@ package com.libre.boot.xss;
 
 import com.libre.boot.autoconfigure.SpringContext;
 import com.libre.boot.autoconfigure.XssProperties;
+import com.libre.boot.xss.XssCleaner;
+import com.libre.boot.xss.XssUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -15,7 +17,10 @@ import java.io.IOException;
 public class XssCleanDeserializer extends XssCleanDeserializerBase {
 
 	@Override
-	public String clean(String text) throws IOException {
+	public String clean(String name, String text) throws IOException {
+		if (text == null) {
+			return null;
+		}
 		// 读取 xss 配置
 		XssProperties properties = SpringContext.getBean(XssProperties.class);
 		if (properties == null) {
@@ -26,8 +31,8 @@ public class XssCleanDeserializer extends XssCleanDeserializerBase {
 		if (xssCleaner == null) {
 			return XssUtil.trim(text, properties.isTrimText());
 		}
-		String value = xssCleaner.clean(XssUtil.trim(text, properties.isTrimText()));
-		log.debug("Json property value:{} cleaned up by mica-xss, current value is:{}.", text, value);
+		String value = xssCleaner.clean(name, XssUtil.trim(text, properties.isTrimText()), XssType.JACKSON);
+		log.debug("Json property name:{} value:{} cleaned up by mica-xss, current value is:{}.", name, text, value);
 		return value;
 	}
 

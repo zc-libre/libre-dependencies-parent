@@ -16,13 +16,17 @@ import java.beans.PropertyEditorSupport;
  *
  * @author L.cm
  */
+
 @ControllerAdvice
-@ConditionalOnProperty(prefix = XssProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(
+	prefix = XssProperties.PREFIX,
+	name = "enabled",
+	havingValue = "true",
+	matchIfMissing = true
+)
 @RequiredArgsConstructor
 public class FormXssClean {
-
 	private final XssProperties properties;
-
 	private final XssCleaner xssCleaner;
 
 	@InitBinder
@@ -34,9 +38,7 @@ public class FormXssClean {
 	@Slf4j
 	@RequiredArgsConstructor
 	public static class StringPropertiesEditor extends PropertyEditorSupport {
-
 		private final XssCleaner xssCleaner;
-
 		private final XssProperties properties;
 
 		@Override
@@ -49,17 +51,14 @@ public class FormXssClean {
 		public void setAsText(String text) throws IllegalArgumentException {
 			if (text == null) {
 				setValue(null);
-			}
-			else if (XssHolder.isEnabled()) {
-				String value = xssCleaner.clean(XssUtil.trim(text, properties.isTrimText()));
+			} else if (XssHolder.isEnabled()) {
+				String value = xssCleaner.clean(XssUtil.trim(text, properties.isTrimText()), XssType.FORM);
 				setValue(value);
 				log.debug("Request parameter value:{} cleaned up by mica-xss, current value is:{}.", text, value);
-			}
-			else {
+			} else {
 				setValue(XssUtil.trim(text, properties.isTrimText()));
 			}
 		}
-
 	}
 
 }

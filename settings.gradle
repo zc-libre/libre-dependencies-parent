@@ -11,4 +11,5 @@ include 'libre-oss-boot-starter'
 include 'libre-security-boot-starter'
 include 'libre-monitor'
 include 'libre-ip2region-boot-starter'
+include 'libre-rabbitmq-boot-starter'
 

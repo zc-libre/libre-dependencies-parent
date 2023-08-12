@@ -10,8 +10,8 @@ ext {
     mapstructVersion = "1.5.1.Final"
     mybatisPlusVersion = "3.5.3"
     okHttpVersion = "4.10.0"
-    springBootVersion = "3.0.5"
-    springCloudVersion = "2022.0.0"
+    springBootVersion = "3.1.1"
+    springCloudVersion = "2022.0.3"
     springNativeVersion = '0.10.5'
     swaggerAnnotationsVersion = "1.6.6"
     swagger3xAnnotationsVersion = "2.1.2"
@@ -19,5 +19,5 @@ ext {
     gsonVersion = "2.8.9"
     easyCaptchaVersion = "1.6.2"
     redissonVersion = "3.17.3"
-    lombokVersion = "1.18.22"
+    lombokVersion = "1.18.28"
 }

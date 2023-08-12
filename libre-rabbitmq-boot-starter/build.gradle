@@ -1,0 +1,11 @@
+dependencies {
+    api project(":libre-toolkit")
+    api 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation "org.springframework.boot:spring-boot-starter-aop"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.springframework.boot:spring-boot-starter-web"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
+}
+
+
+
