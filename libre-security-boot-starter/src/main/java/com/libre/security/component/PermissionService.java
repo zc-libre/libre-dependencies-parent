@@ -1,6 +1,5 @@
 
 package com.libre.security.component;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,8 +29,10 @@ public class PermissionService {
 			return false;
 		}
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-		return authorities.stream().map(GrantedAuthority::getAuthority).filter(StringUtils::hasText)
-				.anyMatch(x -> PatternMatchUtils.simpleMatch(permissions, x));
+		return authorities.stream()
+			.map(GrantedAuthority::getAuthority)
+			.filter(StringUtils::hasText)
+			.anyMatch(x -> PatternMatchUtils.simpleMatch(permissions, x));
 	}
 
 }

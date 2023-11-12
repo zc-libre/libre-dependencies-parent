@@ -11,6 +11,8 @@ import org.redisson.Redisson;
 import org.redisson.api.RStream;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.StreamGroup;
+import org.redisson.api.stream.StreamCreateGroupArgs;
+import org.redisson.api.stream.StreamReadGroupArgs;
 import org.redisson.client.RedisException;
 import org.redisson.connection.ConnectionManager;
 import org.springframework.beans.BeansException;
@@ -21,7 +23,6 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Redisson 监听器
@@ -87,7 +88,7 @@ public class RStreamListenerDetector implements BeanPostProcessor {
 		// 创建 group，多次创建会报错：BUSYGROUP Consumer Group name already exists.
 		if (!created) {
 			try {
-				stream.createGroup(groupName);
+				stream.createGroup(StreamCreateGroupArgs.name(groupName));
 			}
 			catch (RedisException e) {
 				log.warn(e.getMessage());
@@ -99,9 +100,9 @@ public class RStreamListenerDetector implements BeanPostProcessor {
 			String groupId) {
 		// 消费者应该为 groupId + ip + pid 比较合适
 		String consumerName = groupId + CharPool.COLON + hostIp + CharPool.AT + RuntimeUtil.getPId();
-		ElementsSubscribeService subscribeService = connectionManager.getElementsSubscribeService();
+		ElementsSubscribeService subscribeService = connectionManager.getServiceManager().getElementsSubscribeService();
 		// 阻塞1秒，一次响应一条，多条时 ack 相应会有问题
-		subscribeService.subscribeOnElements(() -> stream.readGroupAsync(groupId, consumerName, 1000, TimeUnit.SECONDS),
+		subscribeService.subscribeOnElements(() -> stream.readGroupAsync(groupId, consumerName, StreamReadGroupArgs.neverDelivered()),
 				new RStreamConsumer(stream, groupId, bean, method, paramCount));
 	}
 

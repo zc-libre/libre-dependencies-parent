@@ -1,5 +1,6 @@
 package com.libre.redisson.command;
 
+import lombok.Getter;
 import org.redisson.Redisson;
 import org.redisson.api.*;
 import org.redisson.client.codec.StringCodec;
@@ -20,6 +21,13 @@ import java.util.function.Supplier;
  */
 public class RedissonUtils {
 
+	/**
+	 * -- GETTER --
+	 *  获取 Redisson 客户端
+	 *
+	 * @return RedissonClient
+	 */
+	@Getter
 	private final RedissonClient client;
 
 	private final CommandAsyncExecutor commandExecutor;
@@ -27,14 +35,6 @@ public class RedissonUtils {
 	public RedissonUtils(RedissonClient client) {
 		this.client = client;
 		this.commandExecutor = ((Redisson) client).getCommandExecutor();
-	}
-
-	/**
-	 * 获取 Redisson 客户端
-	 * @return RedissonClient
-	 */
-	public RedissonClient getClient() {
-		return this.client;
 	}
 
 	/**
@@ -50,16 +50,16 @@ public class RedissonUtils {
 	/**
 	 * 存放 key value 对到 redis，并将 key 的生存时间设为 seconds (以秒为单位)。 如果 key 已经存在， SETEX 命令将覆写旧值。
 	 */
-	public void setEx(String key, Object value, long timeToLive, TimeUnit timeUnit) {
+	public void setEx(String key, Object value, Duration duration) {
 		RBucket<Object> bucket = client.getBucket(key);
-		bucket.set(value, timeToLive, timeUnit);
+		bucket.set(value, duration);
 	}
 
 	/**
 	 * 存放 key value 对到 redis，并将 key 的生存时间设为 seconds (以秒为单位)。 如果 key 已经存在， SETEX 命令将覆写旧值。
 	 */
 	public void setEx(String key, Object value, Long seconds) {
-		this.setEx(key, value, seconds, TimeUnit.SECONDS);
+		this.setEx(key, value, Duration.ofSeconds(seconds));
 	}
 
 	/**

@@ -4,25 +4,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libre.toolkit.time.DatePattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.http.converter.*;
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.lang.NonNull;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,22 +30,22 @@ public class LibreWebMvcAutoConfiguration implements WebMvcConfigurer {
 
 	private final ObjectMapper objectMapper;
 
-	@Bean
-	@ConditionalOnMissingBean
-	public CorsFilter corsFilter() {
-		CorsConfiguration corsConfiguration = new CorsConfiguration();
-		corsConfiguration.setAllowedOriginPatterns(Collections.singletonList("*"));
-
-		corsConfiguration.addAllowedHeader(CorsConfiguration.ALL);
-
-		corsConfiguration.addAllowedMethod(CorsConfiguration.ALL);
-
-		corsConfiguration.setAllowCredentials(true);
-
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", corsConfiguration);
-		return new CorsFilter(source);
-	}
+//	@Bean
+//	@ConditionalOnMissingBean
+//	public CorsFilter corsFilter() {
+//		CorsConfiguration corsConfiguration = new CorsConfiguration();
+//		corsConfiguration.setAllowedOriginPatterns(Collections.singletonList("*"));
+//
+//		corsConfiguration.addAllowedHeader(CorsConfiguration.ALL);
+//
+//		corsConfiguration.addAllowedMethod(CorsConfiguration.ALL);
+//
+//		corsConfiguration.setAllowCredentials(true);
+//
+//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//		source.registerCorsConfiguration("/**", corsConfiguration);
+//		return new CorsFilter(source);
+//	}
 
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {

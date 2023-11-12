@@ -3,7 +3,6 @@ dependencies {
     api 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8'
     api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     compileOnly "jakarta.validation:jakarta.validation-api"
-    api "cglib:cglib:${cglibVersion}"
     api "org.slf4j:slf4j-api"
     api "com.google.guava:guava:${guavaVersion}"
     api "commons-io:commons-io:${commonsIOVersion}"

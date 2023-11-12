@@ -11,6 +11,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
 import com.libre.oss.config.OssProperties;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
@@ -39,6 +40,7 @@ public class OssTemplate implements InitializingBean {
 
 	private final OssProperties ossProperties;
 
+	@Getter
 	private AmazonS3 amazonS3;
 
 	/**
@@ -274,6 +276,12 @@ public class OssTemplate implements InitializingBean {
 	 */
 	public void removeObject(String bucketName, String objectName) {
 		amazonS3.deleteObject(bucketName, objectName);
+	}
+
+
+	public List<S3ObjectSummary> listAllObjects(String buketName) {
+		ObjectListing objectListing = amazonS3.listObjects(buketName);
+		return objectListing.getObjectSummaries();
 	}
 
 	@Override

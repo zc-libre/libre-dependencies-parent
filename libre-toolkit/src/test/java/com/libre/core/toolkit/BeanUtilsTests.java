@@ -1,7 +1,6 @@
 package com.libre.core.toolkit;
 
 import com.google.common.base.Stopwatch;
-import com.libre.toolkit.core.BeanUtils;
 import com.libre.core.mapstruct.bean.SourceBean;
 import com.libre.core.mapstruct.bean.TargetBean;
 import org.junit.jupiter.api.Assertions;

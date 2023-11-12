@@ -3,6 +3,9 @@ package com.libre.security.pojo;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 
 /**
  * <p>
@@ -13,20 +16,21 @@ import lombok.Data;
  * @since 2019/2/1
  */
 @Data
-public class Oauth2ClientDetails {
+public class Oauth2ClientDetails implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
 	/**
 	 * 客户端ID
 	 */
-	@NotBlank(message = "client_id 不能为空")
 	private String clientId;
 
 	/**
 	 * 客户端密钥
 	 */
-	@NotBlank(message = "client_secret 不能为空")
 	private String clientSecret;
 
 	/**
@@ -41,7 +45,7 @@ public class Oauth2ClientDetails {
 	private String scope;
 
 	/**
-	 * 授权方式（A,B,C）
+	 * 授权方式[A,B,C]
 	 */
 	private String authorizedGrantTypes;
 

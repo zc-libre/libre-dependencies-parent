@@ -1,8 +1,8 @@
 package com.libre.boot.exception;
 
+import com.google.common.collect.Maps;
 import com.libre.toolkit.result.R;
 import com.libre.toolkit.result.ResultCode;
-import com.libre.toolkit.core.BeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
@@ -34,7 +34,13 @@ public class LibreErrorAttributes extends DefaultErrorAttributes {
 		else {
 			result = R.fail(ResultCode.FAILURE, "System error status:" + status);
 		}
-		return BeanUtils.beanToMap(result);
+
+		Map<String,  Object> map = Maps.newHashMap();
+		map.put("code", result.getCode());
+		map.put("msg", result.getMsg());
+		map.put("success", result.isSuccess());
+		map.put("data", result.getData());
+		return map;
 	}
 
 	@Nullable

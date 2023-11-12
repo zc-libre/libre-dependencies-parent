@@ -6,6 +6,7 @@ import org.redisson.Redisson;
 import org.redisson.api.HostPortNatMapper;
 import org.redisson.api.NatMapper;
 import org.redisson.api.RedissonClient;
+import org.redisson.client.FailedConnectionDetector;
 import org.redisson.client.codec.Codec;
 import org.redisson.config.Config;
 import org.redisson.config.TransportMode;
@@ -14,7 +15,6 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
@@ -103,7 +103,7 @@ public class RedissonClientConfiguration {
 				.setSubscriptionConnectionMinimumIdleSize(sentinel.getSubscriptionConnectionMinimumIdleSize())
 				.setReadMode(sentinel.getReadMode()).setSubscriptionMode(sentinel.getSubscriptionMode())
 				.setDnsMonitoringInterval(sentinel.getDnsMonitoringInterval())
-				.setFailedSlaveCheckInterval(sentinel.getFailedSlaveCheckInterval())
+				.setFailedSlaveNodeDetector(new FailedConnectionDetector(sentinel.getFailedSlaveCheckInterval()))
 				.setFailedSlaveReconnectionInterval(sentinel.getFailedSlaveReconnectionInterval())
 				// 公有配置
 				.setPassword(sentinel.getPassword())
@@ -136,7 +136,7 @@ public class RedissonClientConfiguration {
 				.setSubscriptionConnectionMinimumIdleSize(cluster.getSubscriptionConnectionMinimumIdleSize())
 				.setReadMode(cluster.getReadMode()).setSubscriptionMode(cluster.getSubscriptionMode())
 				.setDnsMonitoringInterval(cluster.getDnsMonitoringInterval())
-				.setFailedSlaveCheckInterval(cluster.getFailedSlaveCheckInterval())
+				.setFailedSlaveNodeDetector(new FailedConnectionDetector(cluster.getFailedSlaveCheckInterval()))
 				.setFailedSlaveReconnectionInterval(cluster.getFailedSlaveReconnectionInterval())
 				// 公有配置
 				.setPassword(cluster.getPassword())
@@ -193,7 +193,7 @@ public class RedissonClientConfiguration {
 				.setSubscriptionConnectionMinimumIdleSize(masterSlave.getSubscriptionConnectionMinimumIdleSize())
 				.setReadMode(masterSlave.getReadMode()).setSubscriptionMode(masterSlave.getSubscriptionMode())
 				.setDnsMonitoringInterval(masterSlave.getDnsMonitoringInterval())
-				.setFailedSlaveCheckInterval(masterSlave.getFailedSlaveCheckInterval())
+				.setFailedSlaveNodeDetector(new FailedConnectionDetector(masterSlave.getFailedSlaveCheckInterval()))
 				.setFailedSlaveReconnectionInterval(masterSlave.getFailedSlaveReconnectionInterval())
 				// 公有配置
 				.setPassword(masterSlave.getPassword())
@@ -227,7 +227,7 @@ public class RedissonClientConfiguration {
 				.setSubscriptionConnectionMinimumIdleSize(replicated.getSubscriptionConnectionMinimumIdleSize())
 				.setReadMode(replicated.getReadMode()).setSubscriptionMode(replicated.getSubscriptionMode())
 				.setDnsMonitoringInterval(replicated.getDnsMonitoringInterval())
-				.setFailedSlaveCheckInterval(replicated.getFailedSlaveCheckInterval())
+				.setFailedSlaveNodeDetector(new FailedConnectionDetector(replicated.getFailedSlaveCheckInterval()))
 				.setFailedSlaveReconnectionInterval(replicated.getFailedSlaveReconnectionInterval())
 				// 公有配置
 				.setPassword(replicated.getPassword())

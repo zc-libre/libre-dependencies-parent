@@ -1,7 +1,7 @@
 package com.libre.security.annotation;
 
-import com.libre.security.component.ResourceServerAutoConfiguration;
-import com.libre.security.component.ResourceServerConfiguration;
+import com.libre.security.component.Oauth2ResourceServerAutoConfiguration;
+import com.libre.security.component.Oauth2ResourceServerConfiguration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
@@ -18,7 +18,7 @@ import java.lang.annotation.*;
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @EnableMethodSecurity
-@Import({ ResourceServerAutoConfiguration.class, ResourceServerConfiguration.class})
+@Import({ Oauth2ResourceServerAutoConfiguration.class, Oauth2ResourceServerConfiguration.class})
 public @interface EnableResourceServer {
 
 }

@@ -1,5 +1,7 @@
 package com.libre.security.pojo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
@@ -15,17 +17,22 @@ import java.util.Map;
  * @author lengleng
  * @date 2019/2/1 扩展用户信息
  */
-public class OAuth2User extends User implements OAuth2AuthenticatedPrincipal {
+public class Oauth2User extends User implements OAuth2AuthenticatedPrincipal {
 
 	@Serial
 	private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
 	/**
+	 * 扩展属性，方便存放oauth 上下文相关信息
+	 */
+	private final Map<String, Object> attributes = new HashMap<>();
+
+	/**
 	 * 用户ID
 	 */
 	@Getter
+	@JsonSerialize(using = ToStringSerializer.class)
 	private final Long id;
-
 
 
 	/**
@@ -34,9 +41,9 @@ public class OAuth2User extends User implements OAuth2AuthenticatedPrincipal {
 	@Getter
 	private final String phone;
 
-	public OAuth2User(Long id, String username, String password, String phone, boolean enabled,
-					  boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked,
-					  Collection<? extends GrantedAuthority> authorities) {
+	public Oauth2User(Long id, String username, String password, String phone, boolean enabled,
+				   boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked,
+				   Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		this.id = id;
 		this.phone = phone;
@@ -48,12 +55,13 @@ public class OAuth2User extends User implements OAuth2AuthenticatedPrincipal {
 	 */
 	@Override
 	public Map<String, Object> getAttributes() {
-		return new HashMap<>();
+		return this.attributes;
 	}
 
 	@Override
 	public String getName() {
 		return this.getUsername();
 	}
+
 
 }
