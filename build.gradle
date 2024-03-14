@@ -1,6 +1,6 @@
 buildscript {
     dependencies {
-        classpath("io.spring.javaformat:spring-javaformat-gradle-plugin:0.0.38")
+        classpath("io.spring.javaformat:spring-javaformat-gradle-plugin:0.0.40")
     }
 }
 

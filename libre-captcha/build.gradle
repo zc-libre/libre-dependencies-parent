@@ -1,0 +1,7 @@
+dependencies {
+    api "com.github.whvcse:easy-captcha:${easyCaptchaVersion}"
+    api "org.springframework.boot:spring-boot-autoconfigure"
+    compileOnly "jakarta.annotation:jakarta.annotation-api"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
+}

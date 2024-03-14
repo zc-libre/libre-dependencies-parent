@@ -1,5 +1,0 @@
-dependencies {
-    api "com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}"
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
-}
-
