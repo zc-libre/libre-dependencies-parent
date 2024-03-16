@@ -11,16 +11,17 @@ import java.util.UUID;
 @Component
 public class MessageSender {
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+	@Autowired
+	private RabbitTemplate rabbitTemplate;
 
-    public void sendMessage(Message message) {
+	public void sendMessage(Message message) {
 		rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
-        CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
-        rabbitTemplate.convertAndSend("exchange", "request", message, correlationData);
-    }
+		CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+		rabbitTemplate.convertAndSend("exchange", "request", message, correlationData);
+	}
 
-    public void setConfirmCallback(RabbitTemplate.ConfirmCallback confirmCallback) {
-        rabbitTemplate.setConfirmCallback(confirmCallback);
-    }
+	public void setConfirmCallback(RabbitTemplate.ConfirmCallback confirmCallback) {
+		rabbitTemplate.setConfirmCallback(confirmCallback);
+	}
+
 }

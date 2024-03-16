@@ -18,22 +18,22 @@ public class CaptchaFactory {
 	public static Captcha buildCaptcha(CaptchaProperties properties) {
 		Captcha captcha;
 		switch (properties.getCaptchaType()) {
-		case GIF:
-			captcha = new GifCaptcha();
-			setProperties(captcha, properties);
-			break;
-		case SPEC:
-			captcha = new SpecCaptcha();
-			setProperties(captcha, properties);
-			break;
-		case CHINESE:
-			captcha = new ChineseCaptcha();
-			setProperties(captcha, properties);
-			break;
-		default:
-			captcha = new ArithmeticCaptcha();
-			setProperties(captcha, properties);
-			break;
+			case GIF:
+				captcha = new GifCaptcha();
+				setProperties(captcha, properties);
+				break;
+			case SPEC:
+				captcha = new SpecCaptcha();
+				setProperties(captcha, properties);
+				break;
+			case CHINESE:
+				captcha = new ChineseCaptcha();
+				setProperties(captcha, properties);
+				break;
+			default:
+				captcha = new ArithmeticCaptcha();
+				setProperties(captcha, properties);
+				break;
 		}
 		return captcha;
 	}

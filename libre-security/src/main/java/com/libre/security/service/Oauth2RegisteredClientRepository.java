@@ -43,7 +43,6 @@ public class Oauth2RegisteredClientRepository implements RegisteredClientReposit
 	 */
 	private final static int accessTokenValiditySeconds = 60 * 60 * 12;
 
-
 	private final Oauth2ClientDetailsService clientDetailsService;
 
 	/**

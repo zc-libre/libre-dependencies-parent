@@ -16,7 +16,6 @@ import org.springframework.security.oauth2.server.resource.introspection.OpaqueT
 @EnableConfigurationProperties(PermitAllUrlProperties.class)
 public class Oauth2ResourceServerAutoConfiguration {
 
-
 	/**
 	 * 请求令牌的抽取逻辑
 	 * @param urlProperties 对外暴露的接口列表

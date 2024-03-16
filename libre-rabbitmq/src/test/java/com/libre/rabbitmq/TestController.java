@@ -15,7 +15,6 @@ import java.util.concurrent.ExecutionException;
 @RestController
 public class TestController {
 
-
 	@Autowired
 	private MessageReceiver messageReceiver;
 
@@ -27,8 +26,10 @@ public class TestController {
 		try {
 			Message responseMessage = future.get();
 			return responseMessage.getContent();
-		} catch (InterruptedException | ExecutionException e) {
+		}
+		catch (InterruptedException | ExecutionException e) {
 			throw new RuntimeException(e);
 		}
 	}
+
 }

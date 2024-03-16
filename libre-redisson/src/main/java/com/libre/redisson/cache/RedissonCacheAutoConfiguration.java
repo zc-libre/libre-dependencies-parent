@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -67,10 +66,13 @@ public class RedissonCacheAutoConfiguration {
 	}
 
 	private static LocalCachedMapOptions<Object, Object> getCacheConfig(RedissonCacheConfig config) {
-		return LocalCachedMapOptions.defaults().cacheSize(config.getMaxSize())
-				.timeToLive(config.getTimeToLive().toMillis()).maxIdle(config.getMaxIdleTime().toMillis())
-				.reconnectionStrategy(config.getReconnectionStrategy()).syncStrategy(config.getSyncStrategy())
-				.evictionPolicy(config.getEvictionPolicy());
+		return LocalCachedMapOptions.defaults()
+			.cacheSize(config.getMaxSize())
+			.timeToLive(config.getTimeToLive().toMillis())
+			.maxIdle(config.getMaxIdleTime().toMillis())
+			.reconnectionStrategy(config.getReconnectionStrategy())
+			.syncStrategy(config.getSyncStrategy())
+			.evictionPolicy(config.getEvictionPolicy());
 	}
 
 }

@@ -22,9 +22,7 @@ import java.util.function.Supplier;
 public class RedissonUtils {
 
 	/**
-	 * -- GETTER --
-	 *  获取 Redisson 客户端
-	 *
+	 * -- GETTER -- 获取 Redisson 客户端
 	 * @return RedissonClient
 	 */
 	@Getter

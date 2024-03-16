@@ -169,8 +169,8 @@ public class StreamUtils {
 		if (CollectionUtils.isEmpty(list)) {
 			return Stream.empty();
 		}
-		return Stream.of(peeks).reduce(StreamSupport.stream(list.spliterator(), isParallel), Stream::peek,
-				Stream::concat);
+		return Stream.of(peeks)
+			.reduce(StreamSupport.stream(list.spliterator(), isParallel), Stream::peek, Stream::concat);
 	}
 
 }

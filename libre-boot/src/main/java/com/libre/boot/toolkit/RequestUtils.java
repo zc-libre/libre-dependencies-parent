@@ -1,8 +1,10 @@
 package com.libre.boot.toolkit;
 
-import com.libre.toolkit.json.JsonUtil;
 import com.libre.toolkit.core.StringPool;
 import com.libre.toolkit.core.StringUtil;
+import com.libre.toolkit.json.JsonUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
@@ -10,8 +12,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.util.WebUtils;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -37,8 +37,10 @@ public class RequestUtils extends WebUtils {
 	 * @return {@link HttpServletRequest}
 	 */
 	public static HttpServletRequest getRequest() {
-		return Optional.ofNullable(RequestContextHolder.getRequestAttributes()).map(x -> (ServletRequestAttributes) x)
-				.map(ServletRequestAttributes::getRequest).orElse(null);
+		return Optional.ofNullable(RequestContextHolder.getRequestAttributes())
+			.map(x -> (ServletRequestAttributes) x)
+			.map(ServletRequestAttributes::getRequest)
+			.orElse(null);
 	}
 
 	/**
@@ -47,8 +49,10 @@ public class RequestUtils extends WebUtils {
 	 */
 	@Nullable
 	public static HttpServletResponse getResponse() {
-		return Optional.ofNullable(RequestContextHolder.getRequestAttributes()).map(x -> (ServletRequestAttributes) x)
-				.map(ServletRequestAttributes::getResponse).orElse(null);
+		return Optional.ofNullable(RequestContextHolder.getRequestAttributes())
+			.map(x -> (ServletRequestAttributes) x)
+			.map(ServletRequestAttributes::getResponse)
+			.orElse(null);
 	}
 
 	/**

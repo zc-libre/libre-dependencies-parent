@@ -278,7 +278,6 @@ public class OssTemplate implements InitializingBean {
 		amazonS3.deleteObject(bucketName, objectName);
 	}
 
-
 	public List<S3ObjectSummary> listAllObjects(String buketName) {
 		ObjectListing objectListing = amazonS3.listObjects(buketName);
 		return objectListing.getObjectSummaries();
@@ -294,9 +293,13 @@ public class OssTemplate implements InitializingBean {
 		AWSCredentials awsCredentials = new BasicAWSCredentials(ossProperties.getAccessKey(),
 				ossProperties.getSecretKey());
 		AWSCredentialsProvider awsCredentialsProvider = new AWSStaticCredentialsProvider(awsCredentials);
-		this.amazonS3 = AmazonS3Client.builder().withEndpointConfiguration(endpointConfiguration)
-				.withClientConfiguration(clientConfiguration).withCredentials(awsCredentialsProvider)
-				.disableChunkedEncoding().withPathStyleAccessEnabled(ossProperties.getPathStyleAccess()).build();
+		this.amazonS3 = AmazonS3Client.builder()
+			.withEndpointConfiguration(endpointConfiguration)
+			.withClientConfiguration(clientConfiguration)
+			.withCredentials(awsCredentialsProvider)
+			.disableChunkedEncoding()
+			.withPathStyleAccessEnabled(ossProperties.getPathStyleAccess())
+			.build();
 	}
 
 }

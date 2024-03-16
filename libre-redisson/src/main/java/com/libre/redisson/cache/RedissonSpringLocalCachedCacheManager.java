@@ -72,9 +72,12 @@ public class RedissonSpringLocalCachedCacheManager extends AbstractTransactionSu
 
 	private LocalCachedMapOptions<Object, Object> createDefaultConfig(String cacheName) {
 		LocalCachedMapOptions<Object, Object> cacheConfig = LocalCachedMapOptions.defaults()
-				.timeToLive(globalOptions.getTimeToLiveInMillis()).maxIdle(globalOptions.getMaxIdleInMillis())
-				.cacheSize(globalOptions.getCacheSize()).reconnectionStrategy(globalOptions.getReconnectionStrategy())
-				.syncStrategy(globalOptions.getSyncStrategy()).evictionPolicy(globalOptions.getEvictionPolicy());
+			.timeToLive(globalOptions.getTimeToLiveInMillis())
+			.maxIdle(globalOptions.getMaxIdleInMillis())
+			.cacheSize(globalOptions.getCacheSize())
+			.reconnectionStrategy(globalOptions.getReconnectionStrategy())
+			.syncStrategy(globalOptions.getSyncStrategy())
+			.evictionPolicy(globalOptions.getEvictionPolicy());
 		// 从缓存名中动态解析 ttl
 		long ttlFormCacheNameMillis = CacheNameUtil.getTTLFormCacheName(cacheName);
 		if (ttlFormCacheNameMillis > 0) {

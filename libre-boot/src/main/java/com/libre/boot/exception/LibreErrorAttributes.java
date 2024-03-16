@@ -37,7 +37,8 @@ public class LibreErrorAttributes extends DefaultErrorAttributes {
 		if (error instanceof BusinessException serviceException) {
 			result = serviceException.getResult();
 			result = Optional.ofNullable(result).orElse(R.fail(ResultCode.FAILURE));
-		} else {
+		}
+		else {
 			result = R.fail(ResultCode.FAILURE, "System error status:" + status);
 		}
 

@@ -10,11 +10,11 @@ import java.util.Objects;
  * @author L.cm
  */
 public class XssHolder {
+
 	private static final ThreadLocal<XssCleanIgnore> TL = new ThreadLocal<>();
 
 	/**
 	 * 是否开启
-	 *
 	 * @return boolean
 	 */
 	public static boolean isEnabled() {
@@ -23,7 +23,6 @@ public class XssHolder {
 
 	/**
 	 * 判断是否被忽略
-	 *
 	 * @return XssCleanIgnore
 	 */
 	static boolean isIgnore(String name) {

@@ -4,18 +4,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libre.toolkit.time.DatePattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.http.converter.*;
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.lang.NonNull;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,7 +30,7 @@ import java.util.List;
  */
 @EnableWebMvc
 @AutoConfiguration
-@EnableConfigurationProperties({UploadFileProperties.class})
+@EnableConfigurationProperties({ UploadFileProperties.class })
 @RequiredArgsConstructor
 public class LibreWebMvcAutoConfiguration implements WebMvcConfigurer {
 
@@ -46,7 +52,7 @@ public class LibreWebMvcAutoConfiguration implements WebMvcConfigurer {
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.removeIf(
-			x -> x instanceof StringHttpMessageConverter || x instanceof AbstractJackson2HttpMessageConverter);
+				x -> x instanceof StringHttpMessageConverter || x instanceof AbstractJackson2HttpMessageConverter);
 		converters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
 		converters.add(new ByteArrayHttpMessageConverter());
 		converters.add(new ResourceHttpMessageConverter());

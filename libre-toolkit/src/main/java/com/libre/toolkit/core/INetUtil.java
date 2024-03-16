@@ -94,7 +94,7 @@ public class INetUtil {
 			InetAddress candidateAddress = null;
 			// Iterate all NICs (network interface cards)...
 			for (Enumeration<NetworkInterface> iFaces = NetworkInterface.getNetworkInterfaces(); iFaces
-					.hasMoreElements();) {
+				.hasMoreElements();) {
 				NetworkInterface iFace = iFaces.nextElement();
 				// Iterate all IP addresses assigned to each card...
 				for (Enumeration<InetAddress> inetAdders = iFace.getInetAddresses(); inetAdders.hasMoreElements();) {
@@ -219,18 +219,18 @@ public class INetUtil {
 		final byte section5 = (byte) 0xC0;
 		final byte section6 = (byte) 0xA8;
 		switch (b0) {
-		case section1:
-			return true;
-		case section2:
-			if (b1 >= section3 && b1 <= section4) {
+			case section1:
 				return true;
-			}
-		case section5:
-			if (b1 == section6) {
-				return true;
-			}
-		default:
-			return false;
+			case section2:
+				if (b1 >= section3 && b1 <= section4) {
+					return true;
+				}
+			case section5:
+				if (b1 == section6) {
+					return true;
+				}
+			default:
+				return false;
 		}
 	}
 

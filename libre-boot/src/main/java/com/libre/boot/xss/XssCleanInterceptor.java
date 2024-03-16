@@ -1,7 +1,6 @@
 package com.libre.boot.xss;
 
 import com.libre.boot.autoconfigure.XssProperties;
-import com.libre.toolkit.core.ClassUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +17,12 @@ import java.lang.annotation.Annotation;
  */
 @RequiredArgsConstructor
 public class XssCleanInterceptor implements AsyncHandlerInterceptor {
+
 	private final XssProperties xssProperties;
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
 		// 1. 非控制器请求直接跳出
 		if (!(handler instanceof HandlerMethod handlerMethod)) {
 			return true;
@@ -39,22 +40,22 @@ public class XssCleanInterceptor implements AsyncHandlerInterceptor {
 	}
 
 	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+			throws Exception {
 		XssHolder.remove();
 	}
 
 	@Override
-	public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+	public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
 		XssHolder.remove();
 	}
 
-
 	/**
 	 * 获取Annotation
-	 *
-	 * @param handlerMethod  HandlerMethod
+	 * @param handlerMethod HandlerMethod
 	 * @param annotationType 注解类
-	 * @param <A>            泛型标记
+	 * @param <A> 泛型标记
 	 * @return {Annotation}
 	 */
 	public static <A extends Annotation> A getAnnotation(HandlerMethod handlerMethod, Class<A> annotationType) {
@@ -67,4 +68,5 @@ public class XssCleanInterceptor implements AsyncHandlerInterceptor {
 		Class<?> beanType = handlerMethod.getBeanType();
 		return AnnotatedElementUtils.findMergedAnnotation(beanType, annotationType);
 	}
+
 }

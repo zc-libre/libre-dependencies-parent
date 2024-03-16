@@ -39,4 +39,5 @@ public class PermitAllUrlProperties implements InitializingBean, ApplicationCont
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 
 	}
+
 }

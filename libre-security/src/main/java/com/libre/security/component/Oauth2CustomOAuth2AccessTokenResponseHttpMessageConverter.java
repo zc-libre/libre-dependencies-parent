@@ -56,4 +56,5 @@ public class Oauth2CustomOAuth2AccessTokenResponseHttpMessageConverter
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
+
 }

@@ -1,6 +1,5 @@
 package com.libre.boot.xss;
 
-
 import com.libre.toolkit.core.Exceptions;
 
 /**
@@ -30,9 +29,8 @@ public enum XssType {
 
 	/**
 	 * 获取 xss 异常
-	 *
-	 * @param name    属性名
-	 * @param input   input
+	 * @param name 属性名
+	 * @param input input
 	 * @param message message
 	 * @return XssException
 	 */

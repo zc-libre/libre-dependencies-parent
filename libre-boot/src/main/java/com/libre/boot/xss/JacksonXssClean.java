@@ -16,6 +16,7 @@ import java.io.IOException;
 public class JacksonXssClean extends XssCleanDeserializerBase {
 
 	private final XssProperties properties;
+
 	private final XssCleaner xssCleaner;
 
 	@Override

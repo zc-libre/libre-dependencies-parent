@@ -89,159 +89,194 @@ public class RedissonClientConfiguration {
 
 	private static Config sentinelConfig(Config config, SentinelServersConfig sentinel) {
 		config.useSentinelServers()
-				// 私有配置
-				.addSentinelAddress(repairAddressIfNeed(sentinel.getSentinelAddresses()))
-				.setMasterName(sentinel.getMasterName()).setDatabase(sentinel.getDatabase())
-				.setScanInterval(sentinel.getScanInterval()).setNatMapper(buildNatMapper(sentinel.getNatMap()))
-				// 父类配置
-				.setLoadBalancer(sentinel.getLoadBalancer().getLb())
-				.setMasterConnectionPoolSize(sentinel.getMasterConnectionPoolSize())
-				.setSlaveConnectionPoolSize(sentinel.getSlaveConnectionPoolSize())
-				.setSubscriptionConnectionPoolSize(sentinel.getSubscriptionConnectionPoolSize())
-				.setMasterConnectionMinimumIdleSize(sentinel.getMasterConnectionMinimumIdleSize())
-				.setSlaveConnectionMinimumIdleSize(sentinel.getSlaveConnectionMinimumIdleSize())
-				.setSubscriptionConnectionMinimumIdleSize(sentinel.getSubscriptionConnectionMinimumIdleSize())
-				.setReadMode(sentinel.getReadMode()).setSubscriptionMode(sentinel.getSubscriptionMode())
-				.setDnsMonitoringInterval(sentinel.getDnsMonitoringInterval())
-				.setFailedSlaveNodeDetector(new FailedConnectionDetector(sentinel.getFailedSlaveCheckInterval()))
-				.setFailedSlaveReconnectionInterval(sentinel.getFailedSlaveReconnectionInterval())
-				// 公有配置
-				.setPassword(sentinel.getPassword())
-				.setSubscriptionsPerConnection(sentinel.getSubscriptionsPerConnection())
-				.setRetryAttempts(sentinel.getRetryAttempts()).setRetryInterval(sentinel.getRetryInterval())
-				.setTimeout(sentinel.getTimeout()).setClientName(sentinel.getClientName())
-				.setConnectTimeout(sentinel.getConnectTimeout())
-				.setIdleConnectionTimeout(sentinel.getIdleConnectionTimeout())
-				.setSslEnableEndpointIdentification(sentinel.isSslEnableEndpointIdentification())
-				.setSslProvider(sentinel.getSslProvider()).setSslTruststore(sentinel.getSslTruststore())
-				.setSslTruststorePassword(sentinel.getSslTruststorePassword()).setSslKeystore(sentinel.getSslKeystore())
-				.setSslKeystorePassword(sentinel.getSslKeystorePassword())
-				.setPingConnectionInterval(sentinel.getPingConnectionInterval()).setKeepAlive(sentinel.isKeepAlive())
-				.setTcpNoDelay(sentinel.isTcpNoDelay());
+			// 私有配置
+			.addSentinelAddress(repairAddressIfNeed(sentinel.getSentinelAddresses()))
+			.setMasterName(sentinel.getMasterName())
+			.setDatabase(sentinel.getDatabase())
+			.setScanInterval(sentinel.getScanInterval())
+			.setNatMapper(buildNatMapper(sentinel.getNatMap()))
+			// 父类配置
+			.setLoadBalancer(sentinel.getLoadBalancer().getLb())
+			.setMasterConnectionPoolSize(sentinel.getMasterConnectionPoolSize())
+			.setSlaveConnectionPoolSize(sentinel.getSlaveConnectionPoolSize())
+			.setSubscriptionConnectionPoolSize(sentinel.getSubscriptionConnectionPoolSize())
+			.setMasterConnectionMinimumIdleSize(sentinel.getMasterConnectionMinimumIdleSize())
+			.setSlaveConnectionMinimumIdleSize(sentinel.getSlaveConnectionMinimumIdleSize())
+			.setSubscriptionConnectionMinimumIdleSize(sentinel.getSubscriptionConnectionMinimumIdleSize())
+			.setReadMode(sentinel.getReadMode())
+			.setSubscriptionMode(sentinel.getSubscriptionMode())
+			.setDnsMonitoringInterval(sentinel.getDnsMonitoringInterval())
+			.setFailedSlaveNodeDetector(new FailedConnectionDetector(sentinel.getFailedSlaveCheckInterval()))
+			.setFailedSlaveReconnectionInterval(sentinel.getFailedSlaveReconnectionInterval())
+			// 公有配置
+			.setPassword(sentinel.getPassword())
+			.setSubscriptionsPerConnection(sentinel.getSubscriptionsPerConnection())
+			.setRetryAttempts(sentinel.getRetryAttempts())
+			.setRetryInterval(sentinel.getRetryInterval())
+			.setTimeout(sentinel.getTimeout())
+			.setClientName(sentinel.getClientName())
+			.setConnectTimeout(sentinel.getConnectTimeout())
+			.setIdleConnectionTimeout(sentinel.getIdleConnectionTimeout())
+			.setSslEnableEndpointIdentification(sentinel.isSslEnableEndpointIdentification())
+			.setSslProvider(sentinel.getSslProvider())
+			.setSslTruststore(sentinel.getSslTruststore())
+			.setSslTruststorePassword(sentinel.getSslTruststorePassword())
+			.setSslKeystore(sentinel.getSslKeystore())
+			.setSslKeystorePassword(sentinel.getSslKeystorePassword())
+			.setPingConnectionInterval(sentinel.getPingConnectionInterval())
+			.setKeepAlive(sentinel.isKeepAlive())
+			.setTcpNoDelay(sentinel.isTcpNoDelay());
 		return config;
 	}
 
 	private static Config clusterConfig(Config config, ClusterServersConfig cluster) {
 		config.useClusterServers()
-				// 私有配置
-				.addNodeAddress(repairAddressIfNeed(cluster.getNodeAddresses()))
-				.setScanInterval(cluster.getScanInterval()).setNatMapper(buildNatMapper(cluster.getNatMap()))
-				// 父类配置
-				.setLoadBalancer(cluster.getLoadBalancer().getLb())
-				.setMasterConnectionPoolSize(cluster.getMasterConnectionPoolSize())
-				.setSlaveConnectionPoolSize(cluster.getSlaveConnectionPoolSize())
-				.setSubscriptionConnectionPoolSize(cluster.getSubscriptionConnectionPoolSize())
-				.setMasterConnectionMinimumIdleSize(cluster.getMasterConnectionMinimumIdleSize())
-				.setSlaveConnectionMinimumIdleSize(cluster.getSlaveConnectionMinimumIdleSize())
-				.setSubscriptionConnectionMinimumIdleSize(cluster.getSubscriptionConnectionMinimumIdleSize())
-				.setReadMode(cluster.getReadMode()).setSubscriptionMode(cluster.getSubscriptionMode())
-				.setDnsMonitoringInterval(cluster.getDnsMonitoringInterval())
-				.setFailedSlaveNodeDetector(new FailedConnectionDetector(cluster.getFailedSlaveCheckInterval()))
-				.setFailedSlaveReconnectionInterval(cluster.getFailedSlaveReconnectionInterval())
-				// 公有配置
-				.setPassword(cluster.getPassword())
-				.setSubscriptionsPerConnection(cluster.getSubscriptionsPerConnection())
-				.setRetryAttempts(cluster.getRetryAttempts()).setRetryInterval(cluster.getRetryInterval())
-				.setTimeout(cluster.getTimeout()).setClientName(cluster.getClientName())
-				.setConnectTimeout(cluster.getConnectTimeout())
-				.setIdleConnectionTimeout(cluster.getIdleConnectionTimeout())
-				.setSslEnableEndpointIdentification(cluster.isSslEnableEndpointIdentification())
-				.setSslProvider(cluster.getSslProvider()).setSslTruststore(cluster.getSslTruststore())
-				.setSslTruststorePassword(cluster.getSslTruststorePassword()).setSslKeystore(cluster.getSslKeystore())
-				.setSslKeystorePassword(cluster.getSslKeystorePassword())
-				.setPingConnectionInterval(cluster.getPingConnectionInterval()).setKeepAlive(cluster.isKeepAlive())
-				.setTcpNoDelay(cluster.isTcpNoDelay());
+			// 私有配置
+			.addNodeAddress(repairAddressIfNeed(cluster.getNodeAddresses()))
+			.setScanInterval(cluster.getScanInterval())
+			.setNatMapper(buildNatMapper(cluster.getNatMap()))
+			// 父类配置
+			.setLoadBalancer(cluster.getLoadBalancer().getLb())
+			.setMasterConnectionPoolSize(cluster.getMasterConnectionPoolSize())
+			.setSlaveConnectionPoolSize(cluster.getSlaveConnectionPoolSize())
+			.setSubscriptionConnectionPoolSize(cluster.getSubscriptionConnectionPoolSize())
+			.setMasterConnectionMinimumIdleSize(cluster.getMasterConnectionMinimumIdleSize())
+			.setSlaveConnectionMinimumIdleSize(cluster.getSlaveConnectionMinimumIdleSize())
+			.setSubscriptionConnectionMinimumIdleSize(cluster.getSubscriptionConnectionMinimumIdleSize())
+			.setReadMode(cluster.getReadMode())
+			.setSubscriptionMode(cluster.getSubscriptionMode())
+			.setDnsMonitoringInterval(cluster.getDnsMonitoringInterval())
+			.setFailedSlaveNodeDetector(new FailedConnectionDetector(cluster.getFailedSlaveCheckInterval()))
+			.setFailedSlaveReconnectionInterval(cluster.getFailedSlaveReconnectionInterval())
+			// 公有配置
+			.setPassword(cluster.getPassword())
+			.setSubscriptionsPerConnection(cluster.getSubscriptionsPerConnection())
+			.setRetryAttempts(cluster.getRetryAttempts())
+			.setRetryInterval(cluster.getRetryInterval())
+			.setTimeout(cluster.getTimeout())
+			.setClientName(cluster.getClientName())
+			.setConnectTimeout(cluster.getConnectTimeout())
+			.setIdleConnectionTimeout(cluster.getIdleConnectionTimeout())
+			.setSslEnableEndpointIdentification(cluster.isSslEnableEndpointIdentification())
+			.setSslProvider(cluster.getSslProvider())
+			.setSslTruststore(cluster.getSslTruststore())
+			.setSslTruststorePassword(cluster.getSslTruststorePassword())
+			.setSslKeystore(cluster.getSslKeystore())
+			.setSslKeystorePassword(cluster.getSslKeystorePassword())
+			.setPingConnectionInterval(cluster.getPingConnectionInterval())
+			.setKeepAlive(cluster.isKeepAlive())
+			.setTcpNoDelay(cluster.isTcpNoDelay());
 		return config;
 	}
 
 	private static Config singleConfig(Config config, SingleServerConfig single) {
-		config.useSingleServer().setAddress(repairAddressIfNeed(single.getAddress()))
-				// 通用配置
-				.setPassword(single.getPassword()).setSubscriptionsPerConnection(single.getSubscriptionsPerConnection())
-				.setRetryAttempts(single.getRetryAttempts()).setRetryInterval(single.getRetryInterval())
-				.setTimeout(single.getTimeout()).setClientName(single.getClientName())
-				.setConnectTimeout(single.getConnectTimeout())
-				.setIdleConnectionTimeout(single.getIdleConnectionTimeout())
-				.setSslEnableEndpointIdentification(single.isSslEnableEndpointIdentification())
-				.setSslProvider(single.getSslProvider()).setSslTruststore(single.getSslTruststore())
-				.setSslTruststorePassword(single.getSslTruststorePassword()).setSslKeystore(single.getSslKeystore())
-				.setSslKeystorePassword(single.getSslKeystorePassword())
-				.setPingConnectionInterval(single.getPingConnectionInterval()).setKeepAlive(single.isKeepAlive())
-				.setTcpNoDelay(single.isTcpNoDelay())
-				// 私有配置
-				.setConnectionPoolSize(single.getConnectionPoolSize())
-				.setSubscriptionConnectionPoolSize(single.getSubscriptionConnectionPoolSize())
-				.setDnsMonitoringInterval(single.getDnsMonitoringInterval())
-				.setSubscriptionConnectionMinimumIdleSize(single.getSubscriptionConnectionMinimumIdleSize())
-				.setConnectionMinimumIdleSize(single.getConnectionMinimumIdleSize()).setDatabase(single.getDatabase());
+		config.useSingleServer()
+			.setAddress(repairAddressIfNeed(single.getAddress()))
+			// 通用配置
+			.setPassword(single.getPassword())
+			.setSubscriptionsPerConnection(single.getSubscriptionsPerConnection())
+			.setRetryAttempts(single.getRetryAttempts())
+			.setRetryInterval(single.getRetryInterval())
+			.setTimeout(single.getTimeout())
+			.setClientName(single.getClientName())
+			.setConnectTimeout(single.getConnectTimeout())
+			.setIdleConnectionTimeout(single.getIdleConnectionTimeout())
+			.setSslEnableEndpointIdentification(single.isSslEnableEndpointIdentification())
+			.setSslProvider(single.getSslProvider())
+			.setSslTruststore(single.getSslTruststore())
+			.setSslTruststorePassword(single.getSslTruststorePassword())
+			.setSslKeystore(single.getSslKeystore())
+			.setSslKeystorePassword(single.getSslKeystorePassword())
+			.setPingConnectionInterval(single.getPingConnectionInterval())
+			.setKeepAlive(single.isKeepAlive())
+			.setTcpNoDelay(single.isTcpNoDelay())
+			// 私有配置
+			.setConnectionPoolSize(single.getConnectionPoolSize())
+			.setSubscriptionConnectionPoolSize(single.getSubscriptionConnectionPoolSize())
+			.setDnsMonitoringInterval(single.getDnsMonitoringInterval())
+			.setSubscriptionConnectionMinimumIdleSize(single.getSubscriptionConnectionMinimumIdleSize())
+			.setConnectionMinimumIdleSize(single.getConnectionMinimumIdleSize())
+			.setDatabase(single.getDatabase());
 		return config;
 	}
 
 	private static Config masterSlaveConfig(Config config, MasterSlaveServersConfig masterSlave) {
 		config.useMasterSlaveServers()
-				// 私有配置
-				.setMasterAddress(repairAddressIfNeed(masterSlave.getMasterAddress()))
-				.addSlaveAddress(repairAddressIfNeed(masterSlave.getSlaveAddresses()))
-				.setDatabase(masterSlave.getDatabase())
-				// 父类配置
-				.setLoadBalancer(masterSlave.getLoadBalancer().getLb())
-				.setMasterConnectionPoolSize(masterSlave.getMasterConnectionPoolSize())
-				.setSlaveConnectionPoolSize(masterSlave.getSlaveConnectionPoolSize())
-				.setSubscriptionConnectionPoolSize(masterSlave.getSubscriptionConnectionPoolSize())
-				.setMasterConnectionMinimumIdleSize(masterSlave.getMasterConnectionMinimumIdleSize())
-				.setSlaveConnectionMinimumIdleSize(masterSlave.getSlaveConnectionMinimumIdleSize())
-				.setSubscriptionConnectionMinimumIdleSize(masterSlave.getSubscriptionConnectionMinimumIdleSize())
-				.setReadMode(masterSlave.getReadMode()).setSubscriptionMode(masterSlave.getSubscriptionMode())
-				.setDnsMonitoringInterval(masterSlave.getDnsMonitoringInterval())
-				.setFailedSlaveNodeDetector(new FailedConnectionDetector(masterSlave.getFailedSlaveCheckInterval()))
-				.setFailedSlaveReconnectionInterval(masterSlave.getFailedSlaveReconnectionInterval())
-				// 公有配置
-				.setPassword(masterSlave.getPassword())
-				.setSubscriptionsPerConnection(masterSlave.getSubscriptionsPerConnection())
-				.setRetryAttempts(masterSlave.getRetryAttempts()).setRetryInterval(masterSlave.getRetryInterval())
-				.setTimeout(masterSlave.getTimeout()).setClientName(masterSlave.getClientName())
-				.setConnectTimeout(masterSlave.getConnectTimeout())
-				.setIdleConnectionTimeout(masterSlave.getIdleConnectionTimeout())
-				.setSslEnableEndpointIdentification(masterSlave.isSslEnableEndpointIdentification())
-				.setSslProvider(masterSlave.getSslProvider()).setSslTruststore(masterSlave.getSslTruststore())
-				.setSslTruststorePassword(masterSlave.getSslTruststorePassword())
-				.setSslKeystore(masterSlave.getSslKeystore())
-				.setSslKeystorePassword(masterSlave.getSslKeystorePassword())
-				.setPingConnectionInterval(masterSlave.getPingConnectionInterval())
-				.setKeepAlive(masterSlave.isKeepAlive()).setTcpNoDelay(masterSlave.isTcpNoDelay());
+			// 私有配置
+			.setMasterAddress(repairAddressIfNeed(masterSlave.getMasterAddress()))
+			.addSlaveAddress(repairAddressIfNeed(masterSlave.getSlaveAddresses()))
+			.setDatabase(masterSlave.getDatabase())
+			// 父类配置
+			.setLoadBalancer(masterSlave.getLoadBalancer().getLb())
+			.setMasterConnectionPoolSize(masterSlave.getMasterConnectionPoolSize())
+			.setSlaveConnectionPoolSize(masterSlave.getSlaveConnectionPoolSize())
+			.setSubscriptionConnectionPoolSize(masterSlave.getSubscriptionConnectionPoolSize())
+			.setMasterConnectionMinimumIdleSize(masterSlave.getMasterConnectionMinimumIdleSize())
+			.setSlaveConnectionMinimumIdleSize(masterSlave.getSlaveConnectionMinimumIdleSize())
+			.setSubscriptionConnectionMinimumIdleSize(masterSlave.getSubscriptionConnectionMinimumIdleSize())
+			.setReadMode(masterSlave.getReadMode())
+			.setSubscriptionMode(masterSlave.getSubscriptionMode())
+			.setDnsMonitoringInterval(masterSlave.getDnsMonitoringInterval())
+			.setFailedSlaveNodeDetector(new FailedConnectionDetector(masterSlave.getFailedSlaveCheckInterval()))
+			.setFailedSlaveReconnectionInterval(masterSlave.getFailedSlaveReconnectionInterval())
+			// 公有配置
+			.setPassword(masterSlave.getPassword())
+			.setSubscriptionsPerConnection(masterSlave.getSubscriptionsPerConnection())
+			.setRetryAttempts(masterSlave.getRetryAttempts())
+			.setRetryInterval(masterSlave.getRetryInterval())
+			.setTimeout(masterSlave.getTimeout())
+			.setClientName(masterSlave.getClientName())
+			.setConnectTimeout(masterSlave.getConnectTimeout())
+			.setIdleConnectionTimeout(masterSlave.getIdleConnectionTimeout())
+			.setSslEnableEndpointIdentification(masterSlave.isSslEnableEndpointIdentification())
+			.setSslProvider(masterSlave.getSslProvider())
+			.setSslTruststore(masterSlave.getSslTruststore())
+			.setSslTruststorePassword(masterSlave.getSslTruststorePassword())
+			.setSslKeystore(masterSlave.getSslKeystore())
+			.setSslKeystorePassword(masterSlave.getSslKeystorePassword())
+			.setPingConnectionInterval(masterSlave.getPingConnectionInterval())
+			.setKeepAlive(masterSlave.isKeepAlive())
+			.setTcpNoDelay(masterSlave.isTcpNoDelay());
 		return config;
 	}
 
 	private static Config replicatedConfig(Config config, ReplicatedServersConfig replicated) {
 		config.useReplicatedServers()
-				// 私有配置
-				.addNodeAddress(repairAddressIfNeed(replicated.getNodeAddresses()))
-				.setScanInterval(replicated.getScanInterval()).setDatabase(replicated.getDatabase())
-				// 父类配置
-				.setLoadBalancer(replicated.getLoadBalancer().getLb())
-				.setMasterConnectionPoolSize(replicated.getMasterConnectionPoolSize())
-				.setSlaveConnectionPoolSize(replicated.getSlaveConnectionPoolSize())
-				.setSubscriptionConnectionPoolSize(replicated.getSubscriptionConnectionPoolSize())
-				.setMasterConnectionMinimumIdleSize(replicated.getMasterConnectionMinimumIdleSize())
-				.setSlaveConnectionMinimumIdleSize(replicated.getSlaveConnectionMinimumIdleSize())
-				.setSubscriptionConnectionMinimumIdleSize(replicated.getSubscriptionConnectionMinimumIdleSize())
-				.setReadMode(replicated.getReadMode()).setSubscriptionMode(replicated.getSubscriptionMode())
-				.setDnsMonitoringInterval(replicated.getDnsMonitoringInterval())
-				.setFailedSlaveNodeDetector(new FailedConnectionDetector(replicated.getFailedSlaveCheckInterval()))
-				.setFailedSlaveReconnectionInterval(replicated.getFailedSlaveReconnectionInterval())
-				// 公有配置
-				.setPassword(replicated.getPassword())
-				.setSubscriptionsPerConnection(replicated.getSubscriptionsPerConnection())
-				.setRetryAttempts(replicated.getRetryAttempts()).setRetryInterval(replicated.getRetryInterval())
-				.setTimeout(replicated.getTimeout()).setClientName(replicated.getClientName())
-				.setConnectTimeout(replicated.getConnectTimeout())
-				.setIdleConnectionTimeout(replicated.getIdleConnectionTimeout())
-				.setSslEnableEndpointIdentification(replicated.isSslEnableEndpointIdentification())
-				.setSslProvider(replicated.getSslProvider()).setSslTruststore(replicated.getSslTruststore())
-				.setSslTruststorePassword(replicated.getSslTruststorePassword())
-				.setSslKeystore(replicated.getSslKeystore()).setSslKeystorePassword(replicated.getSslKeystorePassword())
-				.setPingConnectionInterval(replicated.getPingConnectionInterval())
-				.setKeepAlive(replicated.isKeepAlive()).setTcpNoDelay(replicated.isTcpNoDelay());
+			// 私有配置
+			.addNodeAddress(repairAddressIfNeed(replicated.getNodeAddresses()))
+			.setScanInterval(replicated.getScanInterval())
+			.setDatabase(replicated.getDatabase())
+			// 父类配置
+			.setLoadBalancer(replicated.getLoadBalancer().getLb())
+			.setMasterConnectionPoolSize(replicated.getMasterConnectionPoolSize())
+			.setSlaveConnectionPoolSize(replicated.getSlaveConnectionPoolSize())
+			.setSubscriptionConnectionPoolSize(replicated.getSubscriptionConnectionPoolSize())
+			.setMasterConnectionMinimumIdleSize(replicated.getMasterConnectionMinimumIdleSize())
+			.setSlaveConnectionMinimumIdleSize(replicated.getSlaveConnectionMinimumIdleSize())
+			.setSubscriptionConnectionMinimumIdleSize(replicated.getSubscriptionConnectionMinimumIdleSize())
+			.setReadMode(replicated.getReadMode())
+			.setSubscriptionMode(replicated.getSubscriptionMode())
+			.setDnsMonitoringInterval(replicated.getDnsMonitoringInterval())
+			.setFailedSlaveNodeDetector(new FailedConnectionDetector(replicated.getFailedSlaveCheckInterval()))
+			.setFailedSlaveReconnectionInterval(replicated.getFailedSlaveReconnectionInterval())
+			// 公有配置
+			.setPassword(replicated.getPassword())
+			.setSubscriptionsPerConnection(replicated.getSubscriptionsPerConnection())
+			.setRetryAttempts(replicated.getRetryAttempts())
+			.setRetryInterval(replicated.getRetryInterval())
+			.setTimeout(replicated.getTimeout())
+			.setClientName(replicated.getClientName())
+			.setConnectTimeout(replicated.getConnectTimeout())
+			.setIdleConnectionTimeout(replicated.getIdleConnectionTimeout())
+			.setSslEnableEndpointIdentification(replicated.isSslEnableEndpointIdentification())
+			.setSslProvider(replicated.getSslProvider())
+			.setSslTruststore(replicated.getSslTruststore())
+			.setSslTruststorePassword(replicated.getSslTruststorePassword())
+			.setSslKeystore(replicated.getSslKeystore())
+			.setSslKeystorePassword(replicated.getSslKeystorePassword())
+			.setPingConnectionInterval(replicated.getPingConnectionInterval())
+			.setKeepAlive(replicated.isKeepAlive())
+			.setTcpNoDelay(replicated.isTcpNoDelay());
 		return config;
 	}
 
@@ -263,8 +298,10 @@ public class RedissonClientConfiguration {
 	 * @return 修复后的地址
 	 */
 	private static String[] repairAddressIfNeed(Collection<String> addressList) {
-		return addressList.stream().map(RedissonClientConfiguration::repairAddressIfNeed).distinct()
-				.toArray(String[]::new);
+		return addressList.stream()
+			.map(RedissonClientConfiguration::repairAddressIfNeed)
+			.distinct()
+			.toArray(String[]::new);
 	}
 
 	/**

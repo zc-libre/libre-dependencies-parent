@@ -4,12 +4,12 @@ package com.libre.toolkit.result;
 import com.libre.toolkit.constant.LibreConstants;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
@@ -69,8 +69,9 @@ public class R<T> implements Serializable {
 	 * @return 是否成功
 	 */
 	public static boolean isSuccess(R<?> result) {
-		return Optional.ofNullable(result).map(x -> Objects.equals(ResultCode.SUCCESS.code, x.code))
-				.orElse(Boolean.FALSE);
+		return Optional.ofNullable(result)
+			.map(x -> Objects.equals(ResultCode.SUCCESS.code, x.code))
+			.orElse(Boolean.FALSE);
 	}
 
 	/**

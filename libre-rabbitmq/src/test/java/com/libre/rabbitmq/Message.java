@@ -1,18 +1,18 @@
 package com.libre.rabbitmq;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Data
 public class Message implements Serializable {
+
 	@Serial
 	private static final long serialVersionUID = 42L;
 
 	private String id;
+
 	private String content;
 
 	public Message() {
@@ -27,9 +27,7 @@ public class Message implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Message{" +
-			"id='" + id + '\'' +
-			", content='" + content + '\'' +
-			'}';
+		return "Message{" + "id='" + id + '\'' + ", content='" + content + '\'' + '}';
 	}
+
 }

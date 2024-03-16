@@ -36,6 +36,7 @@ import java.util.Optional;
 public class Oauth2CustomOpaqueTokenIntrospector implements OpaqueTokenIntrospector, ApplicationContextAware {
 
 	private final OAuth2AuthorizationService authorizationService;
+
 	private ApplicationContext applicationContext;
 
 	@Override
@@ -87,4 +88,5 @@ public class Oauth2CustomOpaqueTokenIntrospector implements OpaqueTokenIntrospec
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
+
 }

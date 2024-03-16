@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
  */
 @SpringBootApplication(scanBasePackages = "com.libre.rabbitmq")
 public class RabbitMqApplication {
+
 	public static void main(String[] args) {
 		SpringApplication.run(RabbitMqApplication.class, args);
 	}
@@ -48,4 +49,5 @@ public class RabbitMqApplication {
 		rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
 		return rabbitTemplate;
 	}
+
 }

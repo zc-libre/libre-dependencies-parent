@@ -102,7 +102,8 @@ public class RStreamListenerDetector implements BeanPostProcessor {
 		String consumerName = groupId + CharPool.COLON + hostIp + CharPool.AT + RuntimeUtil.getPId();
 		ElementsSubscribeService subscribeService = connectionManager.getServiceManager().getElementsSubscribeService();
 		// 阻塞1秒，一次响应一条，多条时 ack 相应会有问题
-		subscribeService.subscribeOnElements(() -> stream.readGroupAsync(groupId, consumerName, StreamReadGroupArgs.neverDelivered()),
+		subscribeService.subscribeOnElements(
+				() -> stream.readGroupAsync(groupId, consumerName, StreamReadGroupArgs.neverDelivered()),
 				new RStreamConsumer(stream, groupId, bean, method, paramCount));
 	}
 

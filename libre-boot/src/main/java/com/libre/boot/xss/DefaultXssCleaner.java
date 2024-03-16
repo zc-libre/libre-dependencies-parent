@@ -14,6 +14,7 @@ import org.springframework.web.util.HtmlUtils;
  * @author L.cm
  */
 public class DefaultXssCleaner implements XssCleaner {
+
 	private final XssProperties properties;
 
 	public DefaultXssCleaner(XssProperties properties) {
@@ -38,13 +39,15 @@ public class DefaultXssCleaner implements XssCleaner {
 		if (XssProperties.Mode.escape == mode) {
 			// html 转义
 			return HtmlUtils.htmlEscape(bodyHtml, Charsets.UTF_8.name());
-		} else if (XssProperties.Mode.validate == mode) {
+		}
+		else if (XssProperties.Mode.validate == mode) {
 			// 校验
 			if (Jsoup.isValid(bodyHtml, XssUtil.WHITE_LIST)) {
 				return bodyHtml;
 			}
 			throw type.getXssException(name, bodyHtml, "Xss validate fail, input value:" + bodyHtml);
-		} else {
+		}
+		else {
 			// 4. 清理后的 html
 			String escapedHtml = Jsoup.clean(bodyHtml, "", XssUtil.WHITE_LIST, getOutputSettings(properties));
 			if (properties.isEnableEscape()) {

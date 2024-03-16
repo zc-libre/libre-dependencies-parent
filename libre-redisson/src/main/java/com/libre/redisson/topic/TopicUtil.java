@@ -32,28 +32,28 @@ public class TopicUtil {
 		for (int i = length - 1; i > 0; i--) {
 			char charAt = name.charAt(i);
 			switch (charAt) {
-			case ASTERISK:
-			case QUESTION_MARK:
-				if (isEscapeChars(name, i)) {
-					break;
-				}
-				return true;
-			case RIGHT_SQ_BRACKET:
-				if (isEscapeChars(name, i)) {
-					break;
-				}
-				isRightSqBracket = true;
-				break;
-			case LEFT_SQ_BRACKET:
-				if (isEscapeChars(name, i)) {
-					break;
-				}
-				if (isRightSqBracket) {
+				case ASTERISK:
+				case QUESTION_MARK:
+					if (isEscapeChars(name, i)) {
+						break;
+					}
 					return true;
-				}
-				break;
-			default:
-				break;
+				case RIGHT_SQ_BRACKET:
+					if (isEscapeChars(name, i)) {
+						break;
+					}
+					isRightSqBracket = true;
+					break;
+				case LEFT_SQ_BRACKET:
+					if (isEscapeChars(name, i)) {
+						break;
+					}
+					if (isRightSqBracket) {
+						return true;
+					}
+					break;
+				default:
+					break;
 			}
 		}
 		return false;

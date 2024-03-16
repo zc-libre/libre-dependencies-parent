@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.lang.Nullable;
 import org.springframework.util.AntPathMatcher;
@@ -40,8 +39,12 @@ public class SwaggerAutoConfiguration {
 		String appName = environment.getProperty("spring.application.name");
 
 		Docket docket = new Docket(DocumentationType.OAS_30).useDefaultResponseMessages(false)
-				.globalRequestParameters(globalHeaders(properties)).apiInfo(apiInfo(appName, properties)).select()
-				.apis(RequestHandlerSelectors.withClassAnnotation(Api.class)).paths(PathSelectors.any()).build();
+			.globalRequestParameters(globalHeaders(properties))
+			.apiInfo(apiInfo(appName, properties))
+			.select()
+			.apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
+			.paths(PathSelectors.any())
+			.build();
 		// 如果开启 apiKey 认证
 		if (Boolean.TRUE.equals(properties.getAuthorization().getEnabled())) {
 			SwaggerProperties.Authorization authorization = properties.getAuthorization();
@@ -98,9 +101,12 @@ public class SwaggerAutoConfiguration {
 		// 授权码模式
 		if (SwaggerProperties.GrantTypes.AUTHORIZATION_CODE == grantTypes) {
 			TokenRequestEndpoint tokenRequestEndpoint = new TokenRequestEndpointBuilder().url(oauth2.getAuthorizeUrl())
-					.clientIdName(oauth2.getClientIdName()).clientSecretName(oauth2.getClientSecretName()).build();
+				.clientIdName(oauth2.getClientIdName())
+				.clientSecretName(oauth2.getClientSecretName())
+				.build();
 			TokenEndpoint tokenEndpoint = new TokenEndpointBuilder().url(oauth2.getTokenUrl())
-					.tokenName(oauth2.getTokenName()).build();
+				.tokenName(oauth2.getTokenName())
+				.build();
 			grantType = new AuthorizationCodeGrant(tokenRequestEndpoint, tokenEndpoint);
 		}
 		else if (SwaggerProperties.GrantTypes.CLIENT_CREDENTIALS == grantTypes) {
@@ -129,27 +135,35 @@ public class SwaggerAutoConfiguration {
 			pathPatterns.add("/**");
 		}
 		final AntPathMatcher matcher = new AntPathMatcher();
-		return SecurityContext.builder().securityReferences(Collections.singletonList(securityReference))
-				.operationSelector(context -> {
-					String mappingPattern = context.requestMappingPattern();
-					return pathPatterns.stream().anyMatch(patterns -> matcher.match(patterns, mappingPattern));
-				}).build();
+		return SecurityContext.builder()
+			.securityReferences(Collections.singletonList(securityReference))
+			.operationSelector(context -> {
+				String mappingPattern = context.requestMappingPattern();
+				return pathPatterns.stream().anyMatch(patterns -> matcher.match(patterns, mappingPattern));
+			})
+			.build();
 	}
 
 	private ApiInfo apiInfo(@Nullable String appName, SwaggerProperties properties) {
 		String defaultName = (appName == null ? "" : appName) + "服务";
 		String title = Optional.ofNullable(properties.getTitle()).orElse(defaultName);
 		String description = Optional.ofNullable(properties.getDescription()).orElse(defaultName);
-		return new ApiInfoBuilder().title(title).description(description).version(properties.getVersion()).contact(
-				new Contact(properties.getContactUser(), properties.getContactUrl(), properties.getContactEmail()))
-				.build();
+		return new ApiInfoBuilder().title(title)
+			.description(description)
+			.version(properties.getVersion())
+			.contact(new Contact(properties.getContactUser(), properties.getContactUrl(), properties.getContactEmail()))
+			.build();
 	}
 
 	private List<RequestParameter> globalHeaders(SwaggerProperties properties) {
-		return properties.getHeaders().stream()
-				.map(header -> new RequestParameterBuilder().in(ParameterType.HEADER).name(header.getName())
-						.description(header.getDescription()).required(header.isRequired()).build())
-				.collect(Collectors.toList());
+		return properties.getHeaders()
+			.stream()
+			.map(header -> new RequestParameterBuilder().in(ParameterType.HEADER)
+				.name(header.getName())
+				.description(header.getDescription())
+				.required(header.isRequired())
+				.build())
+			.collect(Collectors.toList());
 	}
 
 }

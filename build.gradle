@@ -1,12 +1,9 @@
-buildscript {
-    dependencies {
-        classpath("io.spring.javaformat:spring-javaformat-gradle-plugin:0.0.40")
-    }
-}
+import io.spring.javaformat.gradle.tasks.CheckFormat
 
 plugins {
     id "base"
     id "org.sonarqube" version "3.4.0.2513"
+    id "io.spring.javaformat" version "0.0.40"
 }
 
 ext {
@@ -19,12 +16,15 @@ subprojects {
     version = VERSION
     apply plugin: 'signing'
     apply plugin: 'maven-publish'
+    apply plugin: 'io.spring.javaformat'
     // ci 自动发布 SNAPSHOT 版本
     task publishSnapshot(type: GradleBuild) {
         if (VERSION.endsWith('SNAPSHOT')) {
             tasks = ['clean', 'build', 'publish']
         }
     }
+
+
 }
 
 configure(commons) {
@@ -36,6 +36,10 @@ configure(commons) {
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
         options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    }
+
+    tasks.withType(CheckFormat) {
+        exclude ""
     }
 
     repositories {

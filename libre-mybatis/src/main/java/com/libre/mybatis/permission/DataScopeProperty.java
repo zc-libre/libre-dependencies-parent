@@ -29,8 +29,8 @@ public class DataScopeProperty {
 	public void setColumns(DataColumn[] dataScope) {
 		if (!ObjectUtils.isEmpty(dataScope)) {
 			this.columns = Arrays.stream(dataScope)
-					.map((dataColumn) -> new DataColumnProperty(dataColumn.alias(), dataColumn.name()))
-					.collect(Collectors.toList());
+				.map((dataColumn) -> new DataColumnProperty(dataColumn.alias(), dataColumn.name()))
+				.collect(Collectors.toList());
 		}
 
 	}

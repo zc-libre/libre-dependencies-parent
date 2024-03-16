@@ -34,13 +34,13 @@ public abstract class XssCleanDeserializerBase extends JsonDeserializer<String> 
 				return text;
 			}
 		}
-		throw MismatchedInputException.from(p, String.class, "mica-xss: can't deserialize json name:" + name + " value of type java.lang.String from " + jsonToken);
+		throw MismatchedInputException.from(p, String.class,
+				"mica-xss: can't deserialize json name:" + name + " value of type java.lang.String from " + jsonToken);
 	}
 
 	/**
 	 * 清理 xss
-	 *
-	 * @param name  json name
+	 * @param name json name
 	 * @param value json value
 	 * @return String
 	 */

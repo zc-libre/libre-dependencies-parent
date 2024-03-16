@@ -18,7 +18,7 @@ import java.lang.annotation.*;
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @EnableMethodSecurity
-@Import({ Oauth2ResourceServerAutoConfiguration.class, Oauth2ResourceServerConfiguration.class})
+@Import({ Oauth2ResourceServerAutoConfiguration.class, Oauth2ResourceServerConfiguration.class })
 public @interface EnableResourceServer {
 
 }

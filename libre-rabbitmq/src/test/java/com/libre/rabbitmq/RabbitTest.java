@@ -1,11 +1,8 @@
 package com.libre.rabbitmq;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Component;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -33,8 +30,10 @@ public class RabbitTest {
 		try {
 			Message responseMessage = future.get();
 			return responseMessage.getContent();
-		} catch (InterruptedException | ExecutionException e) {
+		}
+		catch (InterruptedException | ExecutionException e) {
 			throw new RuntimeException(e);
 		}
 	}
+
 }

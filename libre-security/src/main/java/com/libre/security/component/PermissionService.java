@@ -1,5 +1,6 @@
 
 package com.libre.security.component;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

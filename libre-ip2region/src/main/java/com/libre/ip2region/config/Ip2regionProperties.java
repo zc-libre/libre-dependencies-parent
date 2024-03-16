@@ -16,7 +16,6 @@ public class Ip2regionProperties {
 
 	public static final String PREFIX = "libre.ip2region";
 
-
 	/**
 	 * ip2region.db 文件路径
 	 */

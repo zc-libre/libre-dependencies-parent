@@ -34,7 +34,6 @@ public class Oauth2User extends User implements OAuth2AuthenticatedPrincipal {
 	@JsonSerialize(using = ToStringSerializer.class)
 	private final Long id;
 
-
 	/**
 	 * 手机号
 	 */
@@ -42,8 +41,8 @@ public class Oauth2User extends User implements OAuth2AuthenticatedPrincipal {
 	private final String phone;
 
 	public Oauth2User(Long id, String username, String password, String phone, boolean enabled,
-				   boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked,
-				   Collection<? extends GrantedAuthority> authorities) {
+			boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked,
+			Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		this.id = id;
 		this.phone = phone;
@@ -62,6 +61,5 @@ public class Oauth2User extends User implements OAuth2AuthenticatedPrincipal {
 	public String getName() {
 		return this.getUsername();
 	}
-
 
 }

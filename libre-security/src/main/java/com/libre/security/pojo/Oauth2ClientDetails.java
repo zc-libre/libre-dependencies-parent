@@ -6,7 +6,6 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 
-
 /**
  * <p>
  * 客户端信息
