@@ -18,6 +18,8 @@ public class MqttProperties {
 
 	public final static String MQTT_OUT_BOUND_CHANNEL_NAME = "mqttOutboundChannel";
 
+	public final static String MQTT_CONSUMER_EXECUTOR = "mqttConsumerExecutor";
+
 	private Boolean enabled = true;
 
 	private String[] urls = { "tcp://127.0.0.1:1883" };
@@ -73,6 +75,8 @@ public class MqttProperties {
 
 		private Boolean asyncEvents = false;
 
+		private Boolean defaultRetained = false;
+
 	}
 
 	@Getter
@@ -87,13 +91,23 @@ public class MqttProperties {
 
 		private String clientId;
 
+		private Boolean async = false;
+
+		private MqttExecutor executor = new MqttExecutor();
+
 	}
 
 	@Getter
 	@Setter
-	private static class ThreadPoolConfig {
+	public static class MqttExecutor {
 
-		private Integer coreSize = 5;
+		private Integer corePoolSize = 5;
+
+		private Integer maxPoolSize = 10;
+
+		private Integer keepAliveSeconds = 60;
+
+		private Integer queueCapacity = 512;
 
 	}
 

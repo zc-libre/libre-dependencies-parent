@@ -49,7 +49,7 @@ public class MqttTemplate implements MqttOptions {
 	@Override
 	public void convertAndSend(MqttMessage mqttMessage) {
 		try {
-			mqttMessageGateWay.sendToMqtt(mqttMessage.getTopic(), mqttMessage.getQos(),
+			mqttMessageGateWay.sendToMqtt(mqttMessage.getTopic(), mqttMessage.getQos(), mqttMessage.getRetained(),
 					JsonUtil.toJson(mqttMessage.getPayload()));
 		}
 		catch (Exception e) {

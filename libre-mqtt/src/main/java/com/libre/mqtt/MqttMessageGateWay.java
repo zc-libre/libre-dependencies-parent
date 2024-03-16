@@ -11,7 +11,7 @@ import static com.libre.mqtt.MqttProperties.MQTT_OUT_BOUND_CHANNEL_NAME;
 public interface MqttMessageGateWay {
 
 	/**
-	 * 定义重载方法，用于消息发送
+	 * 消息发送
 	 * @param payload 消息体
 	 */
 	void sendToMqtt(String payload);
@@ -29,7 +29,8 @@ public interface MqttMessageGateWay {
 	 * @param qos qos
 	 * @param payload 消息体
 	 */
-	void sendToMqtt(@Header(MqttHeaders.TOPIC) String topic, @Header(MqttHeaders.QOS) int qos, @Payload String payload);
+	void sendToMqtt(@Header(MqttHeaders.TOPIC) String topic, @Header(MqttHeaders.QOS) int qos,
+			@Header(MqttHeaders.RETAINED) boolean retained, @Payload String payload);
 
 	/**
 	 * 指定topic进行消息发送
@@ -37,6 +38,7 @@ public interface MqttMessageGateWay {
 	 * @param qos qos
 	 * @param payload 消息体
 	 */
-	void sendToMqtt(@Header(MqttHeaders.TOPIC) String topic, @Header(MqttHeaders.QOS) int qos, @Payload byte[] payload);
+	void sendToMqtt(@Header(MqttHeaders.TOPIC) String topic, @Header(MqttHeaders.QOS) int qos,
+			@Header(MqttHeaders.RETAINED) boolean retained, @Payload byte[] payload);
 
 }

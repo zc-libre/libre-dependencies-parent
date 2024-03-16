@@ -12,7 +12,10 @@ public class MqttTest {
 
 	@Test
 	void publish() {
-		mqttMessageGateWay.sendToMqtt("test", "123");
+		for (int i = 0; i < 10; i++) {
+			mqttMessageGateWay.sendToMqtt("test", "123");
+		}
+
 	}
 
 }

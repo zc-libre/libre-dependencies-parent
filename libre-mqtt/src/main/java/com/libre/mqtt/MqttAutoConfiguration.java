@@ -16,10 +16,12 @@ import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannel
 import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import static com.libre.mqtt.MqttProperties.MQTT_INPUT_CHANNEL_NAME;
 import static com.libre.mqtt.MqttProperties.MQTT_OUT_BOUND_CHANNEL_NAME;
@@ -102,6 +104,7 @@ public class MqttAutoConfiguration {
 		messageHandler.setDefaultTopic(producer.getDefaultTopic());
 		messageHandler.setDefaultQos(producer.getDefaultQos());
 		messageHandler.setConverter(new DefaultPahoMessageConverter());
+		messageHandler.setDefaultRetained(producer.getDefaultRetained());
 		return messageHandler;
 	}
 
@@ -112,8 +115,23 @@ public class MqttAutoConfiguration {
 
 	@Bean
 	public MqttMessageInboundHandler mqttMessageInboundHandler(List<MqttMessageListener> messageListeners,
-			MqttOptions mqttOptions) {
-		return new MqttMessageInboundHandler(messageListeners, mqttOptions);
+			MqttOptions mqttOptions, MqttProperties properties) {
+		return new MqttMessageInboundHandler(messageListeners, mqttOptions, properties);
+	}
+
+	@Bean
+	@ConditionalOnProperty(prefix = "libre.mqtt.consumer", name = "async", havingValue = "true")
+	public ThreadPoolTaskExecutor mqttConsumerExecutor(MqttProperties properties) {
+		MqttProperties.MqttExecutor executorProperties = properties.getConsumer().getExecutor();
+		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		executor.setCorePoolSize(executorProperties.getCorePoolSize());
+		executor.setMaxPoolSize(executorProperties.getMaxPoolSize());
+		executor.setQueueCapacity(executorProperties.getQueueCapacity());
+		executor.setKeepAliveSeconds(executorProperties.getKeepAliveSeconds());
+		executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+		executor.setThreadNamePrefix("mqtt-consumer-");
+		executor.initialize();
+		return executor;
 	}
 
 	private String getClientId(Environment environment) {

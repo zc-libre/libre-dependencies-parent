@@ -1,13 +1,18 @@
 package com.libre.mqtt;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.integration.annotation.ServiceActivator;
+import org.springframework.lang.Nullable;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.MessagingException;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
 
@@ -16,9 +21,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.libre.mqtt.MqttProperties.MQTT_CONSUMER_EXECUTOR;
+
 @Slf4j
-@RequiredArgsConstructor
-public class MqttMessageInboundHandler implements MessageHandler, InitializingBean {
+public class MqttMessageInboundHandler implements MessageHandler, InitializingBean, ApplicationContextAware {
 
 	private final Map<String, MqttMessageListener> mqttMessageListenerContext = new ConcurrentHashMap<>();
 
@@ -26,17 +32,42 @@ public class MqttMessageInboundHandler implements MessageHandler, InitializingBe
 
 	private final MqttOptions mqttOptions;
 
+	private final MqttProperties mqttProperties;
+
+	@Nullable
+	private ApplicationContext applicationContext;
+
+	@Nullable
+	private ThreadPoolTaskExecutor executor;
+
+	public MqttMessageInboundHandler(List<MqttMessageListener> mqttMessageListenerList, MqttOptions mqttOptions,
+			MqttProperties mqttProperties) {
+		this.mqttMessageListenerList = mqttMessageListenerList;
+		this.mqttOptions = mqttOptions;
+		this.mqttProperties = mqttProperties;
+	}
+
 	@Override
 	@ServiceActivator(inputChannel = MqttProperties.MQTT_INPUT_CHANNEL_NAME)
 	public void handleMessage(Message<?> message) throws MessagingException {
 		log.debug("message arrived from server, message: {}", message);
-		MqttMessage mqttMessage = new MqttMessage(message);
+		if (mqttProperties.getConsumer().getAsync() && Objects.nonNull(executor)) {
+			executor.execute(() -> doHandlerMessage(message));
+		}
+		else {
+			doHandlerMessage(message);
+		}
+	}
+
+	private void doHandlerMessage(Message<?> message) {
+		MqttMessage mqttMessage = MqttMessage.of(message);
 		for (String topicFilter : mqttMessageListenerContext.keySet()) {
 			if (TopicUtils.isTopicFilter(topicFilter) && TopicUtils.match(topicFilter, mqttMessage.getTopic())) {
 				MqttMessageListener mqttMessageListener = mqttMessageListenerContext.get(topicFilter);
 				mqttMessageListener.onMessage(mqttMessage);
 			}
-			else if (TopicFilterType.SHARE.match(topicFilter, mqttMessage.getTopic())) {
+			else if (TopicFilterType.SHARE.equals(TopicFilterType.getType(topicFilter))
+					&& TopicFilterType.SHARE.match(topicFilter, mqttMessage.getTopic())) {
 				MqttMessageListener mqttMessageListener = mqttMessageListenerContext.get(topicFilter);
 				mqttMessageListener.onMessage(mqttMessage);
 			}
@@ -52,6 +83,7 @@ public class MqttMessageInboundHandler implements MessageHandler, InitializingBe
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
+		Assert.notNull(applicationContext, "applicationContext must not be null");
 		if (CollectionUtils.isEmpty(mqttMessageListenerList)) {
 			return;
 		}
@@ -66,6 +98,15 @@ public class MqttMessageInboundHandler implements MessageHandler, InitializingBe
 			mqttMessageListenerContext.put(topic, mqttMessageListener);
 			log.debug("register topic listener {} success，topic: {}", mqttMessageListener.getClass().getName(), topic);
 		}
+		MqttProperties.Consumer consumer = mqttProperties.getConsumer();
+		if (consumer.getAsync()) {
+			executor = (ThreadPoolTaskExecutor) applicationContext.getBean(MQTT_CONSUMER_EXECUTOR);
+		}
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
 	}
 
 }
