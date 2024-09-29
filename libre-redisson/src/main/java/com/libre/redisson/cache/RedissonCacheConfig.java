@@ -3,10 +3,9 @@ package com.libre.redisson.cache;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.redisson.api.options.LocalCachedMapOptions;
 
 import java.time.Duration;
-
-import static org.redisson.api.LocalCachedMapOptions.*;
 
 /**
  * Redisson cache 配置
@@ -39,14 +38,14 @@ public class RedissonCacheConfig {
 	 * 元素用Java的WeakReference来保存，缓存元素通过GC过程清除。 WEAK - 元素用Java的SoftReference来保存,
 	 * 缓存元素通过GC过程清除。 NONE - 永不淘汰清除缓存元素。 </br>
 	 */
-	private EvictionPolicy evictionPolicy = EvictionPolicy.LRU;
+	private LocalCachedMapOptions.EvictionPolicy evictionPolicy = LocalCachedMapOptions.EvictionPolicy.LRU;
 
 	/**
 	 * 同步策略: <br>
 	 * INVALIDATE - 默认值。当本地缓存映射的某条元素发生变动时，同时驱逐所有相同本地缓存映射内的该元素 UPDATE -
 	 * 当本地缓存映射的某条元素发生变动时，同时更新所有相同本地缓存映射内的该元素 NONE - 不做任何同步处理 </br>
 	 */
-	private SyncStrategy syncStrategy = SyncStrategy.INVALIDATE;
+	private LocalCachedMapOptions.SyncStrategy syncStrategy = LocalCachedMapOptions.SyncStrategy.INVALIDATE;
 
 	/**
 	 * 重连时的策略: <br>
@@ -54,6 +53,6 @@ public class RedissonCacheConfig {
 	 * 在服务端保存一份10分钟的作废日志，如果10分钟内重新建立连接，则按照作废日志内的记录清空本地缓存的元素，如果断线时间超过了这个时间，则将清空本地缓存中所有的内容。
 	 * NONE - 默认值。断线重连时不做处理。 </br>
 	 */
-	private ReconnectionStrategy reconnectionStrategy = ReconnectionStrategy.NONE;
+	private LocalCachedMapOptions.ReconnectionStrategy reconnectionStrategy = LocalCachedMapOptions.ReconnectionStrategy.NONE;
 
 }

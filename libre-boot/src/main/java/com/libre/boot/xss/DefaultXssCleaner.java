@@ -1,7 +1,7 @@
 package com.libre.boot.xss;
 
 import com.google.common.base.Charsets;
-import com.libre.boot.autoconfigure.XssProperties;
+import com.libre.boot.config.XssProperties;
 import com.libre.toolkit.core.StringUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

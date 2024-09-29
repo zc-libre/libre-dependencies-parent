@@ -1,9 +1,12 @@
 package com.libre.boot.exception;
 
+import com.libre.toolkit.core.StringUtil;
 import com.libre.toolkit.result.R;
 import com.libre.toolkit.result.ResultCode;
-import com.libre.toolkit.core.StringUtil;
 import io.undertow.util.BadRequestException;
+import jakarta.servlet.Servlet;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +32,6 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import jakarta.servlet.Servlet;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
 import java.nio.file.AccessDeniedException;
 import java.util.Set;
 
@@ -66,7 +66,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(AccessDeniedException.class)
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	public R<Object> handleError(AccessDeniedException e) {
-		log.warn("请求参数格式错误:{}", e.getMessage());
+		log.warn("请求无权限:{}", e.getMessage());
 		String message = String.format("请求被拒绝: %s", e.getMessage());
 		return R.fail(ResultCode.REQ_REJECT, message);
 	}
@@ -88,7 +88,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(ConstraintViolationException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public R<Object> handleError(ConstraintViolationException e) {
-		log.warn("参数验证失败:{}", e.getMessage());
+		log.warn("参数验证违反约束:{}", e.getMessage());
 		return handleError(e.getConstraintViolations());
 	}
 

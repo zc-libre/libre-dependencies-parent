@@ -1,9 +1,7 @@
 package com.libre.boot.xss;
 
-import com.libre.boot.autoconfigure.SpringContext;
-import com.libre.boot.autoconfigure.XssProperties;
-import com.libre.boot.xss.XssCleaner;
-import com.libre.boot.xss.XssUtil;
+import com.libre.boot.config.SpringContext;
+import com.libre.boot.config.XssProperties;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;

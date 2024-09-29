@@ -13,9 +13,11 @@ public class MqttTest {
 	@Test
 	void publish() {
 		for (int i = 0; i < 10; i++) {
-			mqttMessageGateWay.sendToMqtt("test", "123");
+			Payload payload = new Payload();
+			payload.setMessageId(i);
+			payload.setBody("第" + i + "条消息");
+			mqttMessageGateWay.sendToMqtt("test", payload);
 		}
-
 	}
 
 }

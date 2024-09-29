@@ -3,6 +3,7 @@ package com.libre.mqtt;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +11,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.channel.ExecutorChannel;
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
 import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
@@ -61,11 +63,18 @@ public class MqttAutoConfiguration {
 	}
 
 	@Bean(name = MQTT_INPUT_CHANNEL_NAME)
-	public MessageChannel mqttInputChannel() {
+	@ConditionalOnMissingBean
+	public MessageChannel mqttInputChannel(@Qualifier("mqttConsumerExecutor") ThreadPoolTaskExecutor executor,
+			MqttProperties properties) {
+		MqttProperties.Consumer consumer = properties.getConsumer();
+		if (consumer.getAsync()) {
+			return new ExecutorChannel(executor);
+		}
 		return new DirectChannel();
 	}
 
 	@Bean(name = MQTT_OUT_BOUND_CHANNEL_NAME)
+	@ConditionalOnMissingBean
 	public MessageChannel mqttOutboundChannel() {
 		return new DirectChannel();
 	}
@@ -115,12 +124,11 @@ public class MqttAutoConfiguration {
 
 	@Bean
 	public MqttMessageInboundHandler mqttMessageInboundHandler(List<MqttMessageListener> messageListeners,
-			MqttOptions mqttOptions, MqttProperties properties) {
-		return new MqttMessageInboundHandler(messageListeners, mqttOptions, properties);
+			MqttOptions mqttOptions) {
+		return new MqttMessageInboundHandler(messageListeners, mqttOptions);
 	}
 
 	@Bean
-	@ConditionalOnProperty(prefix = "libre.mqtt.consumer", name = "async", havingValue = "true")
 	public ThreadPoolTaskExecutor mqttConsumerExecutor(MqttProperties properties) {
 		MqttProperties.MqttExecutor executorProperties = properties.getConsumer().getExecutor();
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();

@@ -1,6 +1,6 @@
 package com.libre.boot.xss;
 
-import com.libre.boot.autoconfigure.XssProperties;
+import com.libre.boot.config.XssProperties;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

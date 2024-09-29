@@ -3,9 +3,10 @@ package com.libre.ip2region.impl;
 import com.libre.ip2region.config.Ip2regionProperties;
 import com.libre.ip2region.core.Ip2regionSearcher;
 import com.libre.ip2region.core.IpInfo;
+import com.libre.ip2region.core.IpV6Searcher;
 import com.libre.ip2region.core.Searcher;
-import com.libre.ip2region.exception.Ip2regionException;
 import com.libre.ip2region.toolkit.IpInfoUtil;
+import com.libre.toolkit.core.Exceptions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -30,24 +31,31 @@ public class Ip2regionSearcherImpl implements InitializingBean, DisposableBean, 
 
 	private Searcher searcher;
 
+	private IpV6Searcher ipV6Searcher;
+
 	@Override
 	public IpInfo memorySearch(long ip) {
 		try {
 			return IpInfoUtil.toIpInfo(searcher.search(ip));
 		}
 		catch (IOException e) {
-			throw new Ip2regionException(e);
+			throw Exceptions.unchecked(e);
 		}
 	}
 
 	@Override
 	public IpInfo memorySearch(String ip) {
-		try {
-			return IpInfoUtil.toIpInfo(searcher.search(ip));
+		// 1. ipv4
+		String[] ipV4Part = IpInfoUtil.getIpV4Part(ip);
+		if (ipV4Part.length == 4) {
+			return memorySearch(Searcher.getIpAdder(ipV4Part));
 		}
-		catch (IOException e) {
-			throw new Ip2regionException(e);
+		// 2. 非 ipv6
+		if (!ip.contains(":")) {
+			throw new IllegalArgumentException("invalid ip address `" + ip + "`");
 		}
+		// 3. ipv6
+		return ipV6Searcher.query(ip);
 	}
 
 	@Override
@@ -55,6 +63,10 @@ public class Ip2regionSearcherImpl implements InitializingBean, DisposableBean, 
 		Resource resource = resourceLoader.getResource(properties.getDbFileLocation());
 		try (InputStream inputStream = resource.getInputStream()) {
 			this.searcher = Searcher.newWithBuffer(StreamUtils.copyToByteArray(inputStream));
+		}
+		Resource ipV6Resource = resourceLoader.getResource(properties.getIpv6dbFileLocation());
+		try (InputStream inputStream = ipV6Resource.getInputStream()) {
+			this.ipV6Searcher = IpV6Searcher.newWithBuffer(StreamUtils.copyToByteArray(inputStream));
 		}
 	}
 

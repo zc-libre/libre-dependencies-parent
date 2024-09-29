@@ -5,3 +5,9 @@ libre:
   mqtt:
     consumer:
       async: false
+logging:
+  level:
+    #    org.springframework.integration: trace
+    #    org.eclipse.paho.client.mqttv3: trace
+    com.libre.mqtt: debug
+    root: error

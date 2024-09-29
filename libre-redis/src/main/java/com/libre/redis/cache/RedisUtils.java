@@ -20,7 +20,7 @@ import java.util.function.Supplier;
  * @author Libre
  */
 @Getter
-@SuppressWarnings({ "unchecked", "deprecation" })
+@SuppressWarnings({ "unchecked", "deprecation", "rawtypes" })
 public class RedisUtils {
 
 	private final RedisTemplate<String, Object> redisTemplate;

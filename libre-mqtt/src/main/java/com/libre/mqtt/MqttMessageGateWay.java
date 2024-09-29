@@ -21,7 +21,15 @@ public interface MqttMessageGateWay {
 	 * @param topic topic
 	 * @param payload 消息体
 	 */
-	void sendToMqtt(@Header(MqttHeaders.TOPIC) String topic, @Payload String payload);
+	void sendToMqtt(@Header(MqttHeaders.TOPIC) String topic, @Payload Object payload);
+
+	/**
+	 * 指定topic进行消息发送
+	 * @param topic topic
+	 * @param qos qos {@link MqttQoS}
+	 * @param payload 消息体
+	 */
+	void sendToMqtt(@Header(MqttHeaders.TOPIC) String topic, @Header(MqttHeaders.QOS) int qos, @Payload String payload);
 
 	/**
 	 * 指定topic进行消息发送

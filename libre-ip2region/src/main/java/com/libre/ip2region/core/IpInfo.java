@@ -1,7 +1,8 @@
 package com.libre.ip2region.core;
 
+import com.libre.toolkit.core.StringPool;
+import com.libre.toolkit.core.StringUtil;
 import lombok.Data;
-import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.LinkedHashSet;
@@ -52,7 +53,7 @@ public class IpInfo implements Serializable {
 		regionSet.add(province);
 		regionSet.add(city);
 		regionSet.removeIf(Objects::isNull);
-		return StringUtils.collectionToDelimitedString(regionSet, "");
+		return StringUtil.join(regionSet, StringPool.EMPTY);
 	}
 
 	/**
@@ -67,7 +68,7 @@ public class IpInfo implements Serializable {
 		regionSet.add(city);
 		regionSet.add(isp);
 		regionSet.removeIf(Objects::isNull);
-		return StringUtils.collectionToDelimitedString(regionSet, " ");
+		return StringUtil.join(regionSet, StringPool.SPACE);
 	}
 
 }
