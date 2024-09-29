@@ -1,4 +1,4 @@
-package com.libre.mybatis.autoconfigure;
+package com.libre.mybatis.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import lombok.Data;
