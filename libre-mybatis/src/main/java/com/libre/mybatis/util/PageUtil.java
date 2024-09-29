@@ -26,7 +26,6 @@ public class PageUtil {
 		PageDTO<T> pageResult = new PageDTO<>();
 		pageResult.setCurrent(page.getCurrent());
 		pageResult.setSize(page.getSize());
-		pageResult.setPages(page.getPages());
 		pageResult.setTotal(page.getTotal());
 		pageResult.setRecords(records);
 		return pageResult;
