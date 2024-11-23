@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.type.CollectionLikeType;
 import com.fasterxml.jackson.databind.type.MapType;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.libre.toolkit.core.Exceptions;
 import com.libre.toolkit.core.ObjectUtil;
 import com.libre.toolkit.core.StringUtil;
@@ -20,8 +21,8 @@ import lombok.experimental.UtilityClass;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.io.Serial;
 import java.text.SimpleDateFormat;
-import java.time.ZoneId;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -897,6 +898,7 @@ public class JsonUtil {
 
 	private static class JacksonObjectMapper extends ObjectMapper {
 
+		@Serial
 		private static final long serialVersionUID = 4288193147502386170L;
 
 		private static final Locale CHINA = Locale.CHINA;
@@ -911,7 +913,9 @@ public class JsonUtil {
 			super.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			// 忽略无法转换的对象
 			super.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-			super.setTimeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));
+			super.setTimeZone(TimeZone.getDefault());
+			super.registerModule(new JavaTimeModule());
+			super.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 			super.findAndRegisterModules();
 		}
 
