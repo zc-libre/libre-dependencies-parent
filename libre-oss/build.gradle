@@ -1,10 +1,10 @@
 dependencies {
-
-    api "com.amazonaws:aws-java-sdk-s3:${awssdkVersion}"
     api "org.springframework.boot:spring-boot-autoconfigure"
+
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.springframework.boot:spring-boot-starter-web"
+    api "software.amazon.awssdk:s3:2.28.14"
 }
 
 
