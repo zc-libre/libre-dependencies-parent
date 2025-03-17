@@ -71,6 +71,8 @@ configure(commons) {
         // import BOM.
         management platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
         management platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+        management platform("org.springframework.ai:spring-ai-bom:$springAiVersion")
+        management platform("com.baomidou:mybatis-plus-bom:${mybatisPlusVersion}")
         management platform(project(":libre-dependencies"))
         compileOnly "org.slf4j:slf4j-api"
         compileOnly "jakarta.servlet:jakarta.servlet-api"

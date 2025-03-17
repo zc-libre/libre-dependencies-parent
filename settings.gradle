@@ -13,4 +13,5 @@ include 'libre-monitor'
 include 'libre-ip2region'
 include 'libre-rabbitmq'
 include 'libre-mqtt'
+include 'libre-ai'
 
