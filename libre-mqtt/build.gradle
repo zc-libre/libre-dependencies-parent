@@ -1,8 +1,0 @@
-dependencies {
-    api project(":libre-toolkit")
-    api "org.springframework.integration:spring-integration-mqtt:6.2.2"
-    api "org.springframework.boot:spring-boot-starter-integration"
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
-    testImplementation "org.springframework.boot:spring-boot-starter-test"
-}
-
