@@ -1,7 +1,7 @@
-package com.libre.redisson.lock;
+package org.zclibre.redisson.lock;
 
-import com.libre.redisson.common.RModule;
-import com.libre.redisson.common.RedisNameResolver;
+import org.zclibre.redisson.common.RModule;
+import org.zclibre.redisson.common.RedisNameResolver;
 import org.zclibre.toolkit.core.Exceptions;
 import org.zclibre.toolkit.function.CheckedSupplier;
 import lombok.RequiredArgsConstructor;

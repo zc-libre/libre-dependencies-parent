@@ -1,4 +1,4 @@
-package com.libre.boot.config;
+package org.zclibre.boot.config;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;

@@ -1,7 +1,7 @@
-package com.libre.security.annotation;
+package org.zclibre.security.annotation;
 
-import com.libre.security.component.Oauth2ResourceServerAutoConfiguration;
-import com.libre.security.component.Oauth2ResourceServerConfiguration;
+import org.zclibre.security.component.Oauth2ResourceServerAutoConfiguration;
+import org.zclibre.security.component.Oauth2ResourceServerConfiguration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 

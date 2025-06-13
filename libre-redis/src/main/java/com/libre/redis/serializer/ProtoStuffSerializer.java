@@ -1,6 +1,6 @@
 package com.libre.redis.serializer;
 
-import com.libre.toolkit.core.ObjectUtil;
+import org.zclibre.toolkit.core.ObjectUtil;
 import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtostuffIOUtil;
 import io.protostuff.Schema;

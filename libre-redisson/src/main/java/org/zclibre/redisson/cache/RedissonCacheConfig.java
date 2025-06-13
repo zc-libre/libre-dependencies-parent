@@ -1,4 +1,4 @@
-package com.libre.redisson.cache;
+package org.zclibre.redisson.cache;
 
 import lombok.Getter;
 import lombok.Setter;

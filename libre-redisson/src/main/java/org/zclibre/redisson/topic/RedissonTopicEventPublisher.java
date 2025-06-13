@@ -1,7 +1,7 @@
-package com.libre.redisson.topic;
+package org.zclibre.redisson.topic;
 
-import com.libre.redisson.common.RModule;
-import com.libre.redisson.common.RedisNameResolver;
+import org.zclibre.redisson.common.RModule;
+import org.zclibre.redisson.common.RedisNameResolver;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RTopic;

@@ -1,4 +1,4 @@
-package com.libre.security.component;
+package org.zclibre.security.component;
 
 import lombok.Getter;
 import lombok.Setter;

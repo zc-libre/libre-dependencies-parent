@@ -1,4 +1,4 @@
-package com.libre.boot.xss;
+package org.zclibre.boot.xss;
 
 /**
  * xss 异常，校验模式抛出

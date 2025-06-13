@@ -1,5 +1,5 @@
-com.libre.security.service.Oauth2RedisOAuth2AuthorizationService
-com.libre.security.service.Oauth2RedisOAuth2AuthorizationConsentService
-com.libre.security.component.Oauth2SecurityInnerAspect
-com.libre.security.component.Oauth2SecurityMessageSourceConfiguration
-com.libre.security.service.Oauth2RegisteredClientRepository
+org.zclibre.security.service.Oauth2RedisOAuth2AuthorizationService
+org.zclibre.security.service.Oauth2RedisOAuth2AuthorizationConsentService
+org.zclibre.security.component.Oauth2SecurityInnerAspect
+org.zclibre.security.component.Oauth2SecurityMessageSourceConfiguration
+org.zclibre.security.service.Oauth2RegisteredClientRepository

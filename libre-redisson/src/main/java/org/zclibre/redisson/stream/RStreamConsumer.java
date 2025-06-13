@@ -1,4 +1,4 @@
-package com.libre.redisson.stream;
+package org.zclibre.redisson.stream;
 
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RStream;

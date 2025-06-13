@@ -1,4 +1,4 @@
-package com.libre.security.util;
+package org.zclibre.security.util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.experimental.UtilityClass;

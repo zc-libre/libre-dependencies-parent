@@ -1,4 +1,4 @@
-package com.libre.boot.exception;
+package org.zclibre.boot.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;

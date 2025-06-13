@@ -1,4 +1,4 @@
-package com.libre.captcha.vo;
+package org.zclibre.captcha.vo;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

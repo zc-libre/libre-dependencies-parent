@@ -1,15 +1,13 @@
-package com.libre.captcha.autoconfigure;
+package org.zclibre.captcha.autoconfigure;
 
-import com.libre.captcha.cache.CaptchaCache;
-import com.libre.captcha.cache.SpringCacheCaptchaCache;
+import org.zclibre.captcha.cache.CaptchaCache;
+import org.zclibre.captcha.cache.SpringCacheCaptchaCache;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
 /**

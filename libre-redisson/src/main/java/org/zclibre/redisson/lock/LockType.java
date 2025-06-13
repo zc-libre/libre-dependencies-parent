@@ -1,4 +1,4 @@
-package com.libre.redisson.lock;
+package org.zclibre.redisson.lock;
 
 /**
  * 锁类型

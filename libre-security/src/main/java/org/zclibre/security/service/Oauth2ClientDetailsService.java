@@ -1,6 +1,6 @@
-package com.libre.security.service;
+package org.zclibre.security.service;
 
-import com.libre.security.pojo.Oauth2ClientDetails;
+import org.zclibre.security.pojo.Oauth2ClientDetails;
 
 import java.util.List;
 

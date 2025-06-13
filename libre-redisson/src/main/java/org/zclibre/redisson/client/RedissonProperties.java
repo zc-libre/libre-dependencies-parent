@@ -1,4 +1,4 @@
-package com.libre.redisson.client;
+package org.zclibre.redisson.client;
 
 import lombok.Data;
 import org.redisson.client.codec.Codec;

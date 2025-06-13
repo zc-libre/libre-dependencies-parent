@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两个紧贴的3D立方体</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f0f0;
+            perspective: 1000px;
+        }
+
+        .container {
+            transform-style: preserve-3d;
+            transform: rotateX(-15deg) rotateY(45deg);
+        }
+
+        .cube {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            transform-style: preserve-3d;
+        }
+
+        .cube1 {
+            transform: translateX(-100px);
+        }
+
+        .cube2 {
+            transform: translateX(100px);
+        }
+
+        .face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 1px solid #333;
+        }
+
+        /* 第一个立方体 - 红色系 */
+        .cube1 .front {
+            background: rgba(255, 99, 71, 0.9);
+            transform: translateZ(100px);
+        }
+
+        .cube1 .back {
+            background: rgba(255, 99, 71, 0.9);
+            transform: rotateY(180deg) translateZ(100px);
+        }
+
+        .cube1 .right {
+            background: rgba(255, 69, 41, 0.9);
+            transform: rotateY(90deg) translateZ(100px);
+        }
+
+        .cube1 .left {
+            background: rgba(255, 69, 41, 0.9);
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+
+        .cube1 .top {
+            background: rgba(255, 120, 90, 0.9);
+            transform: rotateX(90deg) translateZ(100px);
+        }
+
+        .cube1 .bottom {
+            background: rgba(255, 120, 90, 0.9);
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+
+        /* 第二个立方体 - 蓝色系 */
+        .cube2 .front {
+            background: rgba(70, 130, 180, 0.9);
+            transform: translateZ(100px);
+        }
+
+        .cube2 .back {
+            background: rgba(70, 130, 180, 0.9);
+            transform: rotateY(180deg) translateZ(100px);
+        }
+
+        .cube2 .right {
+            background: rgba(50, 100, 160, 0.9);
+            transform: rotateY(90deg) translateZ(100px);
+        }
+
+        .cube2 .left {
+            background: rgba(50, 100, 160, 0.9);
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+
+        .cube2 .top {
+            background: rgba(100, 149, 200, 0.9);
+            transform: rotateX(90deg) translateZ(100px);
+        }
+
+        .cube2 .bottom {
+            background: rgba(100, 149, 200, 0.9);
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 第一个立方体 -->
+        <div class="cube cube1">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+        </div>
+
+        <!-- 第二个立方体 -->
+        <div class="cube cube2">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+        </div>
+    </div>
+</body>
+</html>

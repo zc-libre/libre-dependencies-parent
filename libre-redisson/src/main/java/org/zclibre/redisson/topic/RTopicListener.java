@@ -1,4 +1,4 @@
-package com.libre.redisson.topic;
+package org.zclibre.redisson.topic;
 
 import java.lang.annotation.*;
 

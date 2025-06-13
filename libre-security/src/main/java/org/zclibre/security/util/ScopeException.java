@@ -1,4 +1,4 @@
-package com.libre.security.util;
+package org.zclibre.security.util;
 
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;

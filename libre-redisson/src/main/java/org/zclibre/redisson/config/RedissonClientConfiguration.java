@@ -1,4 +1,4 @@
-package com.libre.redisson.config;
+package org.zclibre.redisson.config;
 
 import com.libre.redisson.client.*;
 import jodd.util.StringUtil;
@@ -16,6 +16,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.CollectionUtils;
+import org.zclibre.redisson.client.*;
 
 import java.util.Collection;
 import java.util.Map;

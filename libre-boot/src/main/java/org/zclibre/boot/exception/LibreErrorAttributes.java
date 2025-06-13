@@ -1,9 +1,9 @@
-package com.libre.boot.exception;
+package org.zclibre.boot.exception;
 
 import com.google.common.collect.Maps;
-import com.libre.toolkit.core.StringUtil;
-import com.libre.toolkit.result.R;
-import com.libre.toolkit.result.ResultCode;
+import org.zclibre.toolkit.core.StringUtil;
+import org.zclibre.toolkit.result.R;
+import org.zclibre.toolkit.result.ResultCode;
 import jakarta.servlet.RequestDispatcher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.error.ErrorAttributeOptions;

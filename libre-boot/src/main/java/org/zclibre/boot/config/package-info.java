@@ -5,7 +5,7 @@
  */
 @NonNullApi
 @NonNullFields
-package com.libre.boot.config;
+package org.zclibre.boot.config;
 
 import org.springframework.lang.NonNullApi;
 import org.springframework.lang.NonNullFields;

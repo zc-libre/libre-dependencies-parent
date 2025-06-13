@@ -1,4 +1,4 @@
-package com.libre.boot.config;
+package org.zclibre.boot.config;
 
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.BeansException;

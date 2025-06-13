@@ -1,12 +1,11 @@
-package com.libre.redisson.topic;
+package org.zclibre.redisson.topic;
 
-import com.libre.redisson.common.RedisNameResolver;
+import org.zclibre.redisson.common.RedisNameResolver;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RedissonClient;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * Redisson pub/sub 发布配置

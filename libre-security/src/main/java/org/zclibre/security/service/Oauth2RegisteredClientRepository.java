@@ -1,7 +1,7 @@
-package com.libre.security.service;
+package org.zclibre.security.service;
 
-import com.libre.security.constant.SecurityConstants;
-import com.libre.security.pojo.Oauth2ClientDetails;
+import org.zclibre.security.constant.SecurityConstants;
+import org.zclibre.security.pojo.Oauth2ClientDetails;
 import org.zclibre.toolkit.core.StringPool;
 import org.zclibre.toolkit.core.StringUtil;
 import lombok.RequiredArgsConstructor;

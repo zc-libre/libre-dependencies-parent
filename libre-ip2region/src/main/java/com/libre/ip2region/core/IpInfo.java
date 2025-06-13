@@ -1,7 +1,7 @@
 package com.libre.ip2region.core;
 
-import com.libre.toolkit.core.StringPool;
-import com.libre.toolkit.core.StringUtil;
+import org.zclibre.toolkit.core.StringPool;
+import org.zclibre.toolkit.core.StringUtil;
 import lombok.Data;
 
 import java.io.Serializable;

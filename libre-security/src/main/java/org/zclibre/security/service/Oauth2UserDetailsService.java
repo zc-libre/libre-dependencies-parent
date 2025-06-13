@@ -1,6 +1,6 @@
-package com.libre.security.service;
+package org.zclibre.security.service;
 
-import com.libre.security.pojo.Oauth2User;
+import org.zclibre.security.pojo.Oauth2User;
 import org.springframework.core.Ordered;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,4 +1,4 @@
-package com.libre.boot.config;
+package org.zclibre.boot.config;
 
 import com.libre.boot.xss.*;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.zclibre.boot.xss.*;
 
 import java.util.List;
 

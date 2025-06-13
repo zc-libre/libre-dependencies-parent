@@ -1,4 +1,4 @@
-package com.libre.captcha.cache;
+package org.zclibre.captcha.cache;
 
 import org.springframework.boot.convert.DurationStyle;
 import org.springframework.lang.Nullable;

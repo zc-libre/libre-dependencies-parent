@@ -1,1 +1,1 @@
-package com.libre.redisson.tenant;
+package org.zclibre.redisson.tenant;

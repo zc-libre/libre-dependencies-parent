@@ -1,7 +1,7 @@
-package com.libre.boot.exception;
+package org.zclibre.boot.exception;
 
-import com.libre.toolkit.result.IResultCode;
-import com.libre.toolkit.result.R;
+import org.zclibre.toolkit.result.IResultCode;
+import org.zclibre.toolkit.result.R;
 import org.springframework.lang.Nullable;
 
 /**

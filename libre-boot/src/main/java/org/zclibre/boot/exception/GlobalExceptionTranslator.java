@@ -1,12 +1,12 @@
-package com.libre.boot.exception;
+package org.zclibre.boot.exception;
 
 import com.google.common.base.Preconditions;
-import com.libre.boot.toolkit.RequestUtils;
-import com.libre.toolkit.result.R;
-import com.libre.toolkit.result.ResultCode;
-import com.libre.toolkit.core.Exceptions;
-import com.libre.toolkit.core.StringPool;
-import com.libre.toolkit.core.StringUtil;
+import org.zclibre.boot.toolkit.RequestUtils;
+import org.zclibre.toolkit.result.R;
+import org.zclibre.toolkit.result.ResultCode;
+import org.zclibre.toolkit.core.Exceptions;
+import org.zclibre.toolkit.core.StringPool;
+import org.zclibre.toolkit.core.StringUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,6 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ObjectUtils;

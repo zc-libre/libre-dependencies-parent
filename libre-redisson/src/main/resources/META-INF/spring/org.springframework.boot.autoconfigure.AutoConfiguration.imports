@@ -1,7 +1,7 @@
-com.libre.redisson.config.RedissonConfiguration
-com.libre.redisson.config.RedissonClientConfiguration
-com.libre.redisson.lock.RedissonLockConfiguration
-com.libre.redisson.stream.RedissonStreamConfiguration
-com.libre.redisson.topic.RedissonRTopicConfiguration
-com.libre.redisson.command.RedissonCommandConfiguration
-com.libre.redisson.queue.RedissonDQConfiguration
+org.zclibre.redisson.config.RedissonConfiguration
+org.zclibre.redisson.config.RedissonClientConfiguration
+org.zclibre.redisson.lock.RedissonLockConfiguration
+org.zclibre.redisson.stream.RedissonStreamConfiguration
+org.zclibre.redisson.topic.RedissonRTopicConfiguration
+org.zclibre.redisson.command.RedissonCommandConfiguration
+org.zclibre.redisson.queue.RedissonDQConfiguration

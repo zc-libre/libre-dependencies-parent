@@ -1,4 +1,4 @@
-package com.libre.redisson.common;
+package org.zclibre.redisson.common;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

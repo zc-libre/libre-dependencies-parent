@@ -1,4 +1,4 @@
-package com.libre.boot.config;
+package org.zclibre.boot.config;
 
 import lombok.Getter;
 import lombok.Setter;

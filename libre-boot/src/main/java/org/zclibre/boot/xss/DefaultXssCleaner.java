@@ -1,8 +1,8 @@
-package com.libre.boot.xss;
+package org.zclibre.boot.xss;
 
 import com.google.common.base.Charsets;
-import com.libre.boot.config.XssProperties;
-import com.libre.toolkit.core.StringUtil;
+import org.zclibre.boot.config.XssProperties;
+import org.zclibre.toolkit.core.StringUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Entities;

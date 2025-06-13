@@ -1,1 +1,1 @@
-com.libre.swagger.autoconfigure.SwaggerAutoConfiguration
+org.zclibre.swagger.autoconfigure.SwaggerAutoConfiguration

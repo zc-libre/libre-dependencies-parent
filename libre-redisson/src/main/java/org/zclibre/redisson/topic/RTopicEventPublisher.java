@@ -1,4 +1,4 @@
-package com.libre.redisson.topic;
+package org.zclibre.redisson.topic;
 
 /**
  * 基于 Redisson 的消息发布器

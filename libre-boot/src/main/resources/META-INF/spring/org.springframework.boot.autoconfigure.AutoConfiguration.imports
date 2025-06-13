@@ -1,7 +1,7 @@
-com.libre.boot.config.LibreAutoConfiguration
-com.libre.boot.config.LibreJacksonAutoConfiguration
-com.libre.boot.config.LibreWebMvcAutoConfiguration
-com.libre.boot.config.LibreErrorAutoConfiguration
-com.libre.boot.exception.GlobalExceptionHandler
-com.libre.boot.exception.GlobalExceptionTranslator
-com.libre.boot.config.XssAutoConfiguration
+org.zclibre.boot.config.LibreAutoConfiguration
+org.zclibre.boot.config.LibreJacksonAutoConfiguration
+org.zclibre.boot.config.LibreWebMvcAutoConfiguration
+org.zclibre.boot.config.LibreErrorAutoConfiguration
+org.zclibre.boot.exception.GlobalExceptionHandler
+org.zclibre.boot.exception.GlobalExceptionTranslator
+org.zclibre.boot.config.XssAutoConfiguration

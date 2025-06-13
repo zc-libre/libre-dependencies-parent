@@ -1,8 +1,8 @@
-package com.libre.boot.config;
+package org.zclibre.boot.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.libre.boot.exception.LibreErrorAttributes;
-import com.libre.boot.exception.LibreErrorController;
+import org.zclibre.boot.exception.LibreErrorAttributes;
+import org.zclibre.boot.exception.LibreErrorController;
 import jakarta.servlet.Servlet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;

@@ -1,4 +1,4 @@
-package com.libre.redisson.stream;
+package org.zclibre.redisson.stream;
 
 import org.redisson.api.StreamMessageId;
 import org.redisson.api.stream.StreamAddArgs;

@@ -1,6 +1,6 @@
-package com.libre.redisson.config;
+package org.zclibre.redisson.config;
 
-import com.libre.redisson.common.RedisNameResolver;
+import org.zclibre.redisson.common.RedisNameResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
 

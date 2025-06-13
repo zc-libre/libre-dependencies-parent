@@ -1,6 +1,6 @@
-package com.libre.redisson.stream;
+package org.zclibre.redisson.stream;
 
-import com.libre.redisson.common.RedisNameResolver;
+import org.zclibre.redisson.common.RedisNameResolver;
 import org.zclibre.toolkit.constant.LibreConstants;
 import org.zclibre.toolkit.core.StringUtil;
 import lombok.RequiredArgsConstructor;

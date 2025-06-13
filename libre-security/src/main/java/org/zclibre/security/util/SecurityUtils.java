@@ -1,7 +1,7 @@
-package com.libre.security.util;
+package org.zclibre.security.util;
 
-import com.libre.security.constant.SecurityConstants;
-import com.libre.security.pojo.Oauth2User;
+import org.zclibre.security.constant.SecurityConstants;
+import org.zclibre.security.pojo.Oauth2User;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.Authentication;

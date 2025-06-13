@@ -1,4 +1,4 @@
-package com.libre.swagger.autoconfigure;
+package org.zclibre.swagger.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import springfox.documentation.service.AuthorizationScope;

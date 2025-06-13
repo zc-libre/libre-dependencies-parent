@@ -1,8 +1,8 @@
-package com.libre.security.component;
+package org.zclibre.security.component;
 
-import com.libre.security.constant.SecurityConstants;
-import com.libre.security.pojo.Oauth2User;
-import com.libre.security.service.Oauth2UserDetailsService;
+import org.zclibre.security.constant.SecurityConstants;
+import org.zclibre.security.pojo.Oauth2User;
+import org.zclibre.security.service.Oauth2UserDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;

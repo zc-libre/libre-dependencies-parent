@@ -1,7 +1,7 @@
 package com.libre.ip2region.toolkit;
 
 import com.libre.ip2region.core.IpInfo;
-import com.libre.toolkit.core.StringPool;
+import org.zclibre.toolkit.core.StringPool;
 import org.springframework.lang.Nullable;
 
 import java.util.Arrays;

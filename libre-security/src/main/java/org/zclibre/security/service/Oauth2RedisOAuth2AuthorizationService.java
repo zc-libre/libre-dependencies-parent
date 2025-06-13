@@ -1,4 +1,4 @@
-package com.libre.security.service;
+package org.zclibre.security.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;

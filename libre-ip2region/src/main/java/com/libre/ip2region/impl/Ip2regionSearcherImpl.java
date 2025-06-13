@@ -6,7 +6,7 @@ import com.libre.ip2region.core.IpInfo;
 import com.libre.ip2region.core.IpV6Searcher;
 import com.libre.ip2region.core.Searcher;
 import com.libre.ip2region.toolkit.IpInfoUtil;
-import com.libre.toolkit.core.Exceptions;
+import org.zclibre.toolkit.core.Exceptions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;

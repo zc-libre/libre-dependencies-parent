@@ -1,2 +1,2 @@
-com.libre.captcha.autoconfigure.CaptchaAutoConfiguration
-com.libre.captcha.autoconfigure.CaptchaCacheAutoConfiguration
+org.zclibre.captcha.autoconfigure.CaptchaAutoConfiguration
+org.zclibre.captcha.autoconfigure.CaptchaCacheAutoConfiguration

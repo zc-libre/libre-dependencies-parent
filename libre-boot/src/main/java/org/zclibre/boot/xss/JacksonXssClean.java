@@ -1,6 +1,6 @@
-package com.libre.boot.xss;
+package org.zclibre.boot.xss;
 
-import com.libre.boot.config.XssProperties;
+import org.zclibre.boot.config.XssProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

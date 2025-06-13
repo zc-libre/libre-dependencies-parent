@@ -2,7 +2,7 @@ package com.libre.core.mapstruct;
 
 import com.libre.core.mapstruct.bean.SourceBean;
 import com.libre.core.mapstruct.bean.TargetBean;
-import com.libre.toolkit.mapstruct.BaseMapping;
+import org.zclibre.toolkit.mapstruct.BaseMapping;
 import org.mapstruct.Mapper;
 
 /**

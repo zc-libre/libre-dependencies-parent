@@ -1,1 +1,1 @@
-package com.libre.redisson.stream;
+package org.zclibre.redisson.stream;

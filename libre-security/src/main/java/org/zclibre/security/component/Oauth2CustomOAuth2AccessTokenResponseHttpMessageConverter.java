@@ -1,4 +1,4 @@
-package com.libre.security.component;
+package org.zclibre.security.component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.BeansException;

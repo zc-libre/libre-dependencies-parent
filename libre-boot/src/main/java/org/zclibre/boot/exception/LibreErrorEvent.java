@@ -1,4 +1,4 @@
-package com.libre.boot.exception;
+package org.zclibre.boot.exception;
 
 import lombok.Getter;
 import lombok.Setter;

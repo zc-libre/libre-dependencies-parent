@@ -1,4 +1,4 @@
-package com.libre.security.pojo;
+package org.zclibre.security.pojo;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

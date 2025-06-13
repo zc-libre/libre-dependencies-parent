@@ -2,7 +2,7 @@ package com.libre.mqtt;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.libre.toolkit.json.JsonUtil;
+import org.zclibre.toolkit.json.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;

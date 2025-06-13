@@ -1,6 +1,6 @@
-package com.libre.captcha.service;
+package org.zclibre.captcha.service;
 
-import com.libre.captcha.autoconfigure.CaptchaProperties;
+import org.zclibre.captcha.autoconfigure.CaptchaProperties;
 import com.wf.captcha.ArithmeticCaptcha;
 import com.wf.captcha.ChineseCaptcha;
 import com.wf.captcha.GifCaptcha;

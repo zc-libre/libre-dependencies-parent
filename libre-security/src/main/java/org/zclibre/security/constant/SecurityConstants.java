@@ -1,4 +1,4 @@
-package com.libre.security.constant;
+package org.zclibre.security.constant;
 
 /**
  * @author lengleng

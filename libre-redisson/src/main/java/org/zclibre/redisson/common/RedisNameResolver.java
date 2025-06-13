@@ -1,4 +1,4 @@
-package com.libre.redisson.common;
+package org.zclibre.redisson.common;
 
 /**
  * redis 命名空间隔离

@@ -1,6 +1,6 @@
-package com.libre.redisson;
+package org.zclibre.redisson;
 
-import com.libre.redisson.lock.RedisLock;
+import org.zclibre.redisson.lock.RedisLock;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

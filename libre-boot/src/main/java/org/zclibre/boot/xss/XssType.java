@@ -1,6 +1,6 @@
-package com.libre.boot.xss;
+package org.zclibre.boot.xss;
 
-import com.libre.toolkit.core.Exceptions;
+import org.zclibre.toolkit.core.Exceptions;
 
 /**
  * xss 数据处理类型

@@ -1,12 +1,11 @@
-package com.libre.redisson.queue;
+package org.zclibre.redisson.queue;
 
-import com.libre.redisson.common.RedisNameResolver;
+import org.zclibre.redisson.common.RedisNameResolver;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RedissonClient;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * Redisson 延迟队列配置

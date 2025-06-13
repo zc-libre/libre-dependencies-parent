@@ -1,4 +1,4 @@
-package com.libre.security.component;
+package org.zclibre.security.component;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.MessageSource;

@@ -1,4 +1,4 @@
-package com.libre.security.pojo;
+package org.zclibre.security.pojo;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;

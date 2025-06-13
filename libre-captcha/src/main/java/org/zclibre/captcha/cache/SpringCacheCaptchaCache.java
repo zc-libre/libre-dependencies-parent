@@ -1,6 +1,6 @@
-package com.libre.captcha.cache;
+package org.zclibre.captcha.cache;
 
-import com.libre.captcha.autoconfigure.CaptchaProperties;
+import org.zclibre.captcha.autoconfigure.CaptchaProperties;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

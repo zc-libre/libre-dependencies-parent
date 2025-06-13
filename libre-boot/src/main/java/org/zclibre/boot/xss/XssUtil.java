@@ -1,4 +1,4 @@
-package com.libre.boot.xss;
+package org.zclibre.boot.xss;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attribute;

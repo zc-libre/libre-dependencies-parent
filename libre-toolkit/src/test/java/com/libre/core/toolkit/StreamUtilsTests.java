@@ -1,7 +1,7 @@
 package com.libre.core.toolkit;
 
 import com.google.common.collect.Lists;
-import com.libre.toolkit.core.StreamUtils;
+import org.zclibre.toolkit.core.StreamUtils;
 import com.libre.core.pojo.Entity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,4 +1,4 @@
-package com.libre.redisson.client;
+package org.zclibre.redisson.client;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;

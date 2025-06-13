@@ -1,7 +1,7 @@
-package com.libre.security.component;
+package org.zclibre.security.component;
 
-import com.libre.security.annotation.Inner;
-import com.libre.security.constant.SecurityConstants;
+import org.zclibre.security.annotation.Inner;
+import org.zclibre.security.constant.SecurityConstants;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;

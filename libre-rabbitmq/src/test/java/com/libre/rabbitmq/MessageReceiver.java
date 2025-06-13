@@ -1,6 +1,6 @@
 package com.libre.rabbitmq;
 
-import com.libre.toolkit.json.JsonUtil;
+import org.zclibre.toolkit.json.JsonUtil;
 import com.rabbitmq.client.Channel;
 import jakarta.annotation.PostConstruct;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

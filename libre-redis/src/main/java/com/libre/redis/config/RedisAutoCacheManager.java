@@ -1,7 +1,7 @@
 package com.libre.redis.config;
 
-import com.libre.toolkit.core.StringPool;
-import com.libre.toolkit.core.StringUtil;
+import org.zclibre.toolkit.core.StringPool;
+import org.zclibre.toolkit.core.StringUtil;
 import org.springframework.boot.convert.DurationStyle;
 import org.springframework.data.redis.cache.RedisCache;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;

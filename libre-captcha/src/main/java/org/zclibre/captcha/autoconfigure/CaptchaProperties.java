@@ -1,4 +1,4 @@
-package com.libre.captcha.autoconfigure;
+package org.zclibre.captcha.autoconfigure;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

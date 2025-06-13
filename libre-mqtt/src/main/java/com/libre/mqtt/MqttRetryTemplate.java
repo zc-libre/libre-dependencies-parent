@@ -8,9 +8,6 @@ import org.springframework.retry.RetryListener;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.util.Assert;
 
-import java.io.IOException;
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
 import java.time.Duration;
 
 /**

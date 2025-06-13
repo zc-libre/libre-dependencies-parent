@@ -1,8 +1,8 @@
-package com.libre.captcha.service;
+package org.zclibre.captcha.service;
 
-import com.libre.captcha.autoconfigure.CaptchaProperties;
-import com.libre.captcha.cache.CaptchaCache;
-import com.libre.captcha.vo.CaptchaVO;
+import org.zclibre.captcha.autoconfigure.CaptchaProperties;
+import org.zclibre.captcha.cache.CaptchaCache;
+import org.zclibre.captcha.vo.CaptchaVO;
 import com.wf.captcha.base.Captcha;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.StringUtils;

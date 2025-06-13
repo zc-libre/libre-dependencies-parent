@@ -1,7 +1,7 @@
-package com.libre.redisson.stream;
+package org.zclibre.redisson.stream;
 
-import com.libre.redisson.common.RModule;
-import com.libre.redisson.common.RedisNameResolver;
+import org.zclibre.redisson.common.RModule;
+import org.zclibre.redisson.common.RedisNameResolver;
 import org.zclibre.toolkit.core.CharPool;
 import org.zclibre.toolkit.core.INetUtil;
 import org.zclibre.toolkit.core.RuntimeUtil;

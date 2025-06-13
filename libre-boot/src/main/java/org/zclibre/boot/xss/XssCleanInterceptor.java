@@ -1,6 +1,6 @@
-package com.libre.boot.xss;
+package org.zclibre.boot.xss;
 
-import com.libre.boot.config.XssProperties;
+import org.zclibre.boot.config.XssProperties;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

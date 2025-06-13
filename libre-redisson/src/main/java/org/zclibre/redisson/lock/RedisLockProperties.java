@@ -1,4 +1,4 @@
-package com.libre.redisson.lock;
+package org.zclibre.redisson.lock;
 
 import lombok.Getter;
 import lombok.Setter;

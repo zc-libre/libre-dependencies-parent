@@ -1,7 +1,7 @@
-package com.libre.boot.xss;
+package org.zclibre.boot.xss;
 
-import com.libre.boot.config.SpringContext;
-import com.libre.boot.config.XssProperties;
+import org.zclibre.boot.config.SpringContext;
+import org.zclibre.boot.config.XssProperties;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;

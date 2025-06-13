@@ -1,4 +1,4 @@
-package com.libre.boot.xss;
+package org.zclibre.boot.xss;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;

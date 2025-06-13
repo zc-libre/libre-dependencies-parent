@@ -1,13 +1,12 @@
-package com.libre.redisson.lock;
+package org.zclibre.redisson.lock;
 
-import com.libre.redisson.common.RedisNameResolver;
+import org.zclibre.redisson.common.RedisNameResolver;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RedissonClient;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * 分布式锁自动化配置

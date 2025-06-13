@@ -1,7 +1,7 @@
-package com.libre.boot.config;
+package org.zclibre.boot.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.libre.toolkit.time.DatePattern;
+import org.zclibre.toolkit.time.DatePattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

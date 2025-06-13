@@ -1,4 +1,4 @@
-package com.libre.swagger.autoconfigure;
+package org.zclibre.swagger.autoconfigure;
 
 import io.swagger.annotations.Api;
 import org.springframework.boot.autoconfigure.AutoConfiguration;

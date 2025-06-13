@@ -25,7 +25,7 @@ public final class TopicUtils {
 	 * @param topicFilter topicFilter
 	 */
 	public static void validateTopicFilter(String topicFilter) throws IllegalArgumentException {
-		if (topicFilter == null || topicFilter.isEmpty()) {
+		if (topicFilter.isEmpty()) {
 			throw new IllegalArgumentException("TopicFilter is blank:" + topicFilter);
 		}
 		char[] topicFilterChars = topicFilter.toCharArray();
@@ -73,7 +73,7 @@ public final class TopicUtils {
 	 * @param topicName topicName
 	 */
 	public static void validateTopicName(String topicName) throws IllegalArgumentException {
-		if (topicName == null || topicName.isEmpty()) {
+		if (topicName.isEmpty()) {
 			throw new IllegalArgumentException("Topic is blank:" + topicName);
 		}
 		if (isTopicFilter(topicName)) {

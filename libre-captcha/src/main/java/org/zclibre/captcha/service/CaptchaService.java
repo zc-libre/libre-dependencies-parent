@@ -1,6 +1,6 @@
-package com.libre.captcha.service;
+package org.zclibre.captcha.service;
 
-import com.libre.captcha.vo.CaptchaVO;
+import org.zclibre.captcha.vo.CaptchaVO;
 
 /**
  * @author ZC

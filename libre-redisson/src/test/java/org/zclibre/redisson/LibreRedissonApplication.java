@@ -1,4 +1,4 @@
-package com.libre.redisson;
+package org.zclibre.redisson;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
