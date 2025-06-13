@@ -15,13 +15,14 @@ import java.util.Properties;
 /**
  * Configuration properties for MQTT integration.
  *
- * <p>This class provides comprehensive configuration options for MQTT client connections,
+ * <p>
+ * This class provides comprehensive configuration options for MQTT client connections,
  * including support for both MQTT v3.1.1 and MQTT v5 protocols. It allows configuration
- * of connection parameters, SSL settings, producer and consumer behaviors, and thread pool
- * settings for message processing.
+ * of connection parameters, SSL settings, producer and consumer behaviors, and thread
+ * pool settings for message processing.
  *
- * <p>Example configuration:
- * <pre>
+ * <p>
+ * Example configuration: <pre>
  * libre:
  *   mqtt:
  *     enabled: true
@@ -75,8 +76,8 @@ public class MqttProperties {
 	private ProtocolVersion protocolVersion = ProtocolVersion.V3_1_1;
 
 	/**
-	 * MQTT broker URLs. Multiple URLs can be provided for failover support.
-	 * Supported schemes: tcp://, ssl://, ws://, wss://
+	 * MQTT broker URLs. Multiple URLs can be provided for failover support. Supported
+	 * schemes: tcp://, ssl://, ws://, wss://
 	 */
 	private String[] urls = { "tcp://127.0.0.1:1883" };
 
@@ -152,8 +153,8 @@ public class MqttProperties {
 	private Properties customWebSocketHeaders;
 
 	/**
-	 * How long to wait in seconds when terminating the executor service.
-	 * Must be between 1 and 60.
+	 * How long to wait in seconds when terminating the executor service. Must be between
+	 * 1 and 60.
 	 */
 	private Integer executorServiceTimeout = 1;
 
@@ -176,6 +177,7 @@ public class MqttProperties {
 	 * MQTT protocol version enumeration.
 	 */
 	public enum ProtocolVersion {
+
 		/**
 		 * MQTT version 3.1.1
 		 */
@@ -194,6 +196,7 @@ public class MqttProperties {
 		public String getVersion() {
 			return version;
 		}
+
 	}
 
 	/**
@@ -227,6 +230,7 @@ public class MqttProperties {
 		 * Retry delay multiplier.
 		 */
 		private Double multiplier = 2.0;
+
 	}
 
 	/**
@@ -270,6 +274,7 @@ public class MqttProperties {
 		 * Message publish timeout.
 		 */
 		private Duration publishTimeout = Duration.ofSeconds(30);
+
 	}
 
 	/**
@@ -313,6 +318,7 @@ public class MqttProperties {
 		 * Thread pool executor configuration for message processing.
 		 */
 		private MqttExecutor executor = new MqttExecutor();
+
 	}
 
 	/**
@@ -351,5 +357,7 @@ public class MqttProperties {
 		 * Whether to allow core threads to timeout.
 		 */
 		private Boolean allowCoreThreadTimeOut = false;
+
 	}
+
 }

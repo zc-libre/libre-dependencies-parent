@@ -12,11 +12,12 @@ import java.util.Objects;
 /**
  * MQTT message wrapper that encapsulates message content and metadata.
  *
- * <p>This class provides a convenient way to work with MQTT messages in Spring Integration,
+ * <p>
+ * This class provides a convenient way to work with MQTT messages in Spring Integration,
  * wrapping both the payload and MQTT-specific headers like topic, QoS, and retained flag.
  *
- * <p>Example usage:
- * <pre>
+ * <p>
+ * Example usage: <pre>
  * // Create a simple message
  * MqttMessage message = new MqttMessage("Hello World", "sensors/temperature");
  *
@@ -64,7 +65,6 @@ public class MqttMessage implements Serializable {
 
 	/**
 	 * Creates an MQTT message from a Spring Integration Message.
-	 *
 	 * @param message the Spring Integration message
 	 * @throws NullPointerException if required MQTT headers are missing
 	 */
@@ -78,7 +78,6 @@ public class MqttMessage implements Serializable {
 
 	/**
 	 * Creates an MQTT message with default QoS (0) and retained flag (false).
-	 *
 	 * @param payload the message payload
 	 * @param topic the MQTT topic
 	 */
@@ -91,7 +90,6 @@ public class MqttMessage implements Serializable {
 
 	/**
 	 * Creates an MQTT message with specified QoS and default retained flag (false).
-	 *
 	 * @param payload the message payload
 	 * @param topic the MQTT topic
 	 * @param qos the Quality of Service level (0, 1, or 2)
@@ -105,7 +103,6 @@ public class MqttMessage implements Serializable {
 
 	/**
 	 * Creates an MQTT message with all parameters specified.
-	 *
 	 * @param payload the message payload
 	 * @param topic the MQTT topic
 	 * @param qos the Quality of Service level (0, 1, or 2)
@@ -120,7 +117,6 @@ public class MqttMessage implements Serializable {
 
 	/**
 	 * Factory method to create an MQTT message from a Spring Integration Message.
-	 *
 	 * @param message the Spring Integration message
 	 * @return a new MqttMessage instance
 	 * @throws NullPointerException if required MQTT headers are missing
@@ -131,7 +127,6 @@ public class MqttMessage implements Serializable {
 
 	/**
 	 * Factory method to create an MQTT message with specified parameters.
-	 *
 	 * @param payload the message payload
 	 * @param topic the MQTT topic
 	 * @param qos the Quality of Service level

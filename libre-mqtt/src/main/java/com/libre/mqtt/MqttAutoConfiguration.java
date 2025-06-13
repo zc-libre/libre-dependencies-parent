@@ -33,30 +33,32 @@ import static org.zclibre.toolkit.core.StringPool.EMPTY;
 /**
  * Auto-configuration for MQTT integration with Spring Boot.
  *
- * <p>This configuration class automatically sets up MQTT client connections,
- * message channels, adapters, and handlers based on the provided configuration
- * properties. It supports both MQTT v3.1.1 and v5 protocols with comprehensive
- * customization options.
+ * <p>
+ * This configuration class automatically sets up MQTT client connections, message
+ * channels, adapters, and handlers based on the provided configuration properties. It
+ * supports both MQTT v3.1.1 and v5 protocols with comprehensive customization options.
  *
- * <p>Key components configured:
+ * <p>
+ * Key components configured:
  * <ul>
- *   <li>MQTT client factory with connection options</li>
- *   <li>Inbound and outbound message channels</li>
- *   <li>Message-driven channel adapter for receiving messages</li>
- *   <li>Message handler for sending messages</li>
- *   <li>Thread pool executor for async message processing</li>
- *   <li>Message converters for JSON serialization</li>
- *   <li>Retry templates for connection resilience</li>
+ * <li>MQTT client factory with connection options</li>
+ * <li>Inbound and outbound message channels</li>
+ * <li>Message-driven channel adapter for receiving messages</li>
+ * <li>Message handler for sending messages</li>
+ * <li>Thread pool executor for async message processing</li>
+ * <li>Message converters for JSON serialization</li>
+ * <li>Retry templates for connection resilience</li>
  * </ul>
  *
- * <p>The configuration is activated when:
+ * <p>
+ * The configuration is activated when:
  * <ul>
- *   <li>{@code libre.mqtt.enabled} is {@code true} (default)</li>
- *   <li>Required MQTT dependencies are on the classpath</li>
+ * <li>{@code libre.mqtt.enabled} is {@code true} (default)</li>
+ * <li>Required MQTT dependencies are on the classpath</li>
  * </ul>
  *
- * <p>Example configuration:
- * <pre>
+ * <p>
+ * Example configuration: <pre>
  * libre:
  *   mqtt:
  *     enabled: true
@@ -85,16 +87,16 @@ public class MqttAutoConfiguration {
 	/**
 	 * Creates MQTT connection options based on the provided configuration properties.
 	 *
-	 * <p>This method configures all aspects of the MQTT connection including:
+	 * <p>
+	 * This method configures all aspects of the MQTT connection including:
 	 * <ul>
-	 *   <li>Server URIs for broker connection and failover</li>
-	 *   <li>Authentication credentials (username/password)</li>
-	 *   <li>Connection timeouts and keep-alive settings</li>
-	 *   <li>SSL/TLS configuration for secure connections</li>
-	 *   <li>Automatic reconnection and session management</li>
-	 *   <li>WebSocket headers for WebSocket connections</li>
+	 * <li>Server URIs for broker connection and failover</li>
+	 * <li>Authentication credentials (username/password)</li>
+	 * <li>Connection timeouts and keep-alive settings</li>
+	 * <li>SSL/TLS configuration for secure connections</li>
+	 * <li>Automatic reconnection and session management</li>
+	 * <li>WebSocket headers for WebSocket connections</li>
 	 * </ul>
-	 *
 	 * @param mqttProperties the MQTT configuration properties
 	 * @return configured MQTT connection options
 	 * @see MqttProperties
@@ -102,8 +104,7 @@ public class MqttAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public MqttConnectOptions mqttConnectOptions(MqttProperties mqttProperties) {
-		log.debug("Configuring MQTT connection options with {} server URIs",
-			mqttProperties.getUrls().length);
+		log.debug("Configuring MQTT connection options with {} server URIs", mqttProperties.getUrls().length);
 
 		MqttConnectOptions options = new MqttConnectOptions();
 
@@ -140,8 +141,7 @@ public class MqttAutoConfiguration {
 			log.debug("Will message destination configured: {}", mqttProperties.getWillDestination());
 		}
 
-		log.info("MQTT connection options configured successfully for {} servers",
-			mqttProperties.getUrls().length);
+		log.info("MQTT connection options configured successfully for {} servers", mqttProperties.getUrls().length);
 
 		return options;
 	}
@@ -149,10 +149,10 @@ public class MqttAutoConfiguration {
 	/**
 	 * Creates the MQTT client factory with configured connection options.
 	 *
-	 * <p>The client factory is responsible for creating MQTT client instances
-	 * with the specified connection configuration. It serves as the foundation
-	 * for both inbound and outbound MQTT adapters.
-	 *
+	 * <p>
+	 * The client factory is responsible for creating MQTT client instances with the
+	 * specified connection configuration. It serves as the foundation for both inbound
+	 * and outbound MQTT adapters.
 	 * @param mqttConnectOptions the configured MQTT connection options
 	 * @return the MQTT client factory
 	 * @see DefaultMqttPahoClientFactory
@@ -172,13 +172,13 @@ public class MqttAutoConfiguration {
 	/**
 	 * Creates the MQTT input channel for receiving messages.
 	 *
-	 * <p>This channel receives messages from MQTT topics and routes them to
-	 * message handlers. The channel type depends on the async configuration:
+	 * <p>
+	 * This channel receives messages from MQTT topics and routes them to message
+	 * handlers. The channel type depends on the async configuration:
 	 * <ul>
-	 *   <li>ExecutorChannel for async processing</li>
-	 *   <li>DirectChannel for synchronous processing</li>
+	 * <li>ExecutorChannel for async processing</li>
+	 * <li>DirectChannel for synchronous processing</li>
 	 * </ul>
-	 *
 	 * @param executor the thread pool executor for async processing
 	 * @param properties the MQTT configuration properties
 	 * @return the configured input message channel
@@ -194,7 +194,8 @@ public class MqttAutoConfiguration {
 		if (consumer.getAsync()) {
 			log.debug("Creating async MQTT input channel with executor");
 			return new ExecutorChannel(executor);
-		} else {
+		}
+		else {
 			log.debug("Creating direct MQTT input channel");
 			return new DirectChannel();
 		}
@@ -203,9 +204,9 @@ public class MqttAutoConfiguration {
 	/**
 	 * Creates the MQTT outbound channel for sending messages.
 	 *
-	 * <p>This channel receives messages from the application and routes them
-	 * to the MQTT message handler for publishing to MQTT topics.
-	 *
+	 * <p>
+	 * This channel receives messages from the application and routes them to the MQTT
+	 * message handler for publishing to MQTT topics.
 	 * @return the outbound message channel
 	 * @see DirectChannel
 	 */
@@ -219,16 +220,16 @@ public class MqttAutoConfiguration {
 	/**
 	 * Creates the MQTT message-driven channel adapter for receiving messages.
 	 *
-	 * <p>This adapter connects to MQTT topics and converts incoming messages
-	 * into Spring Integration messages. It supports:
+	 * <p>
+	 * This adapter connects to MQTT topics and converts incoming messages into Spring
+	 * Integration messages. It supports:
 	 * <ul>
-	 *   <li>Automatic client ID generation if not specified</li>
-	 *   <li>Configurable QoS levels for message delivery</li>
-	 *   <li>Custom message converters for payload transformation</li>
-	 *   <li>Completion timeout for message processing</li>
-	 *   <li>Auto-startup configuration</li>
+	 * <li>Automatic client ID generation if not specified</li>
+	 * <li>Configurable QoS levels for message delivery</li>
+	 * <li>Custom message converters for payload transformation</li>
+	 * <li>Completion timeout for message processing</li>
+	 * <li>Auto-startup configuration</li>
 	 * </ul>
-	 *
 	 * @param mqttPahoClientFactory the MQTT client factory
 	 * @param properties the MQTT configuration properties
 	 * @param mqttInputChannel the input channel for received messages
@@ -276,16 +277,16 @@ public class MqttAutoConfiguration {
 	/**
 	 * Creates the MQTT message handler for sending messages.
 	 *
-	 * <p>This handler receives messages from the outbound channel and publishes
-	 * them to MQTT topics. It supports:
+	 * <p>
+	 * This handler receives messages from the outbound channel and publishes them to MQTT
+	 * topics. It supports:
 	 * <ul>
-	 *   <li>Automatic client ID generation if not specified</li>
-	 *   <li>Asynchronous message publishing</li>
-	 *   <li>Configurable default topic, QoS, and retained flag</li>
-	 *   <li>Custom message converters for payload transformation</li>
-	 *   <li>Async events for delivery confirmation</li>
+	 * <li>Automatic client ID generation if not specified</li>
+	 * <li>Asynchronous message publishing</li>
+	 * <li>Configurable default topic, QoS, and retained flag</li>
+	 * <li>Custom message converters for payload transformation</li>
+	 * <li>Async events for delivery confirmation</li>
 	 * </ul>
-	 *
 	 * @param mqttPahoClientFactory the MQTT client factory
 	 * @param mqttProperties the MQTT configuration properties
 	 * @param environment the Spring environment for client ID generation
@@ -326,10 +327,10 @@ public class MqttAutoConfiguration {
 	/**
 	 * Creates the MQTT options template for dynamic topic management.
 	 *
-	 * <p>This template provides a high-level API for managing MQTT topics
-	 * and sending messages programmatically. It wraps the low-level adapters
-	 * with convenient methods for topic subscription and message publishing.
-	 *
+	 * <p>
+	 * This template provides a high-level API for managing MQTT topics and sending
+	 * messages programmatically. It wraps the low-level adapters with convenient methods
+	 * for topic subscription and message publishing.
 	 * @param adapter the message-driven channel adapter
 	 * @param mqttMessageGateWay the message gateway for sending messages
 	 * @return the MQTT options template
@@ -345,15 +346,15 @@ public class MqttAutoConfiguration {
 	/**
 	 * Creates the MQTT message inbound handler for processing received messages.
 	 *
-	 * <p>This handler routes incoming MQTT messages to registered message listeners
-	 * based on topic patterns and filters. It supports:
+	 * <p>
+	 * This handler routes incoming MQTT messages to registered message listeners based on
+	 * topic patterns and filters. It supports:
 	 * <ul>
-	 *   <li>Topic pattern matching with wildcards</li>
-	 *   <li>Shared subscription handling</li>
-	 *   <li>Automatic listener registration</li>
-	 *   <li>Error handling and logging</li>
+	 * <li>Topic pattern matching with wildcards</li>
+	 * <li>Shared subscription handling</li>
+	 * <li>Automatic listener registration</li>
+	 * <li>Error handling and logging</li>
 	 * </ul>
-	 *
 	 * @param messageListeners the list of registered message listeners
 	 * @param mqttOptions the MQTT options for topic management
 	 * @return the configured message inbound handler
@@ -370,16 +371,16 @@ public class MqttAutoConfiguration {
 	/**
 	 * Creates the thread pool executor for MQTT consumer message processing.
 	 *
-	 * <p>This executor handles asynchronous processing of incoming MQTT messages
-	 * when async mode is enabled. It provides:
+	 * <p>
+	 * This executor handles asynchronous processing of incoming MQTT messages when async
+	 * mode is enabled. It provides:
 	 * <ul>
-	 *   <li>Configurable core and maximum pool sizes</li>
-	 *   <li>Queue capacity for pending tasks</li>
-	 *   <li>Keep-alive time for idle threads</li>
-	 *   <li>Caller-runs rejection policy for backpressure</li>
-	 *   <li>Descriptive thread naming</li>
+	 * <li>Configurable core and maximum pool sizes</li>
+	 * <li>Queue capacity for pending tasks</li>
+	 * <li>Keep-alive time for idle threads</li>
+	 * <li>Caller-runs rejection policy for backpressure</li>
+	 * <li>Descriptive thread naming</li>
 	 * </ul>
-	 *
 	 * @param properties the MQTT configuration properties
 	 * @return the configured thread pool executor
 	 * @see ThreadPoolTaskExecutor
@@ -390,7 +391,7 @@ public class MqttAutoConfiguration {
 		MqttProperties.MqttExecutor executorProperties = properties.getConsumer().getExecutor();
 
 		log.debug("Creating MQTT consumer executor with core pool size: {}, max pool size: {}",
-			executorProperties.getCorePoolSize(), executorProperties.getMaxPoolSize());
+				executorProperties.getCorePoolSize(), executorProperties.getMaxPoolSize());
 
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 		executor.setCorePoolSize(executorProperties.getCorePoolSize());
@@ -411,10 +412,10 @@ public class MqttAutoConfiguration {
 	/**
 	 * Creates the MQTT retry template for connection resilience.
 	 *
-	 * <p>This template provides retry logic for MQTT operations that may fail
-	 * due to network issues or broker unavailability. It uses exponential
-	 * backoff strategy to avoid overwhelming the broker.
-	 *
+	 * <p>
+	 * This template provides retry logic for MQTT operations that may fail due to network
+	 * issues or broker unavailability. It uses exponential backoff strategy to avoid
+	 * overwhelming the broker.
 	 * @param properties the MQTT configuration properties
 	 * @return the configured retry template
 	 * @see MqttRetryTemplate
@@ -431,21 +432,16 @@ public class MqttAutoConfiguration {
 
 		log.debug("Creating MQTT retry template with {} max attempts", retryConfig.getMaxAttempts());
 
-		return new MqttRetryTemplate(
-			retryConfig.getMaxAttempts(),
-			retryConfig.getInitialDelay(),
-			retryConfig.getMaxDelay(),
-			retryConfig.getMultiplier()
-		);
+		return new MqttRetryTemplate(retryConfig.getMaxAttempts(), retryConfig.getInitialDelay(),
+				retryConfig.getMaxDelay(), retryConfig.getMultiplier());
 	}
 
 	/**
 	 * Generates a unique client ID for MQTT connections.
 	 *
-	 * <p>The client ID is constructed using the Spring application name
-	 * (if available) combined with a UUID to ensure uniqueness across
-	 * multiple application instances.
-	 *
+	 * <p>
+	 * The client ID is constructed using the Spring application name (if available)
+	 * combined with a UUID to ensure uniqueness across multiple application instances.
 	 * @param environment the Spring environment
 	 * @return a unique MQTT client ID
 	 */
@@ -457,4 +453,5 @@ public class MqttAutoConfiguration {
 		log.debug("Generated MQTT client ID: {}", clientId);
 		return clientId;
 	}
+
 }

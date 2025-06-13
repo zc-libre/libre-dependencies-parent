@@ -8,20 +8,22 @@ import org.springframework.stereotype.Component;
 /**
  * MQTT connection and event monitor that listens to various MQTT integration events.
  *
- * <p>This component provides comprehensive monitoring of MQTT connection status,
- * message delivery, subscription changes, and error conditions. It logs important
- * events and can be extended to provide metrics or alerting capabilities.
+ * <p>
+ * This component provides comprehensive monitoring of MQTT connection status, message
+ * delivery, subscription changes, and error conditions. It logs important events and can
+ * be extended to provide metrics or alerting capabilities.
  *
- * <p>Monitored events include:
+ * <p>
+ * Monitored events include:
  * <ul>
- *   <li>Connection establishment and failures</li>
- *   <li>Message sending and delivery confirmation</li>
- *   <li>Topic subscription and unsubscription</li>
- *   <li>General MQTT integration events</li>
+ * <li>Connection establishment and failures</li>
+ * <li>Message sending and delivery confirmation</li>
+ * <li>Topic subscription and unsubscription</li>
+ * <li>General MQTT integration events</li>
  * </ul>
  *
- * <p>Example usage:
- * <pre>
+ * <p>
+ * Example usage: <pre>
  * // The monitor is automatically registered as a Spring component
  * // and will start listening to MQTT events when the application starts
  * </pre>
@@ -36,7 +38,6 @@ public class MqttConnectionMonitor {
 
 	/**
 	 * Handles MQTT connection failure events.
-	 *
 	 * @param event the connection failure event
 	 */
 	@EventListener
@@ -48,7 +49,6 @@ public class MqttConnectionMonitor {
 
 	/**
 	 * Handles MQTT message sent events.
-	 *
 	 * @param event the message sent event
 	 */
 	@EventListener
@@ -59,7 +59,6 @@ public class MqttConnectionMonitor {
 
 	/**
 	 * Handles MQTT message delivered events.
-	 *
 	 * @param event the message delivered event
 	 */
 	@EventListener
@@ -71,7 +70,6 @@ public class MqttConnectionMonitor {
 
 	/**
 	 * Handles MQTT topic subscription events.
-	 *
 	 * @param event the subscription event
 	 */
 	@EventListener
@@ -80,15 +78,14 @@ public class MqttConnectionMonitor {
 		// subscription metrics
 	}
 
-
 	/**
 	 * Handles general MQTT integration events.
-	 *
 	 * @param event the MQTT integration event
 	 */
 	@EventListener
 	public void handleMqttEvent(MqttIntegrationEvent event) {
 		log.debug("MQTT integration event: type={}, source={}", event.getClass().getSimpleName(), event.getSource());
-		//  Add general event metrics
+		// Add general event metrics
 	}
+
 }
