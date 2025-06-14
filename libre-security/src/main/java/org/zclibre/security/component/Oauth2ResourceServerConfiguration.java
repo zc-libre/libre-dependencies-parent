@@ -12,7 +12,9 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 /**
  * @author lengleng
@@ -37,13 +39,13 @@ public class Oauth2ResourceServerConfiguration {
 	@Bean
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		AntPathRequestMatcher[] requestMatchers = permitAllUrl.getUrls()
-			.stream()
-			.map(AntPathRequestMatcher::new)
-			.toList()
-			.toArray(new AntPathRequestMatcher[] {});
 
-		http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers(requestMatchers)
+		RequestMatcher[] permitAllMatchers = permitAllUrl.getUrls() // List<String>
+			.stream()
+			.map(url -> PathPatternRequestMatcher.withDefaults().matcher(url))
+			.toArray(RequestMatcher[]::new);
+
+		http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers(permitAllMatchers)
 			.permitAll()
 			.anyRequest()
 			.authenticated())

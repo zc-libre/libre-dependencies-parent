@@ -17,7 +17,7 @@ public class LibreMyBatisProperties {
 	/**
 	 * 数据库类型
 	 */
-	private DbType dbType = DbType.MYSQL;
+	private DbType dbType = DbType.POSTGRE_SQL;
 
 	private Boolean overflow = Boolean.TRUE;
 

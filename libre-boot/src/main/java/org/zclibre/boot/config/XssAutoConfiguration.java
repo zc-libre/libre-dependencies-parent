@@ -1,6 +1,5 @@
 package org.zclibre.boot.config;
 
-import com.libre.boot.xss.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

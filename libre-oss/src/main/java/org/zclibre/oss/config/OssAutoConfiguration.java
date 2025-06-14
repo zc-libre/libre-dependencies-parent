@@ -1,11 +1,10 @@
-package com.libre.oss.config;
+package org.zclibre.oss.config;
 
-import com.libre.oss.support.OssTemplate;
+import org.zclibre.oss.support.OssTemplate;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * oss 自动配置类

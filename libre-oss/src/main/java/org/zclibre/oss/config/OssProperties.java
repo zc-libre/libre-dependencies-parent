@@ -1,4 +1,4 @@
-package com.libre.oss.config;
+package org.zclibre.oss.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

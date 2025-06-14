@@ -1,4 +1,4 @@
-package com.libre.oss.support;
+package org.zclibre.oss.support;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.HttpMethod;
@@ -10,7 +10,7 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
-import com.libre.oss.config.OssProperties;
+import org.zclibre.oss.config.OssProperties;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.InitializingBean;
