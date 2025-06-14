@@ -1,2 +1,2 @@
-com.libre.mybatis.config.LibreMyBatisAutoConfiguration
+org.zclibre.mybatis.config.LibreMyBatisAutoConfiguration
 

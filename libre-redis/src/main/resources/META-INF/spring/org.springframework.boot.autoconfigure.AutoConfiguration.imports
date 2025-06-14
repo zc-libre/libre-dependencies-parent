@@ -1,4 +1,4 @@
-com.libre.redis.config.LibreRedisCacheAutoConfiguration
-com.libre.redis.config.RedisTemplateConfiguration
-com.libre.redis.config.RedisCacheManagerConfig
-com.libre.redis.event.RedisKeyExpiredEventConfiguration
+org.zclibre.redis.config.LibreRedisCacheAutoConfiguration
+org.zclibre.redis.config.RedisTemplateConfiguration
+org.zclibre.redis.config.RedisCacheManagerConfig
+org.zclibre.redis.event.RedisKeyExpiredEventConfiguration

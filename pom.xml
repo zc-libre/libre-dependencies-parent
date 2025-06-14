@@ -82,6 +82,7 @@
         <swagger3x-annotations.version>2.1.2</swagger3x-annotations.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <spring-javaformat.version>0.0.46</spring-javaformat.version>
+        <aws-sdk.version>2.25.8</aws-sdk.version>
     </properties>
 
     <dependencyManagement>
@@ -118,6 +119,14 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava-bom</artifactId>
                 <version>${guava.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>bom</artifactId>
+                <version>${aws-sdk.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -261,6 +270,7 @@
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <compilerArgument>-parameters</compilerArgument>
+                    <release>${java.version}</release>
                 </configuration>
             </plugin>
             <!-- Surefire -->
