@@ -2,8 +2,7 @@
 package org.zclibre.toolkit.result;
 
 import org.zclibre.toolkit.constant.LibreConstants;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,23 +22,23 @@ import java.util.Optional;
 @Getter
 @Setter
 @ToString
-@ApiModel(description = "返回信息")
+@Schema(description = "返回信息")
 @NoArgsConstructor
 public class R<T> implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "状态码", required = true)
+	@Schema(description = "状态码", requiredMode = Schema.RequiredMode.REQUIRED)
 	private int code;
 
-	@ApiModelProperty(value = "是否成功", required = true)
+	@Schema(description = "是否成功", requiredMode = Schema.RequiredMode.REQUIRED)
 	private boolean success;
 
-	@ApiModelProperty(value = "承载数据")
+	@Schema(description = "承载数据")
 	private T data;
 
-	@ApiModelProperty(value = "返回消息", required = true)
+	@Schema(description = "返回消息", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String msg;
 
 	private R(IResultCode resultCode) {

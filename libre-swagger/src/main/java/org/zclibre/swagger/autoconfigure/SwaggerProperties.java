@@ -1,10 +1,9 @@
 package org.zclibre.swagger.autoconfigure;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import springfox.documentation.service.AuthorizationScope;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author zhao.cheng
@@ -151,11 +150,6 @@ public class SwaggerProperties {
 		 */
 		private String keyName = "TOKEN";
 
-		/**
-		 * 需要开启鉴权URL的正则，默认：/**
-		 */
-		private List<String> pathPatterns = new ArrayList<>();
-
 		public Boolean getEnabled() {
 			return enabled;
 		}
@@ -178,14 +172,6 @@ public class SwaggerProperties {
 
 		public void setKeyName(String keyName) {
 			this.keyName = keyName;
-		}
-
-		public List<String> getPathPatterns() {
-			return pathPatterns;
-		}
-
-		public void setPathPatterns(List<String> pathPatterns) {
-			this.pathPatterns = pathPatterns;
 		}
 
 	}
@@ -238,12 +224,7 @@ public class SwaggerProperties {
 		/**
 		 * oauth2 scope 列表
 		 */
-		private List<AuthorizationScope> scopes = new ArrayList<>();
-
-		/**
-		 * 需要开启鉴权URL的正则，默认：/**
-		 */
-		private List<String> pathPatterns = new ArrayList<>();
+		private List<Scope> scopes = new ArrayList<>();
 
 		public Boolean getEnabled() {
 			return enabled;
@@ -309,20 +290,45 @@ public class SwaggerProperties {
 			this.grantType = grantType;
 		}
 
-		public List<AuthorizationScope> getScopes() {
+		public List<Scope> getScopes() {
 			return scopes;
 		}
 
-		public void setScopes(List<AuthorizationScope> scopes) {
+		public void setScopes(List<Scope> scopes) {
 			this.scopes = scopes;
 		}
 
-		public List<String> getPathPatterns() {
-			return pathPatterns;
+	}
+
+	/**
+	 * oauth2 scope
+	 */
+	public static class Scope {
+
+		/**
+		 * scope 名称
+		 */
+		private String scope;
+
+		/**
+		 * scope 描述
+		 */
+		private String description;
+
+		public String getScope() {
+			return scope;
 		}
 
-		public void setPathPatterns(List<String> pathPatterns) {
-			this.pathPatterns = pathPatterns;
+		public void setScope(String scope) {
+			this.scope = scope;
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
 		}
 
 	}
