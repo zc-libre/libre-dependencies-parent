@@ -14,19 +14,14 @@
     <name>libre-captcha</name>
     <description>Libre Captcha</description>
 
-    <properties>
-        <easy-captcha.version>1.6.2</easy-captcha.version>
-    </properties>
-
     <dependencies>
-<dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.whvcse</groupId>
             <artifactId>easy-captcha</artifactId>
-            <version>${easy-captcha.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

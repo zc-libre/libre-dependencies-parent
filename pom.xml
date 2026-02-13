@@ -83,6 +83,25 @@
         <mapstruct.version>1.6.3</mapstruct.version>
         <spring-javaformat.version>0.0.46</spring-javaformat.version>
         <aws-sdk.version>2.25.8</aws-sdk.version>
+        <redisson.version>3.27.2</redisson.version>
+        <p6spy-datasource-decorator.version>1.11.0</p6spy-datasource-decorator.version>
+        <commons-io.version>2.18.0</commons-io.version>
+        <commons-collections4.version>4.5.0</commons-collections4.version>
+        <okhttp.version>4.12.0</okhttp.version>
+        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
+        <easy-captcha.version>1.6.2</easy-captcha.version>
+        <springfox.version>3.0.0</springfox.version>
+        <oshi.version>6.2.2</oshi.version>
+        <spring-security-oauth2-authorization-server.version>1.2.3</spring-security-oauth2-authorization-server.version>
+        <paho-mqtt.version>1.2.5</paho-mqtt.version>
+        <protostuff.version>1.8.0</protostuff.version>
+        <maven-surefire.version>3.5.2</maven-surefire.version>
+        <maven-source.version>3.3.1</maven-source.version>
+        <maven-javadoc.version>3.11.2</maven-javadoc.version>
+        <maven-gpg.version>3.2.7</maven-gpg.version>
+        <build-helper-maven.version>3.6.0</build-helper-maven.version>
+        <maven-resources.version>3.3.1</maven-resources.version>
+        <central-publishing-maven.version>0.7.0</central-publishing-maven.version>
     </properties>
 
     <dependencyManagement>
@@ -163,12 +182,77 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.18.0</version>
+                <version>${commons-io.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
-                <version>4.5.0</version>
+                <version>${commons-collections4.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-mapstruct-binding</artifactId>
+                <version>${lombok-mapstruct-binding.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.whvcse</groupId>
+                <artifactId>easy-captcha</artifactId>
+                <version>${easy-captcha.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${springfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-models</artifactId>
+                <version>${swagger-annotations.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.oshi</groupId>
+                <artifactId>oshi-core</artifactId>
+                <version>${oshi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-oauth2-authorization-server</artifactId>
+                <version>${spring-security-oauth2-authorization-server.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.paho</groupId>
+                <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+                <version>${paho-mqtt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.paho</groupId>
+                <artifactId>org.eclipse.paho.mqttv5.client</artifactId>
+                <version>${paho-mqtt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.protostuff</groupId>
+                <artifactId>protostuff-core</artifactId>
+                <version>${protostuff.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.protostuff</groupId>
+                <artifactId>protostuff-runtime</artifactId>
+                <version>${protostuff.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.gavlyukovskiy</groupId>
+                <artifactId>p6spy-spring-boot-starter</artifactId>
+                <version>${p6spy-datasource-decorator.version}</version>
             </dependency>
 
 
@@ -277,7 +361,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.2</version>
+                <version>${maven-surefire.version}</version>
                 <configuration>
                     <skip>${maven.test.skip}</skip>
                     <skipTests>${skipTests}</skipTests>
@@ -287,7 +371,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>${maven-source.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -350,7 +434,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.11.2</version>
+                <version>${maven-javadoc.version}</version>
                 <configuration>
                     <skip>${maven.javadoc.skip}</skip>
                     <additionalOptions>-Xdoclint:none</additionalOptions>
@@ -370,7 +454,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>3.2.7</version>
+                <version>${maven-gpg.version}</version>
                 <configuration>
                     <skip>${gpg.skip}</skip>
                     <gpgArguments>
@@ -408,12 +492,12 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>flatten-maven-plugin</artifactId>
-                    <version>1.7.0</version>
+                    <version>${maven-flatten.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
-                    <version>3.2.7</version>
+                    <version>${maven-gpg.version}</version>
                     <configuration>
                         <skip>${gpg.skip}</skip>
                         <gpgArguments>
@@ -434,18 +518,18 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.6.0</version>
+                    <version>${build-helper-maven.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.3.1</version>
+                    <version>${maven-resources.version}</version>
                 </plugin>
                 <!-- Surefire -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.5.2</version>
+                    <version>${maven-surefire.version}</version>
                     <configuration>
                         <skip>${maven.test.skip}</skip>
                         <skipTests>${skipTests}</skipTests>
@@ -455,7 +539,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.3.1</version>
+                    <version>${maven-source.version}</version>
                     <executions>
                         <execution>
                             <id>attach-sources</id>
@@ -469,7 +553,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.11.2</version>
+                    <version>${maven-javadoc.version}</version>
                     <configuration>
                         <skip>${maven.javadoc.skip}</skip>
                         <additionalOptions>-Xdoclint:none</additionalOptions>
@@ -530,7 +614,7 @@
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.7.0</version>
+                        <version>${central-publishing-maven.version}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>

@@ -18,7 +18,6 @@
         <dependency>
              <groupId>org.zclibre</groupId>
             <artifactId>libre-toolkit</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
