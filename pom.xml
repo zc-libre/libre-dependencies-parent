@@ -70,7 +70,7 @@
         <skipTests>true</skipTests>
 
         <spring-boot.version>3.5.10</spring-boot.version>
-        <spring-cloud.version>2025.1.0-RC1</spring-cloud.version>
+        <spring-cloud.version>2025.0.1</spring-cloud.version>
         <spring-ai.version>1.0.0</spring-ai.version>
         <mybatis-plus.version>3.5.12</mybatis-plus.version>
         <guava.version>33.4.8-jre</guava.version>

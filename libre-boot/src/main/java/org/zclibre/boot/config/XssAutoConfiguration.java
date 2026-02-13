@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.jackson.autoconfigure.JsonMapperBuilderCustomizer;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
@@ -40,14 +40,10 @@ public class XssAutoConfiguration implements WebMvcConfigurer {
 		return new FormXssClean(properties, xssCleaner);
 	}
 
-	// XSS Jackson 配置暂时禁用，等待 Jackson 3.x 兼容性解决
-	// @Bean
-	// public JsonMapperBuilderCustomizer xssJacksonCustomizer(XssProperties properties,
-	// XssCleaner xssCleaner) {
-	// return builder -> {
-	// // TODO: 需要更新为 Jackson 3.x API
-	// };
-	// }
+	@Bean
+	public Jackson2ObjectMapperBuilderCustomizer xssJacksonCustomizer(XssProperties properties, XssCleaner xssCleaner) {
+		return builder -> builder.deserializerByType(String.class, new JacksonXssClean(properties, xssCleaner));
+	}
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
