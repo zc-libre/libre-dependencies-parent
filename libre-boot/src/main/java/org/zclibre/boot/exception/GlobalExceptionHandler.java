@@ -3,7 +3,6 @@ package org.zclibre.boot.exception;
 import org.zclibre.toolkit.core.StringUtil;
 import org.zclibre.toolkit.result.R;
 import org.zclibre.toolkit.result.ResultCode;
-import io.undertow.util.BadRequestException;
 import jakarta.servlet.Servlet;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -118,13 +117,6 @@ public class GlobalExceptionHandler {
 	public R<Object> handleError(HttpMediaTypeNotSupportedException e) {
 		log.error("不支持当前媒体类型:{}", e.getMessage());
 		return R.fail(ResultCode.MEDIA_TYPE_NOT_SUPPORTED, e.getMessage());
-	}
-
-	@ExceptionHandler(BadRequestException.class)
-	@ResponseStatus(HttpStatus.UNAUTHORIZED)
-	public R<Object> handleError(BadRequestException e) {
-		log.error("请求未授权:{}", e.getMessage());
-		return R.fail(ResultCode.UN_AUTHORIZED, e.getMessage());
 	}
 
 	@ExceptionHandler(HttpMediaTypeNotAcceptableException.class)

@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
-import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
+import org.springframework.boot.jackson.autoconfigure.JsonMapperBuilderCustomizer;
+import org.springframework.boot.jackson.autoconfigure.JacksonAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
 import java.time.ZoneId;
@@ -27,14 +27,12 @@ public class LibreJacksonAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public Jackson2ObjectMapperBuilderCustomizer customizer() {
+	public JsonMapperBuilderCustomizer customizer() {
 		return builder -> {
-			builder.locale(Locale.CHINA);
-			builder.timeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));
-			builder.simpleDateFormat(DatePattern.NORM_DATETIME_PATTERN);
-			builder.serializerByType(Long.class, ToStringSerializer.instance);
-			builder.modules(LocalDateTimeModule.INSTANCE);
-			builder.findModulesViaServiceLoader(true);
+			builder.defaultLocale(Locale.CHINA);
+			builder.defaultTimeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));
+			builder.defaultDateFormat(new java.text.SimpleDateFormat(DatePattern.NORM_DATETIME_PATTERN));
+			builder.findAndAddModules(LibreJacksonAutoConfiguration.class.getClassLoader());
 		};
 	}
 
