@@ -1,1 +1,1 @@
-com.libre.mqtt.MqttAutoConfiguration
+org.zclibre.mqtt.MqttAutoConfiguration
