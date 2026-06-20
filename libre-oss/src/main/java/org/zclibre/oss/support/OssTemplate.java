@@ -2,6 +2,7 @@ package org.zclibre.oss.support;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 import org.zclibre.oss.config.OssProperties;
@@ -15,6 +16,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.S3ClientBuilder;
+import software.amazon.awssdk.services.s3.S3Configuration;
 import software.amazon.awssdk.services.s3.model.*;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
@@ -23,10 +25,13 @@ import software.amazon.awssdk.transfer.s3.S3TransferManager;
 import software.amazon.awssdk.transfer.s3.model.*;
 import software.amazon.awssdk.transfer.s3.progress.LoggingTransferListener;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +44,15 @@ import java.util.stream.Collectors;
  *
  */
 @RequiredArgsConstructor
-public class OssTemplate implements InitializingBean {
+public class OssTemplate implements InitializingBean, DisposableBean {
+
+	private static final Duration MAX_PRESIGN_DURATION = Duration.ofDays(7);
+
+	private static final Duration MIN_PRESIGN_DURATION = Duration.ofSeconds(1);
+
+	private static final long MIN_MULTIPART_PART_SIZE = 5 * 1024 * 1024L;
+
+	private static final int MAX_MULTIPART_PARTS = 10_000;
 
 	private final OssProperties ossProperties;
 
@@ -61,7 +74,7 @@ public class OssTemplate implements InitializingBean {
 	 */
 	public void createBucket(String bucketName) {
 		if (!bucketExists(bucketName)) {
-			CreateBucketRequest request = CreateBucketRequest.builder().bucket(bucketName).build();
+			CreateBucketRequest request = buildCreateBucketRequest(bucketName);
 			s3Client.createBucket(request);
 		}
 	}
@@ -79,6 +92,12 @@ public class OssTemplate implements InitializingBean {
 		}
 		catch (NoSuchBucketException e) {
 			return false;
+		}
+		catch (S3Exception e) {
+			if (e.statusCode() == 404) {
+				return false;
+			}
+			throw e;
 		}
 	}
 
@@ -118,8 +137,7 @@ public class OssTemplate implements InitializingBean {
 	public List<S3Object> getAllObjectsByPrefix(String bucketName, String prefix) {
 		ListObjectsV2Request request = ListObjectsV2Request.builder().bucket(bucketName).prefix(prefix).build();
 
-		ListObjectsV2Response response = s3Client.listObjectsV2(request);
-		return response.contents();
+		return s3Client.listObjectsV2Paginator(request).contents().stream().collect(Collectors.toList());
 	}
 
 	/**
@@ -141,6 +159,8 @@ public class OssTemplate implements InitializingBean {
 	 * @return url
 	 */
 	public String getObjectURL(String bucketName, String objectName, Duration expires) {
+		validatePresignDuration(expires);
+
 		GetObjectRequest getObjectRequest = GetObjectRequest.builder().bucket(bucketName).key(objectName).build();
 
 		GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
@@ -170,6 +190,8 @@ public class OssTemplate implements InitializingBean {
 	 * @return url
 	 */
 	public String getPutObjectURL(String bucketName, String objectName, Duration expires) {
+		validatePresignDuration(expires);
+
 		PutObjectRequest putObjectRequest = PutObjectRequest.builder().bucket(bucketName).key(objectName).build();
 
 		PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
@@ -187,14 +209,8 @@ public class OssTemplate implements InitializingBean {
 	 * @return url
 	 */
 	public String getObjectURL(String bucketName, String objectName) {
-		// 对于公共访问的对象，直接构建URL
-		String endpoint = ossProperties.getEndpoint();
-		if (ossProperties.getPathStyleAccess()) {
-			return endpoint + "/" + bucketName + "/" + objectName;
-		}
-		else {
-			return endpoint.replace("://", "://" + bucketName + ".") + "/" + objectName;
-		}
+		GetUrlRequest request = GetUrlRequest.builder().bucket(bucketName).key(objectName).build();
+		return s3Client.utilities().getUrl(request).toExternalForm();
 	}
 
 	/**
@@ -216,7 +232,7 @@ public class OssTemplate implements InitializingBean {
 	 * @throws IOException IOException
 	 */
 	public void putObject(String bucketName, String objectName, InputStream stream) throws IOException {
-		putObject(bucketName, objectName, stream, stream.available(), "application/octet-stream");
+		putObject(bucketName, objectName, "application/octet-stream", stream);
 	}
 
 	/**
@@ -229,7 +245,19 @@ public class OssTemplate implements InitializingBean {
 	 */
 	public void putObject(String bucketName, String objectName, String contextType, InputStream stream)
 			throws IOException {
-		putObject(bucketName, objectName, stream, stream.available(), contextType);
+		Path tempFile = Files.createTempFile("libre-oss-upload-", ".tmp");
+		try {
+			Files.copy(stream, tempFile, StandardCopyOption.REPLACE_EXISTING);
+			PutObjectRequest request = PutObjectRequest.builder()
+				.bucket(bucketName)
+				.key(objectName)
+				.contentType(contextType)
+				.build();
+			s3Client.putObject(request, RequestBody.fromFile(tempFile));
+		}
+		finally {
+			Files.deleteIfExists(tempFile);
+		}
 	}
 
 	/**
@@ -254,13 +282,14 @@ public class OssTemplate implements InitializingBean {
 	}
 
 	/**
-	 * 获取文件信息
+	 * 获取文件元信息
 	 * @param bucketName bucket名称
 	 * @param objectName 文件名称
-	 * @return 文件响应流
+	 * @return 文件元信息
 	 */
-	public ResponseInputStream<GetObjectResponse> getObjectInfo(String bucketName, String objectName) {
-		return getObject(bucketName, objectName);
+	public HeadObjectResponse getObjectInfo(String bucketName, String objectName) {
+		HeadObjectRequest request = HeadObjectRequest.builder().bucket(bucketName).key(objectName).build();
+		return s3Client.headObject(request);
 	}
 
 	/**
@@ -281,8 +310,7 @@ public class OssTemplate implements InitializingBean {
 	public List<S3Object> listAllObjects(String bucketName) {
 		ListObjectsV2Request request = ListObjectsV2Request.builder().bucket(bucketName).build();
 
-		ListObjectsV2Response response = s3Client.listObjectsV2(request);
-		return response.contents();
+		return s3Client.listObjectsV2Paginator(request).contents().stream().collect(Collectors.toList());
 	}
 
 	// ==================== 大文件上传相关方法 ====================
@@ -387,14 +415,23 @@ public class OssTemplate implements InitializingBean {
 	 * @return 已上传的分片列表
 	 */
 	public List<Part> listParts(String bucketName, String objectName, String uploadId) {
-		ListPartsRequest request = ListPartsRequest.builder()
-			.bucket(bucketName)
-			.key(objectName)
-			.uploadId(uploadId)
-			.build();
-
-		ListPartsResponse response = s3Client.listParts(request);
-		return response.parts();
+		List<Part> parts = new ArrayList<>();
+		Integer marker = null;
+		boolean truncated;
+		do {
+			ListPartsRequest request = ListPartsRequest.builder()
+				.bucket(bucketName)
+				.key(objectName)
+				.uploadId(uploadId)
+				.partNumberMarker(marker)
+				.build();
+			ListPartsResponse response = s3Client.listParts(request);
+			parts.addAll(response.parts());
+			marker = response.nextPartNumberMarker();
+			truncated = Boolean.TRUE.equals(response.isTruncated());
+		}
+		while (truncated);
+		return parts;
 	}
 
 	/**
@@ -403,10 +440,24 @@ public class OssTemplate implements InitializingBean {
 	 * @return 未完成的分片上传列表
 	 */
 	public List<MultipartUpload> listMultipartUploads(String bucketName) {
-		ListMultipartUploadsRequest request = ListMultipartUploadsRequest.builder().bucket(bucketName).build();
-
-		ListMultipartUploadsResponse response = s3Client.listMultipartUploads(request);
-		return response.uploads();
+		List<MultipartUpload> uploads = new ArrayList<>();
+		String keyMarker = null;
+		String uploadIdMarker = null;
+		boolean truncated;
+		do {
+			ListMultipartUploadsRequest request = ListMultipartUploadsRequest.builder()
+				.bucket(bucketName)
+				.keyMarker(keyMarker)
+				.uploadIdMarker(uploadIdMarker)
+				.build();
+			ListMultipartUploadsResponse response = s3Client.listMultipartUploads(request);
+			uploads.addAll(response.uploads());
+			keyMarker = response.nextKeyMarker();
+			uploadIdMarker = response.nextUploadIdMarker();
+			truncated = Boolean.TRUE.equals(response.isTruncated());
+		}
+		while (truncated);
+		return uploads;
 	}
 
 	/**
@@ -438,6 +489,7 @@ public class OssTemplate implements InitializingBean {
 	 */
 	public CompleteMultipartUploadResponse uploadLargeFileInParts(String bucketName, String objectName,
 			InputStream inputStream, long totalSize, long partSize, String contentType) throws IOException {
+		validateMultipartArguments(totalSize, partSize);
 
 		// 1. 初始化分片上传
 		String uploadId = initiateMultipartUpload(bucketName, objectName, contentType);
@@ -454,7 +506,7 @@ public class OssTemplate implements InitializingBean {
 				long currentPartSize = Math.min(partSize, totalSize - uploadedBytes);
 
 				// 读取分片数据
-				int bytesRead = 0;
+				int bytesRead;
 				int totalBytesRead = 0;
 				while (totalBytesRead < currentPartSize && (bytesRead = inputStream.read(buffer, totalBytesRead,
 						(int) (currentPartSize - totalBytesRead))) != -1) {
@@ -462,11 +514,11 @@ public class OssTemplate implements InitializingBean {
 				}
 
 				if (totalBytesRead == 0) {
-					break;
+					throw new IOException("输入流数据不足，无法读取到声明的 totalSize: " + totalSize);
 				}
 
 				// 上传分片
-				try (InputStream partStream = new java.io.ByteArrayInputStream(buffer, 0, totalBytesRead)) {
+				try (InputStream partStream = new ByteArrayInputStream(buffer, 0, totalBytesRead)) {
 					CompletedPart completedPart = uploadPart(bucketName, objectName, uploadId, partNumber, partStream,
 							totalBytesRead);
 					completedParts.add(completedPart);
@@ -474,6 +526,10 @@ public class OssTemplate implements InitializingBean {
 
 				uploadedBytes += totalBytesRead;
 				partNumber++;
+			}
+
+			if (uploadedBytes != totalSize) {
+				throw new IOException("输入流数据不完整，期望: " + totalSize + " 实际: " + uploadedBytes);
 			}
 
 			// 2. 完成分片上传
@@ -489,7 +545,10 @@ public class OssTemplate implements InitializingBean {
 				// 记录取消失败的异常，但不覆盖原始异常
 				e.addSuppressed(abortException);
 			}
-			throw new RuntimeException("分片上传失败", e);
+			if (e instanceof IOException ioException) {
+				throw ioException;
+			}
+			throw (RuntimeException) e;
 		}
 	}
 
@@ -723,7 +782,7 @@ public class OssTemplate implements InitializingBean {
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		String endpoint = ossProperties.getEndpoint();
 		Assert.hasText(endpoint, "endpoint must not be null");
 
@@ -746,23 +805,88 @@ public class OssTemplate implements InitializingBean {
 
 		this.s3Client = clientBuilder.build();
 
-		// 创建异步客户端
+		// 创建异步客户端（启用 multipart 以支持 TransferManager 自动分片）
 		this.s3AsyncClient = S3AsyncClient.builder()
 			.credentialsProvider(StaticCredentialsProvider.create(awsCredentials))
 			.endpointOverride(URI.create(endpoint))
 			.forcePathStyle(ossProperties.getPathStyleAccess())
+			.multipartEnabled(true)
 			.region(region != null && !region.isEmpty() ? Region.of(region) : Region.US_EAST_1)
 			.build();
 
-		// 创建预签名URL生成器
+		// 创建预签名URL生成器（配置 pathStyle 以匹配 S3Client）
 		this.s3Presigner = S3Presigner.builder()
 			.credentialsProvider(StaticCredentialsProvider.create(awsCredentials))
 			.endpointOverride(URI.create(endpoint))
+			.serviceConfiguration(
+					S3Configuration.builder().pathStyleAccessEnabled(ossProperties.getPathStyleAccess()).build())
 			.region(region != null && !region.isEmpty() ? Region.of(region) : Region.US_EAST_1)
 			.build();
 
 		// 创建传输管理器
 		this.transferManager = S3TransferManager.builder().s3Client(s3AsyncClient).build();
+	}
+
+	@Override
+	public void destroy() {
+		if (this.transferManager != null) {
+			this.transferManager.close();
+		}
+		if (this.s3Presigner != null) {
+			this.s3Presigner.close();
+		}
+		if (this.s3AsyncClient != null) {
+			this.s3AsyncClient.close();
+		}
+		if (this.s3Client != null) {
+			this.s3Client.close();
+		}
+	}
+
+	private void validatePresignDuration(Duration expires) {
+		Assert.notNull(expires, "expires must not be null");
+		Assert.isTrue(expires.compareTo(MIN_PRESIGN_DURATION) >= 0, "expires must be greater than 0");
+		Assert.isTrue(expires.compareTo(MAX_PRESIGN_DURATION) <= 0, "expires must be less than or equal to 7 days");
+	}
+
+	private void validateMultipartArguments(long totalSize, long partSize) {
+		Assert.isTrue(totalSize > 0, "totalSize must be greater than 0");
+		Assert.isTrue(partSize > 0, "partSize must be greater than 0");
+		Assert.isTrue(partSize <= Integer.MAX_VALUE, "partSize must be less than or equal to Integer.MAX_VALUE");
+		long expectedPartCount = (totalSize + partSize - 1) / partSize;
+		Assert.isTrue(expectedPartCount <= MAX_MULTIPART_PARTS,
+				"part count must be less than or equal to " + MAX_MULTIPART_PARTS);
+		if (expectedPartCount > 1) {
+			Assert.isTrue(partSize >= MIN_MULTIPART_PART_SIZE,
+					"partSize must be at least 5 MiB when multipart has more than one part");
+		}
+	}
+
+	private CreateBucketRequest buildCreateBucketRequest(String bucketName) {
+		CreateBucketRequest.Builder builder = CreateBucketRequest.builder().bucket(bucketName);
+		String endpoint = ossProperties.getEndpoint();
+		String region = ossProperties.getRegion();
+		if (isAwsS3Endpoint(endpoint) && region != null && !region.isEmpty() && !Region.US_EAST_1.id().equals(region)) {
+			try {
+				builder.createBucketConfiguration(CreateBucketConfiguration.builder()
+					.locationConstraint(BucketLocationConstraint.fromValue(region))
+					.build());
+			}
+			catch (IllegalArgumentException ignored) {
+				// 自定义 endpoint 或新 region 场景，交给服务端自行处理
+			}
+		}
+		return builder.build();
+	}
+
+	private boolean isAwsS3Endpoint(String endpoint) {
+		try {
+			String host = URI.create(endpoint).getHost();
+			return host != null && host.endsWith("amazonaws.com");
+		}
+		catch (Exception ignored) {
+			return false;
+		}
 	}
 
 }
