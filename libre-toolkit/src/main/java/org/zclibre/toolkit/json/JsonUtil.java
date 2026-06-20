@@ -752,6 +752,7 @@ public class JsonUtil {
 	 * @param value 对象
 	 * @return 是否可以序列化
 	 */
+	@SuppressWarnings("deprecation")
 	public static boolean canSerialize(Object value) {
 		if (value == null) {
 			return true;
@@ -764,6 +765,7 @@ public class JsonUtil {
 	 * @param type JavaType
 	 * @return 是否可以反序列化
 	 */
+	@SuppressWarnings("deprecation")
 	public static boolean canDeserialize(JavaType type) {
 		return getInstance().canDeserialize(type);
 	}

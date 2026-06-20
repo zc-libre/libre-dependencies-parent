@@ -12,6 +12,7 @@ import java.lang.reflect.Method;
  * @date 2022/3/13 0:26
  */
 @UtilityClass
+@SuppressWarnings("deprecation")
 public class ClassUtil extends ClassUtils {
 
 	/**
