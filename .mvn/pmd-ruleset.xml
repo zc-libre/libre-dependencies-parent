@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ruleset name="libre-p3c"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+    <description>
+        libre-dependencies 代码规范校验规则集（阿里巴巴 P3C 精选）。
+        与 .claude/rules/java-*.md 配套：rules 文件指导 AI 编码，本 ruleset 在 mvn verify 阶段硬校验。
+
+        格式层一律以 spring-javaformat 为准，本 ruleset 不纳入任何格式类规则。
+
+        【阶段一·基线】当前 pom 中 pmd.failOnViolation=false：先纳入下列高价值类目跑出存量违规基线，
+        不中断构建、不改动存量代码。
+        【阶段二·收敛】评估基线报告后，在此用 &lt;exclude&gt; 剔除与 Lombok 冲突/误报的规则
+        （已知候选：ali-oop 的 PojoMustOverrideToStringRule —— @ToString 已生成但 PMD 看不到），
+        再把 pom 的 pmd.failOnViolation 改为 true。
+    </description>
+
+    <!-- 命名：类/方法/常量/包/布尔字段命名、long 大写 L、禁拼音混用 -->
+    <rule ref="rulesets/java/ali-naming.xml"/>
+
+    <!-- 注释：public 类必须有 author 的 Javadoc、禁注释掉的死代码、魔法值需注释 -->
+    <rule ref="rulesets/java/ali-comment.xml"/>
+
+    <!-- 常量：禁魔法值 -->
+    <rule ref="rulesets/java/ali-constant.xml"/>
+
+    <!-- 并发：禁 Executors 工厂、SimpleDateFormat 静态共享、锁的 try-finally -->
+    <rule ref="rulesets/java/ali-concurrent.xml"/>
+
+    <!-- 异常：禁空 catch、finally 禁 return -->
+    <rule ref="rulesets/java/ali-exception.xml"/>
+
+    <!-- 控制语句：必须加大括号、switch 必须 default、复杂条件 -->
+    <rule ref="rulesets/java/ali-flowcontrol.xml"/>
+
+    <!-- 集合：foreach 禁增删、entrySet 遍历、asList 定长 -->
+    <rule ref="rulesets/java/ali-set.xml"/>
+
+    <!-- OOP：包装类 equals、equals 常量在前、BigDecimal 字符串构造 -->
+    <rule ref="rulesets/java/ali-oop.xml"/>
+
+    <!-- 其他：禁 ==比较float/double、日期格式大小写(YYYY vs yyyy)、方法内反复 Pattern.compile、
+         禁 Apache BeanUtils 拷贝、new Date().getTime()、Math.random 误用、方法过长 -->
+    <rule ref="rulesets/java/ali-other.xml"/>
+
+    <!-- 未纳入 ali-orm(IbatisMethodQueryForListRule)：iBatis 时代规则，与 MyBatis-Plus 关系不大 -->
+
+</ruleset>

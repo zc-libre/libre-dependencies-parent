@@ -56,3 +56,6 @@ Servers
 .metadata
 upload
 gen_code
+
+# claude code 本地设置（个人权限配置，不提交）
+.claude/settings.local.json

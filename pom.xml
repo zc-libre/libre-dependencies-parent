@@ -78,6 +78,12 @@
         <swagger3x-annotations.version>2.2.42</swagger3x-annotations.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <spring-javaformat.version>0.0.47</spring-javaformat.version>
+        <!-- PMD + 阿里 P3C 代码规范校验：钉在 PMD 6.x 版本线，p3c 不兼容 PMD 7 -->
+        <maven-pmd-plugin.version>3.21.0</maven-pmd-plugin.version>
+        <p3c-pmd.version>2.1.1.5x</p3c-pmd.version>
+        <pmd.skip>false</pmd.skip>
+        <!-- 阶段一基线：false 不中断构建；收敛存量违规后改 true 真正强制 -->
+        <pmd.failOnViolation>false</pmd.failOnViolation>
         <aws-sdk.version>2.41.28</aws-sdk.version>
         <springdoc-openapi.version>2.8.15</springdoc-openapi.version>
     </properties>
@@ -391,6 +397,38 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <!-- PMD + 阿里 P3C：verify 阶段代码规范硬校验 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${maven-pmd-plugin.version}</version>
+                <configuration>
+                    <rulesets>
+                        <ruleset>${maven.multiModuleProjectDirectory}/.mvn/pmd-ruleset.xml</ruleset>
+                    </rulesets>
+                    <skip>${pmd.skip}</skip>
+                    <failOnViolation>${pmd.failOnViolation}</failOnViolation>
+                    <printFailingErrors>true</printFailingErrors>
+                    <targetJdk>${java.version}</targetJdk>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>pmd-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.xenoamess.p3c</groupId>
+                        <artifactId>p3c-pmd</artifactId>
+                        <version>${p3c-pmd.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
         <pluginManagement>
