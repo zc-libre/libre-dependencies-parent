@@ -88,7 +88,6 @@ mvn test -pl libre-rabbitmq -Dmaven.test.skip=false -DskipTests=false -Dtest=Rab
 - 由 `spring-javaformat-maven-plugin` 强制（Spring 官方风格）。**Java 源文件用 Tab 缩进**（见 `.editorconfig`：`[*.java] indent_style = tab`），其余文件用空格。提交前跑 `mvn spring-javaformat:apply`。
 - Lombok 在全工程可用（根 pom 声明为普通依赖）。
 - 代码规范 + 阿里 P3C 校验：`mvn install`/`verify` 在 verify 阶段跑 `maven-pmd-plugin`（钉 PMD 6.x，配 `com.xenoamess.p3c:p3c-pmd`），规则集见 `.mvn/pmd-ruleset.xml`，违规报告落在各模块 `target/pmd.xml`。当前 `pmd.failOnViolation=false`（阶段一基线，仅报告不中断）；存量收敛后将根 pom 的该属性改为 `true` 即强制中断。临时跳过：`-Dpmd.skip=true`。
-- AI 编码须遵循的规范见 `.claude/rules/java-*.md`（风格/命名、注释、最佳实践），按 `paths` 定向在编辑 Java 时自动加载。
 
 ### Git 提交风格
 历史提交为 **gitmoji 前缀 + 中文描述**，例如 `♻️ 将 Springfox 迁移至 springdoc-openapi`、`⬆️ 升级 Spring Boot 版本`。沿用此风格。
