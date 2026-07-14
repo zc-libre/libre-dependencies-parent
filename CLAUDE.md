@@ -34,8 +34,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `libre-dependencies` 是一套发布到 Maven Central 的 Spring Boot Starter 组件库（`groupId: org.zclibre`），用于简化 Spring Cloud 应用开发。它是一个 Maven 多模块工程：每个功能模块都是一个独立的、带自动装配的 starter，使用者按需引入。
 
-- Java 17，Spring Boot 3.5.10，Spring Cloud 2025.0.1，MyBatis-Plus 3.5.16
-- 所有模块共用同一版本号 `${revision}`（当前 `3.5.10`，刻意与 Spring Boot 版本对齐）
+- 所有模块共用同一版本号 `${revision}`（刻意与 Spring Boot 版本对齐）
 
 ## 常用命令
 
