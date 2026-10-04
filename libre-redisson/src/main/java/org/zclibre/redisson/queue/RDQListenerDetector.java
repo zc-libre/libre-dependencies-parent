@@ -49,7 +49,9 @@ public class RDQListenerDetector implements BeanPostProcessor {
 				// 初始化 DelayedQueue see: https://github.com/redisson/redisson/issues/2432
 				client.getDelayedQueue(blockingDeque);
 				// 注册监听器
-				blockingDeque.subscribeOnElements(object -> ReflectionUtils.invokeMethod(method, bean, object));
+				blockingDeque.subscribeOnElements(object -> {
+					ReflectionUtils.invokeMethod(method, bean, object);
+				});
 			}
 		}, ReflectionUtils.USER_DECLARED_METHODS);
 		return bean;

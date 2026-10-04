@@ -92,9 +92,9 @@ org/zclibre/redisson/
 
 ## 版本与构建机制（改版本号只改一处）
 
-- 所有模块共用同一版本号 `${revision}`（根 `pom.xml`，当前 `3.5.10`，**刻意与 Spring Boot 版本对齐**）。
+- 所有模块共用同一版本号 `${revision}`（根 `pom.xml`，当前 `3.5.16`，**刻意与 Spring Boot 版本对齐**）。
 - 用 `flatten-maven-plugin`（`flattenMode=oss`）做版本占位，构建时生成 `.flattened-pom.xml`（已在 `.gitignore`）。
-- **改版本号只改根 pom 的 `<revision>`**，子模块**绝不写死版本**。
+- **组件版本号统一修改根 pom 的 `<revision>`**；升级 Spring Boot 时同步修改 `<spring-boot.version>`，子模块**绝不写死版本**。
 - 第三方依赖版本集中声明在根 pom 的 `<properties>`（`pom.xml:54-89`）与 `<dependencyManagement>`；新增三方库先在此加版本管理，子模块只写 `groupId/artifactId`。
 
 详见 [quality-guidelines.md](./quality-guidelines.md) 的「版本与构建」一节。

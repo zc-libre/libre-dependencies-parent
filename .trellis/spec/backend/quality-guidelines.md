@@ -48,8 +48,10 @@ JSON 序列化/反序列化统一用 `libre-toolkit/.../json/JsonUtil.java`（`@
 
 ## 版本与构建
 
-- **改版本号只改根 `pom.xml` 的 `<revision>`**（当前 `3.5.10`，与 Spring Boot 对齐），子模块绝不写死版本（`${revision}` + `flatten-maven-plugin` 机制）。
+- **组件版本号统一修改根 `pom.xml` 的 `<revision>`**（当前 `3.5.16`，与 Spring Boot 对齐）；升级 Spring Boot 时同步修改 `<spring-boot.version>`，子模块绝不写死版本（`${revision}` + `flatten-maven-plugin` 机制）。
 - 新增三方依赖：先在根 pom 的 `<properties>` + `<dependencyManagement>` 加版本管理，子模块只声明 `groupId/artifactId`。
+- Lombok、Authorization Server 由 Spring Boot BOM 管理，子模块不要重复指定版本。当前父 POM 仅导入 Boot BOM，单独定义同名属性不会覆盖 BOM 内部属性；需要覆盖时同时声明直接的 `dependencyManagement` 条目。
+- Spring Boot 3 使用 `swagger-annotations-jakarta`，与 springdoc 的 Jakarta 制品对齐，避免同包名注解类重复。Redisson、OSHI 的版本统一由根 POM 管理。
 - Java 17（`maven.compiler.source/target=17`）。
 - `libre-dependencies` 是对外 BOM，通过 flatten 展开父 pom 的 `dependencyManagement`，使用者 `import` 它统一版本。
 
@@ -84,6 +86,8 @@ mvn test -pl libre-rabbitmq -Dmaven.test.skip=false -DskipTests=false -Dtest=Rab
 ```
 
 > 部分模块测试（rabbitmq、redis、mqtt）依赖外部中间件，属集成测试性质。本库为 starter 组件库，无强制单测覆盖率门槛；新增独立可测逻辑（如工具类、纯算法）建议补测试。
+
+依赖升级的版本选择、兼容修复及 Redis 集成测试命令见 [3.5.16 配套升级记录](./dependency-upgrade-3.5.16.md)。
 
 ---
 
